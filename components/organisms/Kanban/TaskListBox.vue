@@ -15,7 +15,17 @@
           :key="index"
           :name="task"
           v-else-if="task != 'create'"
+          v-on:click.native="dialogVisible = true"
         )
+    el-dialog(
+      title="Tips"
+      :visible.sync="dialogVisible"
+      width="30%"
+    )
+      span This is a message
+      span(slot="footer" class="dialog-footer")
+        el-button(@click="dialogVisible = false") Cancel
+        el-button(type="primary" @click="dialogVisible = false") Confirm
 </template>
 
 <script>
@@ -36,6 +46,11 @@ export default {
     tasks: {
       type: Array,
       default: () => []
+    }
+  },
+  data() {
+    return {
+      dialogVisible: false
     }
   }
 }
