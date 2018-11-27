@@ -18,12 +18,12 @@
             .title Scalaの勉強
             .count ポモ数： 4/6
           .description Scalaの勉強をするカードだよScalaの勉強をするカードだよScalaの勉強をするカードだよScalaの勉強をするカードだよScalaの勉強をするカードだよScalaの勉強をするカードだよ
-          ul.label-wrap
-            li.label label1
-            li.label label2
-            li.label label3
-            li.label label4
-            li.label label5
+          .label-wrap
+            el-tag.label(closable) label1
+            el-tag.label(closable) label2
+            el-tag.label(closable) label3
+            el-tag.label(closable) label4
+            el-tag.label(closable) label6
 </template>
 
 <script>
@@ -134,19 +134,12 @@ export default {
       line-height: 1.5;
     }
 
-    ul {
+    .label-wrap {
       display: flex;
 
-      & > li {
+      & > .label {
         margin-right: 1rem;
       }
-    }
-
-    .label {
-      background-color: $color-theme;
-      color: $color-gray-lighter;
-      padding: 0.25rem 0.5rem;
-      border-radius: 3px;
     }
   }
 }

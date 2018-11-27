@@ -49,7 +49,7 @@
     margin-right: 2rem;
 
     background-color: $color-white;
-    color: $color-text-light;
+    color: $color-text;
 
     height: 2rem;
     width: 2rem;
@@ -57,6 +57,7 @@
 
     text-align: center;
     @include type-heading;
+    line-height: 1.3;
   }
 }
 </style>
