@@ -27,7 +27,8 @@ export default {
             'JSの勉強',
             'Goの勉強',
             'Pythonの勉強',
-            'Kotlinの勉強'
+            'Kotlinの勉強',
+            'create'
           ]
         },
         {
@@ -38,7 +39,8 @@ export default {
             'JSの勉強',
             'Goの勉強',
             'Pythonの勉強',
-            'Kotlinの勉強'
+            'Kotlinの勉強',
+            'create'
           ]
         },
         {
@@ -49,7 +51,8 @@ export default {
             'JSの勉強',
             'Goの勉強',
             'Pythonの勉強',
-            'Kotlinの勉強'
+            'Kotlinの勉強',
+            'create'
           ]
         },
         {
@@ -60,7 +63,8 @@ export default {
             'JSの勉強',
             'Goの勉強',
             'Pythonの勉強',
-            'Kotlinの勉強'
+            'Kotlinの勉強',
+            'create'
           ]
         }
       ]

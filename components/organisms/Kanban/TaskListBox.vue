@@ -5,11 +5,16 @@
       .count ポモ数：10/24
       .add ＋
     .tasks
-      draggable(:list="tasks" :options="{ group:'alltasks' }")
+      draggable(:list="tasks" :options="{ group:'alltasks' }" v-for="(task, index) in tasks")
         Task(
-          v-for="(task, index) in tasks"
           :key="index"
           :name="task"
+          v-if="task == 'create' && tasks.length == 1"
+        )
+        Task(
+          :key="index"
+          :name="task"
+          v-else-if="task != 'create'"
         )
 </template>
 
@@ -80,6 +85,10 @@ export default {
     overflow-y: scroll;
     -ms-overflow-style: none;
     &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .dummy {
       display: none;
     }
   }
