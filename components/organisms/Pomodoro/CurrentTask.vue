@@ -33,7 +33,7 @@ export default {
 
   .box {
     border: 1px solid $color-sky;
-    margin: 0 auto 3rem;
+    margin: 0 auto;
     padding: 1rem;
     width: 560px;
     text-align: left;
