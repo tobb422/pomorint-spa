@@ -1,55 +1,62 @@
-<template>
-  <div>
-    <nuxt/>
-  </div>
+<template lang="pug">
+  .Pomorint
+    header.header
+      ul.menu
+        li #[img.logo(src="~/assets/images/logo.png")]
+        li ダッシュボード
+        li スプリント
+      .account B
+    nuxt
 </template>
 
-<style>
-html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
-}
+<style lang="scss">
+@import '~assets/styles/main';
 
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-  margin: 0;
-}
+.Pomorint {
+  display: grid;
+  grid-template-areas: 'header' 'main';
+  grid-template-rows: 4rem 1fr;
 
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
-}
+  .header {
+    grid-area: header;
+    background-color: $color-theme;
+    color: $color-white;
+    font-weight: bold;
 
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
+    display: grid;
+    grid-template-areas: 'menu account';
+    grid-template-columns: 1fr 2rem;
+    align-items: center;
+  }
 
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
+  ul.menu {
+    display: flex;
+    align-items: center;
+    margin-left: 2rem;
 
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
+    & > li {
+      display: inline-block;
+      margin-right: 2rem;
+    }
+  }
+
+  .logo {
+    height: 3rem;
+  }
+
+  .account {
+    justify-self: end;
+    margin-right: 2rem;
+
+    background-color: $color-white;
+    color: $color-text-light;
+
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+
+    text-align: center;
+    @include type-heading;
+  }
 }
 </style>

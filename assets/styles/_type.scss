@@ -1,0 +1,40 @@
+%type__proto {
+  font-weight: normal;
+  line-height: 1.5;
+  font-feature-settings: 'palt';
+}
+
+@mixin type-normal {
+  @extend %type__proto;
+  font-size: 1rem;
+}
+
+@mixin type-xxsmall {
+  @extend %type__proto;
+  font-size: px2rem(10);
+}
+
+@mixin type-xsmall {
+  @extend %type__proto;
+  font-size: px2rem(12);
+}
+
+@mixin type-small {
+  @extend %type__proto;
+  font-size: px2rem(14);
+}
+
+@mixin type-heading {
+  @extend %type__proto;
+  font-size: px2rem(20);
+}
+
+@mixin type-large {
+  @extend %type__proto;
+  font-size: px2rem(28);
+}
+
+@mixin type-xlarge {
+  @extend %type__proto;
+  font-size: 3rem;
+}

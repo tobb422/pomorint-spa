@@ -1,0 +1,15 @@
+@function px2rem($pxValue) {
+  @return $pxValue / $rem * 1rem;
+}
+
+@mixin forSP() {
+  @media (max-width: $boundary - 1px) {
+    @content;
+  }
+}
+
+@mixin ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
