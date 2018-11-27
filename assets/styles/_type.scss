@@ -1,17 +1,12 @@
 %type__proto {
   font-weight: normal;
-  line-height: 1.5;
+  line-height: 1;
   font-feature-settings: 'palt';
 }
 
 @mixin type-normal {
   @extend %type__proto;
   font-size: 1rem;
-}
-
-@mixin type-xxsmall {
-  @extend %type__proto;
-  font-size: px2rem(10);
 }
 
 @mixin type-xsmall {
@@ -26,15 +21,15 @@
 
 @mixin type-heading {
   @extend %type__proto;
-  font-size: px2rem(20);
+  font-size: px2rem(24);
 }
 
 @mixin type-large {
   @extend %type__proto;
-  font-size: px2rem(28);
+  font-size: 3rem;
 }
 
 @mixin type-xlarge {
   @extend %type__proto;
-  font-size: 3rem;
+  font-size: 4rem;
 }

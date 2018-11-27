@@ -17,7 +17,7 @@
   grid-template-areas: 'header' 'main';
   grid-template-rows: 4rem 1fr;
 
-  .header {
+  header.header {
     grid-area: header;
     background-color: $color-theme;
     color: $color-white;
