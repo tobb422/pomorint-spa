@@ -6,11 +6,7 @@
         .period （2018/09/10~ 2018/09/16）
       .main
         .task-count 3/47
-        .stopwatch 25:00
-        el-progress.progress-bar(:text-inside="true" :stroke-width="18" :percentage="50" color="#DB3C2C")
-        .buttons
-          el-button.start(type="danger") スタート
-          el-button.reset リセット
+        Timer
       .footer
         .card 現在のカード
         .card-box
@@ -27,8 +23,11 @@
 </template>
 
 <script>
+import Timer from '~/components/organisms/Pomodoro/Timer'
+
 export default {
-  name: 'Pomodoro'
+  name: 'Pomodoro',
+  components: { Timer }
 }
 </script>
 
@@ -67,41 +66,6 @@ export default {
     .task-count {
       @include type-heading;
       margin: 1rem 0;
-    }
-
-    .stopwatch {
-      @include type-xlarge;
-      font-weight: bold;
-    }
-
-    .progress-bar {
-      margin: 1rem auto 2rem;
-      width: 400px;
-    }
-
-    .buttons {
-      margin: 1rem 6rem 2rem;
-      display: grid;
-      grid-template-areas: 'start reset';
-      grid-gap: 5rem;
-    }
-
-    .start {
-      border-color: $color-theme;
-      color: $color-theme;
-      background-color: $color-white;
-
-      &:hover {
-        background-color: $color-theme;
-        color: $color-white;
-        opacity: 0.7;
-      }
-
-      &:active {
-        background-color: $color-theme;
-        color: $color-white;
-        opacity: 1;
-      }
     }
   }
 
