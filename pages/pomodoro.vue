@@ -7,8 +7,7 @@
       .main
         .task-count 3/47
         .stopwatch 25:00
-        .progress-bar-wrap
-          .progress-bar
+        el-progress.progress-bar(:text-inside="true" :stroke-width="18" :percentage="50" color="#DB3C2C")
         .buttons
           el-button.start(type="danger") スタート
           el-button.reset リセット
@@ -75,21 +74,9 @@ export default {
       font-weight: bold;
     }
 
-    .progress-bar-wrap {
+    .progress-bar {
       margin: 1rem auto 2rem;
       width: 400px;
-      height: 1rem;
-      background-color: $color-gray-light;
-      position: relative;
-    }
-
-    .progress-bar {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 1rem;
-      width: 40%;
-      background-color: $color-theme;
     }
 
     .buttons {
