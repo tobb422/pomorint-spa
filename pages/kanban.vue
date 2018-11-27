@@ -2,19 +2,69 @@
   section.Kanban
     .box-list
       TaskListBox.list(
-        v-for="(name, index) in ['IceBox', 'ToDo', 'In Progress', 'Done']"
+        v-for="(l, index) in list"
         :key="index"
-        :name="name"
+        :name="l.name"
+        :tasks="l.tasks"
       )
 </template>
 
 <script>
 import TaskListBox from '~/components/organisms/Kanban/TaskListBox'
-
 export default {
   name: 'Kanban',
   components: {
     TaskListBox
+  },
+  data() {
+    return {
+      list: [
+        {
+          name: 'IceBox',
+          tasks: [
+            'Scalaの勉強',
+            'Rubyの勉強',
+            'JSの勉強',
+            'Goの勉強',
+            'Pythonの勉強',
+            'Kotlinの勉強'
+          ]
+        },
+        {
+          name: 'ToDo',
+          tasks: [
+            'Scalaの勉強',
+            'Rubyの勉強',
+            'JSの勉強',
+            'Goの勉強',
+            'Pythonの勉強',
+            'Kotlinの勉強'
+          ]
+        },
+        {
+          name: 'InProgress',
+          tasks: [
+            'Scalaの勉強',
+            'Rubyの勉強',
+            'JSの勉強',
+            'Goの勉強',
+            'Pythonの勉強',
+            'Kotlinの勉強'
+          ]
+        },
+        {
+          name: 'Done',
+          tasks: [
+            'Scalaの勉強',
+            'Rubyの勉強',
+            'JSの勉強',
+            'Goの勉強',
+            'Pythonの勉強',
+            'Kotlinの勉強'
+          ]
+        }
+      ]
+    }
   }
 }
 </script>

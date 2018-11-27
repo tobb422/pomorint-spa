@@ -1,6 +1,6 @@
 <template lang="pug">
   section.Task
-    .title Scalaの勉強
+    .title {{ name }}
     .count ポモ数：4/6
     .label-wrap
       el-tag.label(size="small") label1
@@ -9,7 +9,13 @@
 
 <script>
 export default {
-  name: 'Task'
+  name: 'Task',
+  props: {
+    name: {
+      type: String,
+      required: true
+    }
+  }
 }
 </script>
 

@@ -16,7 +16,8 @@
     "cross-env": "^5.2.0",
     "element-ui": "^2.4.6",
     "normalize.css": "^8.0.1",
-    "nuxt": "^2.0.0"
+    "nuxt": "^2.0.0",
+    "vuedraggable": "^2.16.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",

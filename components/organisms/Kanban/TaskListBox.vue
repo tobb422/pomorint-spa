@@ -5,44 +5,32 @@
       .count ポモ数：10/24
       .add ＋
     .tasks
-      Task
-      Task
-      Task
-      Task
-      Task
-      Task
-      Task
-      Task
-      Task
-      Task
-      Task
-      Task
-      Task
-      Task
-      Task
-      Task
-      Task
-      Task
-      Task
-      Task
-      Task
-      Task
-      Task
-      Task
-      Task
-      Task
+      draggable(:list="tasks" :options="{ group:'alltasks' }")
+        Task(
+          v-for="(task, index) in tasks"
+          :key="index"
+          :name="task"
+        )
 </template>
 
 <script>
 import Task from './Task'
+import draggable from 'vuedraggable'
 
 export default {
   name: 'TaskListBox',
-  components: { Task },
+  components: {
+    Task,
+    draggable
+  },
   props: {
     name: {
       type: String,
       required: true
+    },
+    tasks: {
+      type: Array,
+      default: () => []
     }
   }
 }
