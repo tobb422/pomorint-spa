@@ -2,9 +2,11 @@
   .Pomorint
     header.header
       ul.menu
-        li #[img.logo(src="~/assets/images/logo.png")]
-        li ダッシュボード
-        li スプリント
+        li #[nuxt-link(to="/") #[img.logo(src="~/assets/images/logo.png")]]
+        li #[nuxt-link(to="/") ダッシュボード]
+        li #[nuxt-link(to="pomodoro") ポモドーロ]
+        li #[nuxt-link(to="/") カンバン]
+        li #[nuxt-link(to="/") ログ]
       .account B
     nuxt
 </template>
@@ -37,6 +39,10 @@
     & > li {
       display: inline-block;
       margin-right: 2rem;
+    }
+
+    & > li > a {
+      color: $color-white;
     }
   }
 
