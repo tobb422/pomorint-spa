@@ -4,11 +4,41 @@
       .name {{ name }}
       .count ポモ数：10/24
       .add ＋
+    .tasks
+      Task
+      Task
+      Task
+      Task
+      Task
+      Task
+      Task
+      Task
+      Task
+      Task
+      Task
+      Task
+      Task
+      Task
+      Task
+      Task
+      Task
+      Task
+      Task
+      Task
+      Task
+      Task
+      Task
+      Task
+      Task
+      Task
 </template>
 
 <script>
+import Task from './Task'
+
 export default {
   name: 'TaskListBox',
+  components: { Task },
   props: {
     name: {
       type: String,
@@ -24,14 +54,16 @@ export default {
 @import '~assets/styles/_type';
 
 .TaskListBox {
-  height: 100%;
   background-color: $color-gray-light;
   width: 280px;
+  display: grid;
+  grid-template-areas: 'header' 'tasks';
+  grid-template-rows: 3rem 1fr;
 
   .header {
     display: flex;
     align-items: flex-end;
-    margin: 1rem;
+    margin: 0 1rem;
     line-height: 1.5;
 
     .name {
@@ -51,6 +83,16 @@ export default {
       padding: 0.1rem;
       flex-grow: 1;
       text-align: right;
+    }
+  }
+
+  .tasks {
+    margin: 1rem auto;
+    width: 240px;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+      display: none;
     }
   }
 }

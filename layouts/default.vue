@@ -19,6 +19,12 @@
   grid-template-areas: 'header' 'main';
   grid-template-rows: 4rem 1fr;
 
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
   header.header {
     grid-area: header;
     background-color: $color-theme;
