@@ -19,6 +19,11 @@
   font-size: px2rem(14);
 }
 
+@mixin type-title {
+  @extend %type__proto;
+  font-size: px2rem(20);
+}
+
 @mixin type-heading {
   @extend %type__proto;
   font-size: px2rem(24);
