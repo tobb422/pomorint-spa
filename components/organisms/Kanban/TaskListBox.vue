@@ -71,7 +71,7 @@ export default {
 
 .TaskListBox {
   background-color: $color-gray-light;
-  width: 280px;
+  min-width: 280px;
   display: grid;
   grid-template-areas: 'header' 'tasks';
   grid-template-rows: 3rem 1fr;

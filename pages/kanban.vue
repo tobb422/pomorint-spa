@@ -7,6 +7,7 @@
         :name="l.name"
         :tasks="l.tasks"
       )
+      .create-list ＋ リストを追加する
 </template>
 
 <script>
@@ -171,19 +172,29 @@ export default {
 @import '~assets/styles/_type';
 
 .Kanban {
-  margin: 3rem;
+  margin: 3rem 3rem 1.5rem;
+  overflow: hidden;
 
   .box-list {
     display: flex;
-    height: 85vh;
+    height: 100%;
     width: 100%;
+    overflow-x: scroll;
   }
 
   .list {
-    margin-left: 2rem;
+    margin-right: 2rem;
+  }
 
-    &:first-child {
-      margin: 0;
+  .create-list {
+    min-width: 280px;
+    background-color: $color-gray-lighter;
+    opacity: 0.5;
+    height: 3rem;
+    padding: 1rem 0.5rem;
+
+    &:hover {
+      opacity: 0.8;
     }
   }
 }
