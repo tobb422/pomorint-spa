@@ -1,6 +1,6 @@
 <template lang="pug">
   section.Task
-    .title {{ name }}
+    .title {{ title }}
     .count ポモ数：4/6
     .label-wrap
       el-tag.label(size="small") label1
@@ -11,7 +11,7 @@
 export default {
   name: 'Task',
   props: {
-    name: {
+    title: {
       type: String,
       required: true
     }

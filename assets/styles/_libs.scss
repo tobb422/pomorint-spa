@@ -13,3 +13,29 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+@mixin cross($width, $color) {
+  position: relative;
+  width: px2rem($width);
+  height: px2rem($width);
+  &::before,
+  &::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    content: '';
+    width: px2rem($width);
+    border-top: 1px solid $color;
+  }
+
+  &::before {
+    background: $color;
+    transform: skewY(45deg);
+  }
+
+  &::after {
+    background: $color;
+    transform: skewY(-45deg);
+  }
+}

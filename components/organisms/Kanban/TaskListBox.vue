@@ -8,34 +8,32 @@
       draggable(:list="tasks" :options="{ group:'alltasks' }" v-for="(task, index) in tasks")
         Task(
           :key="index"
-          :name="task"
-          v-if="task == 'create' && tasks.length == 1"
+          :title="task.title"
+          v-if="task.title == 'create' && tasks.length == 1"
         )
         Task(
           :key="index"
-          :name="task"
-          v-else-if="task != 'create'"
-          v-on:click.native="dialogVisible = true"
+          :title="task.title"
+          v-else-if="task.title != 'create'"
+          v-on:click.native="openTaskModal(task)"
         )
-    el-dialog(
-      title="Tips"
-      :visible.sync="dialogVisible"
-      width="30%"
+    TaskModal(
+      :isShown="showTaskModal"
+      :hide="closeTaskModal"
+      :task="selectedTask"
     )
-      span This is a message
-      span(slot="footer" class="dialog-footer")
-        el-button(@click="dialogVisible = false") Cancel
-        el-button(type="primary" @click="dialogVisible = false") Confirm
 </template>
 
 <script>
 import Task from './Task'
+import TaskModal from './TaskModal'
 import draggable from 'vuedraggable'
 
 export default {
   name: 'TaskListBox',
   components: {
     Task,
+    TaskModal,
     draggable
   },
   props: {
@@ -50,7 +48,17 @@ export default {
   },
   data() {
     return {
-      dialogVisible: false
+      showTaskModal: false,
+      selectedTask: {}
+    }
+  },
+  methods: {
+    openTaskModal(task) {
+      this.selectedTask = task
+      this.showTaskModal = true
+    },
+    closeTaskModal() {
+      this.showTaskModal = false
     }
   }
 }

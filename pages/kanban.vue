@@ -22,49 +22,141 @@ export default {
         {
           name: 'IceBox',
           tasks: [
-            'Scalaの勉強',
-            'Rubyの勉強',
-            'JSの勉強',
-            'Goの勉強',
-            'Pythonの勉強',
-            'Kotlinの勉強',
-            'create'
+            {
+              title: 'Scalaの勉強',
+              estimateCount: 6,
+              resultCount: 4
+            },
+            {
+              title: 'Rubyの勉強',
+              estimateCount: 6,
+              resultCount: 4
+            },
+            {
+              title: 'JSの勉強',
+              estimateCount: 6,
+              resultCount: 4
+            },
+            {
+              title: 'Goの勉強',
+              estimateCount: 6,
+              resultCount: 4
+            },
+            {
+              title: 'Pythonの勉強',
+              estimateCount: 6,
+              resultCount: 4
+            },
+            {
+              title: 'Kotlinの勉強',
+              estimateCount: 6,
+              resultCount: 4
+            }
           ]
         },
         {
           name: 'ToDo',
           tasks: [
-            'Scalaの勉強',
-            'Rubyの勉強',
-            'JSの勉強',
-            'Goの勉強',
-            'Pythonの勉強',
-            'Kotlinの勉強',
-            'create'
+            {
+              title: 'Scalaの勉強',
+              estimateCount: 6,
+              resultCount: 4
+            },
+            {
+              title: 'Rubyの勉強',
+              estimateCount: 6,
+              resultCount: 4
+            },
+            {
+              title: 'JSの勉強',
+              estimateCount: 6,
+              resultCount: 4
+            },
+            {
+              title: 'Goの勉強',
+              estimateCount: 6,
+              resultCount: 4
+            },
+            {
+              title: 'Pythonの勉強',
+              estimateCount: 6,
+              resultCount: 4
+            },
+            {
+              title: 'Kotlinの勉強',
+              estimateCount: 6,
+              resultCount: 4
+            }
           ]
         },
         {
           name: 'InProgress',
           tasks: [
-            'Scalaの勉強',
-            'Rubyの勉強',
-            'JSの勉強',
-            'Goの勉強',
-            'Pythonの勉強',
-            'Kotlinの勉強',
-            'create'
+            {
+              title: 'Scalaの勉強',
+              estimateCount: 6,
+              resultCount: 4
+            },
+            {
+              title: 'Rubyの勉強',
+              estimateCount: 6,
+              resultCount: 4
+            },
+            {
+              title: 'JSの勉強',
+              estimateCount: 6,
+              resultCount: 4
+            },
+            {
+              title: 'Goの勉強',
+              estimateCount: 6,
+              resultCount: 4
+            },
+            {
+              title: 'Pythonの勉強',
+              estimateCount: 6,
+              resultCount: 4
+            },
+            {
+              title: 'Kotlinの勉強',
+              estimateCount: 6,
+              resultCount: 4
+            }
           ]
         },
         {
           name: 'Done',
           tasks: [
-            'Scalaの勉強',
-            'Rubyの勉強',
-            'JSの勉強',
-            'Goの勉強',
-            'Pythonの勉強',
-            'Kotlinの勉強',
-            'create'
+            {
+              title: 'Scalaの勉強',
+              estimateCount: 6,
+              resultCount: 4
+            },
+            {
+              title: 'Rubyの勉強',
+              estimateCount: 6,
+              resultCount: 4
+            },
+            {
+              title: 'JSの勉強',
+              estimateCount: 6,
+              resultCount: 4
+            },
+            {
+              title: 'Goの勉強',
+              estimateCount: 6,
+              resultCount: 4
+            },
+            {
+              title: 'Pythonの勉強',
+              estimateCount: 6,
+              resultCount: 4
+            },
+            {
+              title: 'Kotlinの勉強',
+              estimateCount: 6,
+              resultCount: 4
+            }
           ]
         }
       ]
