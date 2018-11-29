@@ -36,6 +36,10 @@ module.exports = {
   */
   modules: [],
 
+  router: {
+    middleware: 'routing'
+  },
+
   /*
   ** Build configuration
   */
