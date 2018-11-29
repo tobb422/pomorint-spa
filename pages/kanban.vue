@@ -13,6 +13,7 @@
 <script>
 import TaskListBox from '~/components/organisms/Kanban/TaskListBox'
 import AddList from '~/components/organisms/Kanban/AddList'
+import { TaskList } from '~/plugins/tmp'
 
 export default {
   name: 'Kanban',
@@ -26,143 +27,7 @@ export default {
       list: [
         {
           name: 'IceBox',
-          tasks: [
-            {
-              title: 'Scalaの勉強',
-              estimateCount: 6,
-              resultCount: 4
-            },
-            {
-              title: 'Rubyの勉強',
-              estimateCount: 6,
-              resultCount: 4
-            },
-            {
-              title: 'JSの勉強',
-              estimateCount: 6,
-              resultCount: 4
-            },
-            {
-              title: 'Goの勉強',
-              estimateCount: 6,
-              resultCount: 4
-            },
-            {
-              title: 'Pythonの勉強',
-              estimateCount: 6,
-              resultCount: 4
-            },
-            {
-              title: 'Kotlinの勉強',
-              estimateCount: 6,
-              resultCount: 4
-            }
-          ]
-        },
-        {
-          name: 'ToDo',
-          tasks: [
-            {
-              title: 'Scalaの勉強',
-              estimateCount: 6,
-              resultCount: 4
-            },
-            {
-              title: 'Rubyの勉強',
-              estimateCount: 6,
-              resultCount: 4
-            },
-            {
-              title: 'JSの勉強',
-              estimateCount: 6,
-              resultCount: 4
-            },
-            {
-              title: 'Goの勉強',
-              estimateCount: 6,
-              resultCount: 4
-            },
-            {
-              title: 'Pythonの勉強',
-              estimateCount: 6,
-              resultCount: 4
-            },
-            {
-              title: 'Kotlinの勉強',
-              estimateCount: 6,
-              resultCount: 4
-            }
-          ]
-        },
-        {
-          name: 'InProgress',
-          tasks: [
-            {
-              title: 'Scalaの勉強',
-              estimateCount: 6,
-              resultCount: 4
-            },
-            {
-              title: 'Rubyの勉強',
-              estimateCount: 6,
-              resultCount: 4
-            },
-            {
-              title: 'JSの勉強',
-              estimateCount: 6,
-              resultCount: 4
-            },
-            {
-              title: 'Goの勉強',
-              estimateCount: 6,
-              resultCount: 4
-            },
-            {
-              title: 'Pythonの勉強',
-              estimateCount: 6,
-              resultCount: 4
-            },
-            {
-              title: 'Kotlinの勉強',
-              estimateCount: 6,
-              resultCount: 4
-            }
-          ]
-        },
-        {
-          name: 'Done',
-          tasks: [
-            {
-              title: 'Scalaの勉強',
-              estimateCount: 6,
-              resultCount: 4
-            },
-            {
-              title: 'Rubyの勉強',
-              estimateCount: 6,
-              resultCount: 4
-            },
-            {
-              title: 'JSの勉強',
-              estimateCount: 6,
-              resultCount: 4
-            },
-            {
-              title: 'Goの勉強',
-              estimateCount: 6,
-              resultCount: 4
-            },
-            {
-              title: 'Pythonの勉強',
-              estimateCount: 6,
-              resultCount: 4
-            },
-            {
-              title: 'Kotlinの勉強',
-              estimateCount: 6,
-              resultCount: 4
-            }
-          ]
+          tasks: TaskList
         }
       ]
     }

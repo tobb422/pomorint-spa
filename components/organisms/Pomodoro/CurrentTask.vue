@@ -1,10 +1,12 @@
 <template lang="pug">
   section.CurrentTask
-    .header 現在のカード
+    .header
+      .title 現在のカード
+      el-button(@click="cancel") カードの変更
     .box
       .overview
-        .title Scalaの勉強
-        .count ポモ数： 4/6
+        .title {{ task.title }}
+        .count ポモ数： {{ task.resultCount }}/{{ task.estimateCount }}
       .description Scalaの勉強をするカードだよScalaの勉強をするカードだよScalaの勉強をするカードだよScalaの勉強をするカードだよScalaの勉強をするカードだよScalaの勉強をするカードだよ
       .label-wrap
         el-tag.label(closable) label1
@@ -16,7 +18,17 @@
 
 <script>
 export default {
-  name: 'CurrentTask'
+  name: 'CurrentTask',
+  props: {
+    cancel: {
+      type: Function,
+      required: true
+    },
+    task: {
+      type: Object,
+      required: true
+    }
+  }
 }
 </script>
 
@@ -27,8 +39,23 @@ export default {
 
 .CurrentTask {
   .header {
-    @include type-heading;
-    margin-bottom: 0.5rem;
+    margin: 0 auto 0.5rem;
+    width: 560px;
+    display: grid;
+    grid-template-areas: 'header';
+    align-items: center;
+
+    .title {
+      grid-area: header;
+      @include type-heading;
+    }
+
+    .el-button {
+      grid-area: header;
+      justify-self: end;
+      font-size: 0.25rem;
+      width: 6.5rem;
+    }
   }
 
   .box {

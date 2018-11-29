@@ -3,20 +3,43 @@
     .pomodoro-box
       PomodoroHead
       Timer
-      CurrentTask
+      CurrentTask(
+        v-if="currentTask"
+        :task="currentTask"
+        :cancel="cancelTask"
+      )
+      SelectTask(
+        v-else
+        :select="selectTask"
+      )
 </template>
 
 <script>
 import PomodoroHead from '~/components/organisms/Pomodoro/PomodoroHead'
 import Timer from '~/components/organisms/Pomodoro/Timer'
 import CurrentTask from '~/components/organisms/Pomodoro/CurrentTask'
+import SelectTask from '~/components/organisms/Pomodoro/SelectTask'
 
 export default {
   name: 'Pomodoro',
   components: {
     PomodoroHead,
     Timer,
-    CurrentTask
+    CurrentTask,
+    SelectTask
+  },
+  data() {
+    return {
+      currentTask: null
+    }
+  },
+  methods: {
+    selectTask(task) {
+      this.currentTask = task
+    },
+    cancelTask() {
+      this.currentTask = null
+    }
   }
 }
 </script>
