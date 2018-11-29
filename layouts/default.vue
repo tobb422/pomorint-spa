@@ -4,12 +4,30 @@
       ul.menu
         li #[nuxt-link(to="/") #[img.logo(src="~/assets/images/logo.png")]]
         li #[nuxt-link(to="/") ダッシュボード]
-        li #[nuxt-link(to="pomodoro") ポモドーロ]
+        li #[nuxt-link(to="/pomodoro") ポモドーロ]
         li #[nuxt-link(to="/kanban") カンバン]
         li #[nuxt-link(to="/") ログ]
-      .account B
+      el-popover.popover(
+        placement="bottom"
+        width="300"
+        trigger="hover"
+      )
+        ul.popover-inner(style="margin: 0.5rem 0.5rem 0")
+          li(style="margin-bottom: 0.5rem") #[nuxt-link(to="/mypage") プロフィール]
+          el-button(type="text" @click="test") ログアウト
+        el-button(slot="reference").account
     nuxt
 </template>
+
+<script>
+export default {
+  methods: {
+    test() {
+      console.log('aaa')
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 @import '~assets/styles/main';
@@ -56,20 +74,16 @@
     height: 3rem;
   }
 
-  .account {
+  .popover {
     justify-self: end;
     margin-right: 2rem;
+  }
 
+  .account {
     background-color: $color-white;
-    color: $color-text;
-
-    height: 2rem;
-    width: 2rem;
+    height: 2.5rem;
+    width: 2.5rem;
     border-radius: 50%;
-
-    text-align: center;
-    @include type-heading;
-    line-height: 1.3;
   }
 }
 </style>
