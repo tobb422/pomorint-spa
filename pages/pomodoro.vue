@@ -3,15 +3,8 @@
     .pomodoro-box
       PomodoroHead
       Timer
-      CurrentTask(
-        v-if="currentTask"
-        :task="currentTask"
-        :cancel="cancelTask"
-      )
-      SelectTask(
-        v-else
-        :select="selectTask"
-      )
+      CurrentTask(v-if="isSelectedTask")
+      SelectTask(v-else)
 </template>
 
 <script>
@@ -19,6 +12,7 @@ import PomodoroHead from '~/components/organisms/Pomodoro/PomodoroHead'
 import Timer from '~/components/organisms/Pomodoro/Timer'
 import CurrentTask from '~/components/organisms/Pomodoro/CurrentTask'
 import SelectTask from '~/components/organisms/Pomodoro/SelectTask'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Pomodoro',
@@ -28,18 +22,10 @@ export default {
     CurrentTask,
     SelectTask
   },
-  data() {
-    return {
-      currentTask: null
-    }
-  },
-  methods: {
-    selectTask(task) {
-      this.currentTask = task
-    },
-    cancelTask() {
-      this.currentTask = null
-    }
+  computed: {
+    ...mapGetters({
+      isSelectedTask: 'pomodoro/isSelectedTask'
+    })
   }
 }
 </script>

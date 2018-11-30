@@ -2,31 +2,30 @@
   section.CurrentTask
     .header
       .title 現在のカード
-      el-button(@click="cancel") カードの変更
+      el-button(@click="cancel" v-if="!timerOn") カードの変更
     .box
       .overview
         .title {{ task.title }}
         .count ポモ数： {{ task.resultCount }}/{{ task.estimateCount }}
-      .description Scalaの勉強をするカードだよScalaの勉強をするカードだよScalaの勉強をするカードだよScalaの勉強をするカードだよScalaの勉強をするカードだよScalaの勉強をするカードだよ
+      .description {{ task.description }}
       .label-wrap
-        el-tag.label(closable) label1
-        el-tag.label(closable) label2
-        el-tag.label(closable) label3
-        el-tag.label(closable) label4
-        el-tag.label(closable) label6
+        el-tag(v-for="(label, index) in task.labels" :key="index" closable) {{ label.name }}
 </template>
 
 <script>
 export default {
   name: 'CurrentTask',
-  props: {
-    cancel: {
-      type: Function,
-      required: true
+  computed: {
+    task() {
+      return this.$store.state.pomodoro.selectedTask
     },
-    task: {
-      type: Object,
-      required: true
+    timerOn() {
+      return this.$store.state.timer.timerOn
+    }
+  },
+  methods: {
+    cancel() {
+      this.$store.dispatch('pomodoro/removeTask')
     }
   }
 }
@@ -84,7 +83,7 @@ export default {
   .label-wrap {
     display: flex;
 
-    & > .label {
+    & > .el-tag {
       margin-right: 1rem;
     }
   }

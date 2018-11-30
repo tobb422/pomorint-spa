@@ -4,7 +4,8 @@
     el-progress.progress-bar(:text-inside="true" :stroke-width="18" :percentage="timePer" color="#DB3C2C")
     .buttons
       el-button.reset(size="medium" @click="reset" v-if="timerOn") リセット
-      el-button.start(size="medium" type="danger" @click="start" v-else) スタート
+      el-button.start(size="medium" type="danger" @click="start" v-else-if="isSelectedTask") スタート
+      el-button(size="medium" type="info" disabled v-else) カード未選択
 </template>
 
 <script>
@@ -17,7 +18,8 @@ export default {
     },
     ...mapGetters({
       timer: 'timer/timer',
-      timePer: 'timer/timePer'
+      timePer: 'timer/timePer',
+      isSelectedTask: 'pomodoro/isSelectedTask'
     })
   },
   methods: {

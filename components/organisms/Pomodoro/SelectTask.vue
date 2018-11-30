@@ -16,12 +16,6 @@ import { TaskList } from '~/plugins/tmp'
 
 export default {
   name: 'SelectTask',
-  props: {
-    select: {
-      type: Function,
-      required: true
-    }
-  },
   data() {
     return {
       activeName: 'IceBox',
@@ -31,6 +25,11 @@ export default {
   computed: {
     currentTask() {
       return this.taskList.find(tl => tl.name === this.activeName).tasks
+    }
+  },
+  methods: {
+    select(task) {
+      this.$store.dispatch('pomodoro/selectTask', task)
     }
   }
 }
