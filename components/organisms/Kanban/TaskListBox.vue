@@ -17,23 +17,16 @@
           v-else-if="task.title != 'create'"
           v-on:click.native="openTaskModal(task)"
         )
-    TaskModal(
-      :isShown="showTaskModal"
-      :hide="closeTaskModal"
-      :task="selectedTask"
-    )
 </template>
 
 <script>
 import Task from './Task'
-import TaskModal from './TaskModal'
 import draggable from 'vuedraggable'
 
 export default {
   name: 'TaskListBox',
   components: {
     Task,
-    TaskModal,
     draggable
   },
   props: {
@@ -46,19 +39,10 @@ export default {
       default: () => []
     }
   },
-  data() {
-    return {
-      showTaskModal: false,
-      selectedTask: {}
-    }
-  },
   methods: {
     openTaskModal(task) {
-      this.selectedTask = task
-      this.showTaskModal = true
-    },
-    closeTaskModal() {
-      this.showTaskModal = false
+      this.$store.dispatch('task/selectTask', task)
+      this.$store.dispatch('modal/showTaskModal')
     }
   }
 }

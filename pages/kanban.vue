@@ -8,18 +8,21 @@
         :tasks="l.tasks"
       )
       AddList
+      TaskModal
 </template>
 
 <script>
 import TaskListBox from '~/components/organisms/Kanban/TaskListBox'
 import AddList from '~/components/organisms/Kanban/AddList'
+import TaskModal from '~/components/organisms/Kanban/TaskModal'
 import { TaskList } from '~/plugins/tmp'
 
 export default {
   name: 'Kanban',
   components: {
     TaskListBox,
-    AddList
+    AddList,
+    TaskModal
   },
   data() {
     return {

@@ -38,24 +38,21 @@
 
 <script>
 import ModalWindow from '~/components/molecules/ModalWindow'
+import { mapState } from 'vuex'
 
 export default {
   name: 'TaskModal',
   components: {
     ModalWindow
   },
-  props: {
-    isShown: {
-      type: Boolean,
-      required: true
-    },
-    hide: {
-      type: Function,
-      required: true
-    },
-    task: {
-      type: Object,
-      required: true
+  computed: mapState({
+    isShown: state => state.modal.taskModal,
+    task: state => state.task.selected
+  }),
+  methods: {
+    hide() {
+      this.$store.dispatch('task/removeTask')
+      this.$store.dispatch('modal/hideTaskModal')
     }
   }
 }

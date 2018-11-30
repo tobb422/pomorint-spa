@@ -38,7 +38,7 @@ export default {
     right: 0;
     bottom: 0;
     background-color: $color-black;
-    opacity: 0.3;
+    opacity: 0.4;
   }
 
   .modal-wrapper {
@@ -68,9 +68,13 @@ export default {
 
   main {
     @include type-normal;
+    height: 100%;
     padding: 1.5rem 1rem;
     overflow-y: scroll;
-    height: 100%;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 }
 </style>
