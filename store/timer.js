@@ -1,8 +1,9 @@
 import * as types from './mutation-types/timer'
+import { AudioPlay } from '~/plugins/audio'
 
 export const state = () => ({
-  min: 25,
-  sec: 0,
+  min: 0,
+  sec: 5,
   timerOn: false,
   timerObj: null
 })
@@ -36,6 +37,7 @@ export const actions = {
     commit(types.RESET)
   },
   complete() {
+    AudioPlay()
     this.dispatch('timer/reset')
   }
 }
