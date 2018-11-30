@@ -14,7 +14,7 @@
       )
         Task(
           v-if="task.title"
-          :title="task.title"
+          :task="task"
           v-on:click.native="openTaskModal(task)"
         )
         AddTask(

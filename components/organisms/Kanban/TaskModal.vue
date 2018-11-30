@@ -19,7 +19,7 @@
         .label
           .key ラベル
           .value
-            el-tag(v-for="(label, index) in task.labels" :key="index" size="small") {{ label.name }}
+            el-tag(v-for="(label, index) in task.labels" :key="index" size="small" closable) {{ label.name }}
             .add-tag ＋
         .detail
           .key 詳細

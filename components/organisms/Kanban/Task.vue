@@ -1,18 +1,17 @@
 <template lang="pug">
   section.Task
-    .title {{ title }}
-    .count ポモ数：4/6
+    .title {{ task.title }}
+    .count {{ task.resultCount }}/{{ task.estimateCount }}
     .label-wrap
-      el-tag.label(size="small") label1
-      el-tag.label(size="small") label2
+      el-tag.label(v-for="(label, index) in task.labels" :key="index" size="small" closable) {{ label.name }}
 </template>
 
 <script>
 export default {
   name: 'Task',
   props: {
-    title: {
-      type: String,
+    task: {
+      type: Object,
       required: true
     }
   }

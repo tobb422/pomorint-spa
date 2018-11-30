@@ -9,7 +9,7 @@
         .count ポモ数： {{ task.resultCount }}/{{ task.estimateCount }}
       .description {{ task.description }}
       .label-wrap
-        el-tag(v-for="(label, index) in task.labels" :key="index" closable) {{ label.name }}
+        el-tag(v-for="(label, index) in task.labels" :key="index") {{ label.name }}
 </template>
 
 <script>
