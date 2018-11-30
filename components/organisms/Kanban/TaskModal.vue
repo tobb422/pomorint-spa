@@ -7,27 +7,26 @@
     .content(slot="main")
       .header
         img(src="~/assets/images/task.png")
-        el-input(v-model="title", placeholder="タイトル")
+        el-input(v-model="task.title" placeholder="タイトル")
         .cross
           .cancel(@click="hide")
       .main
         .estimate
           .key ポモ予算
-          .value 6 ポモ
+          .value
+            el-input(v-model="task.estimateCount" placeholder="0")
+            .unit ポモ
         .label
           .key ラベル
-          .value.label
-            el-tag(size="small") label1
-            el-tag(size="small") label1
-            el-tag(size="small") label1
-            el-tag(size="small") label1
-            el-tag(size="small") label1
+          .value
+            el-tag(v-for="(label, index) in task.labels" :key="index" size="small") {{ label.name }}
             .add-tag ＋
         .detail
           .key 詳細
           el-input.value(
             type="textarea"
-            :rows="5"
+            v-model="task.description"
+            :rows="4.5"
             placeholder="Please input"
             resize="none"
           )
@@ -47,7 +46,7 @@ export default {
   },
   data() {
     return {
-      title: ''
+      task: {}
     }
   },
   computed: mapState({
@@ -56,7 +55,7 @@ export default {
   mounted() {
     const task = this.$store.state.task
     if (task.selected) {
-      this.title = task.selected.title
+      this.task = Object.assign({}, task.selected)
     }
   },
   methods: {
@@ -65,7 +64,7 @@ export default {
       this.$store.dispatch('modal/hideTaskModal')
     },
     save() {
-      console.log(this.title)
+      console.log(this.task)
     }
   }
 }
@@ -131,6 +130,14 @@ export default {
     & > div > .value {
       margin: 0.5rem 1rem;
       @include type-normal;
+    }
+
+    & > .estimate > .value {
+      display: grid;
+      grid-template-areas: 'input unit';
+      grid-template-columns: 3rem 1fr;
+      grid-column-gap: 1rem;
+      align-items: center;
     }
 
     & > .label > .value {
