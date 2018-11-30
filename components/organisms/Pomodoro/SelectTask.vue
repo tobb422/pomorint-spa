@@ -60,7 +60,14 @@ export default {
     overflow-y: scroll;
 
     & > li {
-      margin-bottom: 1rem;
+      padding: 1rem 0.5rem;
+      margin: 0.5rem;
+      border: 1px solid $color-gray-lighter;
+
+      &:hover {
+        background-color: $color-gray-lighter;
+        border: 1px solid $color-gray;
+      }
     }
   }
 }

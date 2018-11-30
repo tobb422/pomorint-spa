@@ -24,12 +24,7 @@ export default {
   data() {
     return {
       addList: false,
-      list: [
-        {
-          name: 'IceBox',
-          tasks: TaskList
-        }
-      ]
+      list: TaskList
     }
   }
 }
