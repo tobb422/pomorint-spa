@@ -7,7 +7,7 @@
     .content(slot="main")
       .header
         img(src="~/assets/images/task.png")
-        .title {{ task.title }}
+        el-input(v-model="title", placeholder="タイトル")
         .cross
           .cancel(@click="hide")
       .main
@@ -33,7 +33,7 @@
           )
       .footer
         el-button.delete 削除
-        el-button.save 保存
+        el-button.save(@click="save") 保存
 </template>
 
 <script>
@@ -45,14 +45,27 @@ export default {
   components: {
     ModalWindow
   },
+  data() {
+    return {
+      title: ''
+    }
+  },
   computed: mapState({
-    isShown: state => state.modal.taskModal,
-    task: state => state.task.selected
+    isShown: state => state.modal.taskModal
   }),
+  mounted() {
+    const task = this.$store.state.task
+    if (task.selected) {
+      this.title = task.selected.title
+    }
+  },
   methods: {
     hide() {
       this.$store.dispatch('task/removeTask')
       this.$store.dispatch('modal/hideTaskModal')
+    },
+    save() {
+      console.log(this.title)
     }
   }
 }

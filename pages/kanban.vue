@@ -8,7 +8,7 @@
         :tasks="l.tasks"
       )
       AddList
-      TaskModal
+      component(:is="modalName")
 </template>
 
 <script>
@@ -27,8 +27,24 @@ export default {
   data() {
     return {
       addList: false,
-      list: TaskList
+      list: TaskList,
+      createModal: false
     }
+  },
+  computed: {
+    modalName() {
+      if (this.createModal) {
+        return 'TaskModal'
+      } else {
+        return ''
+      }
+    }
+  },
+  mounted() {
+    this.$store.watch(
+      _ => this.$store.state.modal.taskModal,
+      res => (this.createModal = res)
+    )
   }
 }
 </script>
