@@ -8,56 +8,24 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'Timer',
-  data() {
-    return {
-      min: 25,
-      sec: 0,
-      timerOn: false,
-      timerObj: null
-    }
-  },
   computed: {
-    timer() {
-      const time2str = time => {
-        const str = time.toString()
-        if (str.length < 2) {
-          return '0' + str
-        }
-        return str
-      }
-      return time2str(this.min) + ':' + time2str(this.sec)
+    timerOn() {
+      return this.$store.state.timer.timerOn
     },
-    timePer() {
-      const total = 25 * 60
-      const remain = total - (this.min * 60 + this.sec)
-      return Math.floor((remain / total) * 100)
-    }
+    ...mapGetters({
+      timer: 'timer/timer',
+      timePer: 'timer/timePer'
+    })
   },
   methods: {
-    count() {
-      if (this.sec <= 0 && this.min >= 1) {
-        --this.min
-        this.sec = 59
-      } else if (this.sec <= 0 && this.min <= 0) {
-        this.complete()
-      } else {
-        --this.sec
-      }
-    },
     start() {
-      this.timerObj = setInterval(_ => this.count(), 1000)
-      this.timerOn = true
+      this.$store.dispatch('timer/start')
     },
     reset() {
-      clearInterval(this.timerObj)
-      this.timerOn = false
-      this.min = 25
-      this.sec = 0
-    },
-    complete() {
-      clearInterval(this.timerObj)
+      this.$store.dispatch('timer/reset')
     }
   }
 }
