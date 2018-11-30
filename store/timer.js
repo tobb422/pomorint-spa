@@ -2,8 +2,8 @@ import * as types from './mutation-types/timer'
 import { AudioPlay } from '~/plugins/audio'
 
 export const state = () => ({
-  min: 0,
-  sec: 5,
+  min: 25,
+  sec: 0,
   timerOn: false,
   timerObj: null
 })
