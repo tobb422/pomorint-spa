@@ -2,31 +2,37 @@
   section.TaskListBox
     .header
       .name {{ name }}
-      .count ポモ数：10/24
-      .add ＋
+      .count ポモ数：{{ totalResultCount }} / {{ totalEstimateCount }}
+      .add(@click="openTaskModal") ＋
     .tasks
-      draggable(:list="tasks" :options="{ group:'alltasks' }" v-for="(task, index) in tasks")
+      draggable(
+        :list="tasks"
+        :options="{ group:'alltasks' }"
+        :move="checkMove"
+        v-for="(task, index) in draggableTasks"
+        :key="index"
+      )
         Task(
-          :key="index"
+          v-if="task.title"
           :title="task.title"
-          v-if="task.title == 'create' && tasks.length == 1"
-        )
-        Task(
-          :key="index"
-          :title="task.title"
-          v-else-if="task.title != 'create'"
           v-on:click.native="openTaskModal(task)"
+        )
+        AddTask(
+          v-else-if="tasks.length === 0"
+          v-on:click.native="openTaskModal"
         )
 </template>
 
 <script>
 import Task from './Task'
+import AddTask from './AddTask'
 import draggable from 'vuedraggable'
 
 export default {
   name: 'TaskListBox',
   components: {
     Task,
+    AddTask,
     draggable
   },
   props: {
@@ -39,10 +45,36 @@ export default {
       default: () => []
     }
   },
+  computed: {
+    draggableTasks() {
+      return this.tasks.concat([''])
+    },
+    totalResultCount() {
+      return this.totalCountFunc(this.tasks.map(t => t.resultCount))
+    },
+    totalEstimateCount() {
+      return this.totalCountFunc(this.tasks.map(t => t.estimateCount))
+    }
+  },
   methods: {
-    openTaskModal(task) {
-      this.$store.dispatch('task/selectTask', task)
+    totalCountFunc(ary) {
+      if (ary.length > 0) {
+        return ary.reduce((pre, current) => pre + current)
+      } else {
+        return 0
+      }
+    },
+    openTaskModal(task = {}) {
+      if (task !== {}) {
+        this.$store.dispatch('task/selectTask', task)
+      }
       this.$store.dispatch('modal/showTaskModal')
+    },
+    checkMove(e) {
+      if (e.draggedContext.element) {
+        return true
+      }
+      return false
     }
   }
 }

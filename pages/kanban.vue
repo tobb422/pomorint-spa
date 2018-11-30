@@ -63,6 +63,10 @@ export default {
     height: 100%;
     width: 100%;
     overflow-x: scroll;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   .list {

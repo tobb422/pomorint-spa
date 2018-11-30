@@ -1,7 +1,13 @@
 import * as types from './mutation-types/task'
 
 export const state = () => ({
-  selected: {}
+  selected: {
+    title: '',
+    estimateCount: 0,
+    resultCount: 0,
+    description: '',
+    labels: []
+  }
 })
 
 export const actions = {
