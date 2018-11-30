@@ -1,3 +1,3 @@
 export const COUNT = 'Count'
 export const START = 'Start'
-export const Reset = 'Reset'
+export const RESET = 'Reset'
