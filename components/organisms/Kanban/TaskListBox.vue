@@ -64,7 +64,7 @@ export default {
         return 0
       }
     },
-    openTaskModal(task = {}) {
+    openTaskModal(task) {
       if (task !== {}) {
         this.$store.dispatch('task/selectTask', task)
       }

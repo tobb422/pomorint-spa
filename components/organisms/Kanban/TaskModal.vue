@@ -76,7 +76,7 @@ export default {
   }),
   mounted() {
     const task = this.$store.state.task
-    if (task.selected) {
+    if (task.selected.title) {
       this.title = task.selected.title
       this.labels = [].concat(task.selected.labels)
       this.estimateCount = task.selected.estimateCount

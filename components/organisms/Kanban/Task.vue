@@ -3,7 +3,11 @@
     .title {{ task.title }}
     .count {{ task.resultCount }}/{{ task.estimateCount }}
     .label-wrap
-      el-tag.label(v-for="(label, index) in task.labels" :key="index" size="small" closable) {{ label.name }}
+      el-tag.label(
+        v-for="(label, index) in task.labels"
+        :key="index"
+        size="small"
+      ) {{ label.name }}
 </template>
 
 <script>
@@ -41,14 +45,18 @@ export default {
 
   .count {
     @include type-xsmall;
+    grid-area: count;
+    justify-self: end;
   }
 
   .label-wrap {
+    grid-area: label;
     display: flex;
+    flex-wrap: wrap;
 
     & > .label {
-      flex-basis: 5rem;
       margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
     }
   }
 }

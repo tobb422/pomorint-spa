@@ -7,7 +7,12 @@ export const TaskList = [
         estimateCount: 6,
         resultCount: 4,
         description: 'テストだよ',
-        labels: [{ name: 'ラベル1' }, { name: 'ラベル2' }]
+        labels: [
+          { name: 'ラベル1' },
+          { name: 'ラベル2' },
+          { name: 'ラベル3' },
+          { name: 'ラベル4' }
+        ]
       },
       {
         title: 'Rubyの勉強',
