@@ -17,7 +17,22 @@
             el-input(v-model="estimateCount" placeholder="0")
             .unit ポモ
         .label
-          .key ラベル
+          .key
+            .title ラベル
+            el-popover.popover(
+              placement="bottom"
+              width="300"
+              trigger="click"
+            )
+              ul.popover-inner(style="margin: 0.5rem")
+                .title 新しいラベルを作成
+                .wrap(style="display: flex; align-items: center")
+                  el-input(v-model="newLabelName" placeholder="ラベル名")
+                  el-button(
+                    style="margin: 0.5rem; background-color: #87CEFA; color: #fff"
+                    v-on:click.native="createNewLabel"
+                  ) 作成
+              img.edit-label(src="~/assets/images/setting.png" slot="reference" ref="newLabel")
           .value
             el-tag(
               v-for="(label, index) in labels"
@@ -37,9 +52,9 @@
                   style="margin: 0.5rem"
                   v-on:click.native="addLabel(label)"
                 ) {{ label.name }}
-              el-button.button-new-label(
+              el-button.button-add-label(
                 size="small"
-                ref="newLabel"
+                ref="addLabel"
                 slot="reference"
               ) + New Tag
         .detail
@@ -72,6 +87,7 @@ export default {
       estimateCount: null,
       resultCount: null,
       description: '',
+      newLabelName: '',
       selectLabels: [
         { name: 'ラベル1' },
         { name: 'ラベル2' },
@@ -105,8 +121,15 @@ export default {
       this.labels.splice(this.labels.indexOf(label), 1)
     },
     addLabel(label) {
-      this.$nextTick(_ => this.$refs.newLabel.$el.click())
+      this.$nextTick(_ => this.$refs.addLabel.$el.click())
       this.labels.push(label)
+    },
+    createNewLabel() {
+      if (this.newLabelName.length > 0) {
+        this.$nextTick(_ => this.$refs.newLabel.click())
+        this.selectLabels.push({ name: this.newLabelName })
+        this.newLabelName = ''
+      }
     }
   }
 }
@@ -162,6 +185,7 @@ export default {
   .main {
     grid-area: main;
     @include type-small;
+    line-height: 1;
 
     & > div {
       margin: 1rem;
@@ -182,6 +206,15 @@ export default {
       align-items: center;
     }
 
+    & > .label > .key {
+      display: flex;
+      align-items: center;
+      img.edit-label {
+        height: 1rem;
+        margin-left: 0.5rem;
+      }
+    }
+
     & > .label > .value {
       display: flex;
       flex-wrap: wrap;
@@ -190,7 +223,7 @@ export default {
   }
 
   .el-tag,
-  .el-button.button-new-label {
+  .el-button.button-add-label {
     margin: 0 0.5rem 0.5rem 0;
   }
 
