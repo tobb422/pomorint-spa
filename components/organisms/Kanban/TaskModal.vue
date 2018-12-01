@@ -7,25 +7,41 @@
     .content(slot="main")
       .header
         img(src="~/assets/images/task.png")
-        el-input(v-model="task.title" placeholder="タイトル")
+        el-input(v-model="title" placeholder="タイトル")
         .cross
           .cancel(@click="hide")
       .main
         .estimate
           .key ポモ予算
           .value
-            el-input(v-model="task.estimateCount" placeholder="0")
+            el-input(v-model="estimateCount" placeholder="0")
             .unit ポモ
         .label
           .key ラベル
           .value
-            el-tag(v-for="(label, index) in task.labels" :key="index" size="small" closable) {{ label.name }}
-            .add-tag ＋
+            el-tag(
+              v-for="(label, index) in labels"
+              :key="index"
+              closable
+              @close="removeLabel(label)"
+            ) {{ label.name }}
+            el-input.input-new-label(
+              v-if="onInputNewLabel"
+              v-model="newLabelName"
+              ref="saveLabelInput"
+              size="mini"
+              @keyup.enter.native="handleAddLabelConfirm"
+            )
+            el-button.button-new-label(
+              v-else
+              size="small"
+              @click="showInputNewLabel"
+            ) + New Tag
         .detail
           .key 詳細
           el-input.value(
             type="textarea"
-            v-model="task.description"
+            v-model="description"
             :rows="4.5"
             placeholder="Please input"
             resize="none"
@@ -46,7 +62,13 @@ export default {
   },
   data() {
     return {
-      task: {}
+      title: '',
+      labels: [],
+      estimateCount: null,
+      resultCount: null,
+      description: '',
+      onInputNewLabel: false,
+      newLabelName: ''
     }
   },
   computed: mapState({
@@ -55,7 +77,11 @@ export default {
   mounted() {
     const task = this.$store.state.task
     if (task.selected) {
-      this.task = Object.assign({}, task.selected)
+      this.title = task.selected.title
+      this.labels = [].concat(task.selected.labels)
+      this.estimateCount = task.selected.estimateCount
+      this.resultCount = task.selected.resultCount
+      this.description = task.selected.description
     }
   },
   methods: {
@@ -65,6 +91,22 @@ export default {
     },
     save() {
       console.log(this.task)
+    },
+    removeLabel(label) {
+      this.labels.splice(this.labels.indexOf(label), 1)
+    },
+    showInputNewLabel() {
+      this.onInputNewLabel = true
+      this.$nextTick(_ => {
+        this.$refs.saveLabelInput.$refs.input.focus()
+      })
+    },
+    handleAddLabelConfirm() {
+      if (this.newLabelName) {
+        this.labels.push({ name: this.newLabelName })
+      }
+      this.onInputNewLabel = false
+      this.newLabelName = ''
     }
   }
 }
@@ -148,15 +190,6 @@ export default {
 
   .el-tag {
     margin-right: 0.5rem;
-  }
-
-  .add-tag {
-    height: 1rem;
-    width: 1rem;
-    background-color: $color-gray-lighter;
-    @include type-xsmall;
-    line-height: 1.4;
-    text-align: center;
   }
 
   .el-textarea {
