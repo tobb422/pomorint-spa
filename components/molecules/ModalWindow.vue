@@ -62,7 +62,6 @@ export default {
     bottom: auto;
     left: auto;
     right: auto;
-    height: 480px;
     width: 600px;
   }
 

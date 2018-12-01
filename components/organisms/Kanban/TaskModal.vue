@@ -47,7 +47,7 @@
           el-input.value(
             type="textarea"
             v-model="description"
-            :rows="4.5"
+            :rows="6"
             placeholder="Please input"
             resize="none"
           )
