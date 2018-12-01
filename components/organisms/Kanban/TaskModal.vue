@@ -46,6 +46,7 @@
               trigger="click"
             )
               ul.popover-inner(style="margin: 0.5rem")
+                .title 追加するラベルを選択
                 el-tag(
                   v-for="(label, index) in selectLabels"
                   :key="index"
