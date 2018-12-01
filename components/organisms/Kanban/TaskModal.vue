@@ -25,18 +25,23 @@
               closable
               @close="removeLabel(label)"
             ) {{ label.name }}
-            el-input.input-new-label(
-              v-if="onInputNewLabel"
-              v-model="newLabelName"
-              ref="saveLabelInput"
-              size="mini"
-              @keyup.enter.native="handleAddLabelConfirm"
+            el-popover.popover(
+              placement="bottom"
+              width="300"
+              trigger="click"
             )
-            el-button.button-new-label(
-              v-else
-              size="small"
-              @click="showInputNewLabel"
-            ) + New Tag
+              ul.popover-inner(style="margin: 0.5rem")
+                el-tag(
+                  v-for="(label, index) in selectLabels"
+                  :key="index"
+                  style="margin: 0.5rem"
+                  v-on:click.native="addLabel(label)"
+                ) {{ label.name }}
+              el-button.button-new-label(
+                size="small"
+                ref="newLabel"
+                slot="reference"
+              ) + New Tag
         .detail
           .key 詳細
           el-input.value(
@@ -67,8 +72,12 @@ export default {
       estimateCount: null,
       resultCount: null,
       description: '',
-      onInputNewLabel: false,
-      newLabelName: ''
+      selectLabels: [
+        { name: 'ラベル1' },
+        { name: 'ラベル2' },
+        { name: 'ラベル3' },
+        { name: 'ラベル4' }
+      ]
     }
   },
   computed: mapState({
@@ -95,18 +104,9 @@ export default {
     removeLabel(label) {
       this.labels.splice(this.labels.indexOf(label), 1)
     },
-    showInputNewLabel() {
-      this.onInputNewLabel = true
-      this.$nextTick(_ => {
-        this.$refs.saveLabelInput.$refs.input.focus()
-      })
-    },
-    handleAddLabelConfirm() {
-      if (this.newLabelName) {
-        this.labels.push({ name: this.newLabelName })
-      }
-      this.onInputNewLabel = false
-      this.newLabelName = ''
+    addLabel(label) {
+      this.$nextTick(_ => this.$refs.newLabel.$el.click())
+      this.labels.push(label)
     }
   }
 }
@@ -184,12 +184,14 @@ export default {
 
     & > .label > .value {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
     }
   }
 
-  .el-tag {
-    margin-right: 0.5rem;
+  .el-tag,
+  .el-button.button-new-label {
+    margin: 0 0.5rem 0.5rem 0;
   }
 
   .el-textarea {
