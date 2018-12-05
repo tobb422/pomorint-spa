@@ -9,8 +9,9 @@
       .table-data(
         v-for="(d, index) in tableData"
         :key="index"
+        :class="{ current: d.current }"
       )
-        .period {{ d.period }}
+        .period() {{ d.period }}
         .count {{ d.count }}
         .achievementRate(:class="achievementClass(d.achievementRate)") {{ d.achievementRate.toString() + ' %' }}
     el-button(v-if="moreShow" @click="toggleMoreShow") 閉じる
@@ -27,25 +28,29 @@ export default {
           periodStart: '2018/09/10',
           periodEnd: '2018/09/16',
           estimateCount: 11,
-          resultCount: 10
+          resultCount: 10,
+          current: true
         },
         {
           periodStart: '2018/09/10',
           periodEnd: '2018/09/16',
           estimateCount: 13,
-          resultCount: 5
+          resultCount: 5,
+          current: false
         },
         {
           periodStart: '2018/09/10',
           periodEnd: '2018/09/16',
           estimateCount: 15,
-          resultCount: 2
+          resultCount: 2,
+          current: false
         },
         {
           periodStart: '2018/09/10',
           periodEnd: '2018/09/16',
           estimateCount: 14,
-          resultCount: 7
+          resultCount: 7,
+          current: false
         }
       ],
       moreShow: false
@@ -64,14 +69,14 @@ export default {
           period: d.periodStart + ' ~ ' + d.periodEnd,
           count: d.resultCount + ' / ' + d.estimateCount,
           achievementRate:
-            Math.ceil((d.resultCount / d.estimateCount) * 1000) / 10
+            Math.ceil((d.resultCount / d.estimateCount) * 1000) / 10,
+          current: d.current
         }
       })
     }
   },
   methods: {
     achievementClass(rate) {
-      console.log(rate)
       if (rate >= 85) {
         return 'high'
       } else if (rate < 50) {
@@ -135,6 +140,20 @@ export default {
 
     & > .achievementRate {
       flex-basis: 25%;
+    }
+  }
+
+  .table-data.current {
+    position: relative;
+    &::before {
+      content: '';
+      background-image: url('~assets/images/flag.png');
+      background-size: cover;
+      width: 1.5rem;
+      position: absolute;
+      top: 1rem;
+      bottom: 1rem;
+      left: -2.5rem;
     }
   }
 
