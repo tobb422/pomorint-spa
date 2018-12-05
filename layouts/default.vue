@@ -12,16 +12,25 @@
       )
         ul.popover-inner(style="margin: 0.5rem 0.5rem 0")
           li(style="margin-bottom: 0.5rem") #[nuxt-link(to="/mypage") プロフィール]
-          el-button(type="text" @click="test") ログアウト
+          el-button(type="text" @click="signout") ログアウト
         el-button(slot="reference").account
     nuxt
+    Toast
 </template>
 
 <script>
+import Session from '~/plugins/session'
+import Toast from '~/components/molecules/Toast'
+
 export default {
+  components: {
+    Toast
+  },
   methods: {
-    test() {
-      console.log('aaa')
+    signout() {
+      const session = new Session()
+      session.remove()
+      this.$router.push({ name: 'sign-in' })
     }
   }
 }
