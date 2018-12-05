@@ -1,5 +1,9 @@
 <template lang="pug">
   section.Kanban
+    .sprint
+      .title 現在のスプリント
+      .period 期間：2018/12/05 ~ 2018/12/11
+      .count ポモ数：10 / 20
     .box-list
       TaskListBox.list(
         v-for="(l, index) in list"
@@ -57,6 +61,15 @@ export default {
 .Kanban {
   margin: 3rem 3rem 1.5rem;
   overflow: hidden;
+
+  .sprint {
+    margin-bottom: 0.5rem;
+    display: flex;
+
+    & > div {
+      margin: 0 0.5rem;
+    }
+  }
 
   .box-list {
     display: flex;
