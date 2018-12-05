@@ -1,8 +1,8 @@
 <template lang="pug">
   section.PomodoroHead
-    .title 第１回 スプリント
-    .period （2018/09/10~ 2018/09/16）
-    .task-count 3/47
+    .title 現在のスプリント
+    .period 2018/09/10 ~ 2018/09/16
+    .task-count 3 / 47
 </template>
 
 <script>
