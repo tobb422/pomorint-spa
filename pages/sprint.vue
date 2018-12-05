@@ -1,6 +1,7 @@
 <template lang="pug">
   section.Sprint
     .title スプリント一覧
+    img.edit(src="~/assets/images/setting.png")
     .table-box
       .table-columns
         .period 期間
@@ -101,6 +102,8 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 600px;
+  margin: 0 auto;
 
   .title {
     @include type-large;
@@ -108,11 +111,16 @@ export default {
     margin: 3rem 0 1rem;
   }
 
+  .edit {
+    align-self: flex-end;
+    width: 1rem;
+  }
+
   .table-box {
     display: flex;
     flex-direction: column;
-    width: 600px;
-    margin: 2rem 0;
+    width: 100%;
+    margin: 0.5rem 0 3rem;
     border: 1px solid $color-gray-lighter;
   }
 
@@ -136,6 +144,8 @@ export default {
       flex-basis: 25%;
       border-right: 0.5px solid $color-gray-lighter;
       border-left: 0.5px solid $color-gray-lighter;
+
+      position: relative;
     }
 
     & > .achievementRate {
@@ -167,6 +177,15 @@ export default {
 
   .el-button {
     width: 150px;
+  }
+
+  .el-popover.popover {
+    position: absolute;
+    top: 1rem;
+  }
+
+  img.edit-label {
+    width: 1rem;
   }
 }
 </style>
