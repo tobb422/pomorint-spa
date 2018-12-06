@@ -1,9 +1,13 @@
 <template lang="pug">
   section.TaskListBox
-    .header
-      .name {{ name }}
+    .header-addList(v-if="onEditList")
+      el-input(v-model="name")
+      el-button.cancel(@click="onEditList = false") キャンセル
+      el-button.save(@click="onEditList = false") 保存
+    .header(v-else)
+      .name( @click="onEditList = true") {{ name }}
+      .add( @click="openTaskModal") ＋
       .count ポモ数：{{ totalResultCount }} / {{ totalEstimateCount }}
-      .add(@click="openTaskModal") ＋
     .tasks
       draggable(
         :list="tasks"
@@ -26,6 +30,7 @@
 <script>
 import Task from './Task'
 import AddTask from './AddTask'
+import AddList from './AddList'
 import draggable from 'vuedraggable'
 
 export default {
@@ -33,6 +38,7 @@ export default {
   components: {
     Task,
     AddTask,
+    AddList,
     draggable
   },
   props: {
@@ -43,6 +49,11 @@ export default {
     tasks: {
       type: Array,
       default: () => []
+    }
+  },
+  data() {
+    return {
+      onEditList: false
     }
   },
   computed: {
@@ -57,6 +68,9 @@ export default {
     }
   },
   methods: {
+    editCancel() {
+      console.log('test')
+    },
     totalCountFunc(ary) {
       if (ary.length > 0) {
         return ary.reduce((pre, current) => pre + current)
@@ -90,36 +104,69 @@ export default {
   min-width: 280px;
   display: grid;
   grid-template-areas: 'header' 'tasks';
-  grid-template-rows: 3rem 1fr;
+  grid-template-rows: auto 1fr;
+
+  .header-addList {
+    margin: 1rem 1rem 0.5rem;
+    display: grid;
+    grid-template-areas: 'input input' 'cancel save';
+    grid-gap: 0.5rem;
+    grid-template-columns: 1fr 1fr;
+
+    .el-input {
+      grid-area: input;
+    }
+
+    .el-button {
+      color: $color-white;
+    }
+
+    .cancel {
+      grid-area: cancel;
+      background-color: $color-gray;
+    }
+
+    .save {
+      grid-area: save;
+      background-color: $color-sky;
+    }
+  }
 
   .header {
-    display: flex;
-    align-items: flex-end;
-    margin: 0 1rem;
+    display: grid;
+    grid-template-areas: 'name add' 'count .';
+    grid-gap: 0.5rem;
+    margin: 1rem 1rem 0.5rem;
     line-height: 1.5;
 
     .name {
+      grid-area: name;
       @include type-heading;
-      margin-right: 1rem;
+
+      &:hover {
+        text-decoration: underline;
+        opacity: 0.7;
+      }
     }
 
     .count {
+      grid-area: count;
       @include type-xsmall;
       padding: 0.1rem;
     }
 
     .add {
+      grid-area: add;
       @include type-normal;
       font-weight: bold;
       margin-right: 0.5rem;
       padding: 0.1rem;
-      flex-grow: 1;
       text-align: right;
     }
   }
 
   .tasks {
-    margin: 1rem auto;
+    margin: 0.5rem auto 1rem;
     width: 240px;
     overflow-y: scroll;
     -ms-overflow-style: none;
