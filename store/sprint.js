@@ -2,6 +2,7 @@ import * as types from './mutation-types/sprint'
 
 export const state = () => ({
   selected: {
+    id: 0,
     periodStart: null,
     periodEnd: null,
     estimateCount: 0,

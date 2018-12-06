@@ -65,8 +65,38 @@ export default {
       this.$store.dispatch('sprint/removeSprint')
       this.$store.dispatch('modal/hideSprintModal')
     },
+    validateUpdate() {
+      if (!this.periodStart || !this.periodEnd) {
+        return false
+      }
+
+      if (this.$dayjs(this.periodStart) >= this.$dayjs(this.periodEnd)) {
+        return false
+      }
+
+      if (this.estimateCount <= 0) {
+        return false
+      }
+
+      return true
+    },
     save() {
-      console.log(this.task)
+      if (!this.validateUpdate()) {
+        return
+      }
+      // this.data = this.data.map((d, index) => {
+      //   if (index === this.onEditIndex) {
+      //     return {
+      //       periodStart: this.$dayjs(this.periodStart).format('YYYY/MM/DD'),
+      //       periodEnd: this.$dayjs(this.periodEnd).format('YYYY/MM/DD'),
+      //       resultCount: d.resultCount,
+      //       estimateCount: this.estimateCount,
+      //       current: d.current
+      //     }
+      //   }
+      //   return d
+      // })
+      this.hide()
     }
   }
 }

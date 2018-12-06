@@ -118,49 +118,6 @@ export default {
     startEdit(index) {
       this.$store.dispatch('sprint/selectSprint', this.data[index])
       this.$store.dispatch('modal/showSprintModal')
-    },
-    endEdit() {
-      this.onEditIndex = -1
-    },
-    validateUpdate() {
-      if (!this.periodStart || !this.periodEnd) {
-        return false
-      }
-
-      if (this.$dayjs(this.periodStart) >= this.$dayjs(this.periodEnd)) {
-        return false
-      }
-
-      if (this.estimateCount <= 0) {
-        return false
-      }
-
-      return true
-    },
-    reset() {
-      this.periodStart = null
-      this.periodEnd = null
-      this.estimateCount = 0
-    },
-    update() {
-      if (!this.validateUpdate()) {
-        return
-      }
-
-      this.data = this.data.map((d, index) => {
-        if (index === this.onEditIndex) {
-          return {
-            periodStart: this.$dayjs(this.periodStart).format('YYYY/MM/DD'),
-            periodEnd: this.$dayjs(this.periodEnd).format('YYYY/MM/DD'),
-            resultCount: d.resultCount,
-            estimateCount: this.estimateCount,
-            current: d.current
-          }
-        }
-        return d
-      })
-      this.endEdit()
-      this.reset()
     }
   }
 }
