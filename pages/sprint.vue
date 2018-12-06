@@ -18,7 +18,7 @@
         .count {{ d.resultCount }} / {{ d.estimateCount }}
         .achievementRate(:class="achievementClass(d.achievementRate)") {{ d.achievementRate.toString() + ' %' }}
     el-button(v-if="moreShow" @click="toggleMoreShow") 閉じる
-    el-button(v-else @click="toggleMoreShow") さらに表示する
+    el-button(v-else-if="data.length > 8" @click="toggleMoreShow") さらに表示する
     component(:is="modalName")
 </template>
 
@@ -75,7 +75,7 @@ export default {
         if (this.moreShow) {
           return this.data
         } else {
-          return this.data.slice(0, 2)
+          return this.data.slice(0, 8)
         }
       })().map(d => {
         return {
