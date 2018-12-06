@@ -6,6 +6,7 @@
         li #[nuxt-link(to="/pomodoro") ポモドーロ]
         li #[nuxt-link(to="/kanban") カンバン]
         li #[nuxt-link(to="/sprint") スプリント]
+        li #[nuxt-link(to="/stats") スタッツ]
       el-popover.popover(
         placement="bottom"
         width="300"

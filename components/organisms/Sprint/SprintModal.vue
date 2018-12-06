@@ -1,8 +1,8 @@
 <template lang="pug">
   ModalWindow(
-  class="TaskModal"
-  :isShown="isShown"
-  :hide="hide"
+    class="SprintModal"
+    :isShown="isShown"
+    :hide="hide"
   )
     .content(slot="main")
       .header
@@ -112,7 +112,7 @@ export default {
 @import '~assets/styles/_libs';
 @import '~assets/styles/_type';
 
-.TaskModal {
+.SprintModal {
   position: fixed;
   z-index: 1000;
 
