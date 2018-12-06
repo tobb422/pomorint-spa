@@ -13,32 +13,22 @@
         :class="{ current: d.current }"
         @click="startEdit(index)"
       )
-        .edit(v-if="onEditIndex === index")
-          .period
-            el-date-picker(
-              v-model="periodStart"
-              type="date"
-            )
-            span &nbsp~&nbsp
-            el-date-picker(
-              v-model="periodEnd"
-              type="date"
-            )
-          .count
-            span {{ d.resultCount }} /&nbsp
-            el-input(v-model="estimateCount" type="number")
-          el-button.edit-button(v-on:click.stop="update") 保存
-        .show(v-else)
-          .period {{ d.periodStart }} ~ {{ d.periodEnd }}
-          .count {{ d.resultCount }} / {{ d.estimateCount }}
-          .achievementRate(:class="achievementClass(d.achievementRate)") {{ d.achievementRate.toString() + ' %' }}
+        .period {{ d.periodStart }} ~ {{ d.periodEnd }}
+        .count {{ d.resultCount }} / {{ d.estimateCount }}
+        .achievementRate(:class="achievementClass(d.achievementRate)") {{ d.achievementRate.toString() + ' %' }}
     el-button(v-if="moreShow" @click="toggleMoreShow") 閉じる
     el-button(v-else @click="toggleMoreShow") さらに表示する
+    component(:is="modalName")
 </template>
 
 <script>
+import SprintModal from '~/components/organisms/Sprint/SprintModal'
+
 export default {
   name: 'Sprint',
+  components: {
+    SprintModal
+  },
   data() {
     return {
       periodStart: '',
@@ -75,7 +65,7 @@ export default {
         }
       ],
       moreShow: false,
-      onEditIndex: -1
+      createModal: false
     }
   },
   computed: {
@@ -97,7 +87,20 @@ export default {
           current: d.current
         }
       })
+    },
+    modalName() {
+      if (this.createModal) {
+        return 'SprintModal'
+      } else {
+        return ''
+      }
     }
+  },
+  mounted() {
+    this.$store.watch(
+      _ => this.$store.state.modal.sprintModal,
+      res => (this.createModal = res)
+    )
   },
   methods: {
     achievementClass(rate) {
@@ -113,7 +116,8 @@ export default {
       this.moreShow = !this.moreShow
     },
     startEdit(index) {
-      this.onEditIndex = index
+      this.$store.dispatch('sprint/selectSprint', this.data[index])
+      this.$store.dispatch('modal/showSprintModal')
     },
     endEdit() {
       this.onEditIndex = -1
@@ -194,8 +198,7 @@ export default {
   }
 
   .table-columns,
-  .show,
-  .edit {
+  .table-data {
     display: grid;
     grid-template-areas: 'p c ar';
     grid-template-columns: 2fr 1fr 1fr;
@@ -222,23 +225,6 @@ export default {
 
     & > .achievementRate {
       grid-area: ar;
-    }
-
-    & > .el-button.edit-button {
-      grid-area: ar;
-      width: 80%;
-      margin: 0 auto;
-      background-color: $color-sky;
-      color: $color-white;
-    }
-
-    & > div > .el-input {
-      width: 40%;
-      margin: auto;
-    }
-
-    & > .period > .el-input {
-      width: 40%;
     }
   }
 
