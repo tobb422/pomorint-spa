@@ -1,7 +1,7 @@
 <template lang="pug">
   section.Sprint
     .title スプリント一覧
-    img.edit(src="~/assets/images/setting.png")
+    <!--img.edit(src="~/assets/images/setting.png" @click="startEdit")-->
     .table-box
       .table-columns
         .period 期間
@@ -11,10 +11,27 @@
         v-for="(d, index) in tableData"
         :key="index"
         :class="{ current: d.current }"
+        @click="startEdit(index)"
       )
-        .period() {{ d.period }}
-        .count {{ d.count }}
-        .achievementRate(:class="achievementClass(d.achievementRate)") {{ d.achievementRate.toString() + ' %' }}
+        .edit(v-if="onEditIndex === index")
+          .period
+            el-date-picker(
+              v-model="periodStart"
+              type="date"
+            )
+            span &nbsp~&nbsp
+            el-date-picker(
+              v-model="periodEnd"
+              type="date"
+            )
+          .count
+            span {{ d.resultCount }} /&nbsp
+            el-input(v-model="estimateCount" type="number")
+          el-button.edit-button(v-on:click.stop="update") 保存
+        .show(v-else)
+          .period {{ d.periodStart }} ~ {{ d.periodEnd }}
+          .count {{ d.resultCount }} / {{ d.estimateCount }}
+          .achievementRate(:class="achievementClass(d.achievementRate)") {{ d.achievementRate.toString() + ' %' }}
     el-button(v-if="moreShow" @click="toggleMoreShow") 閉じる
     el-button(v-else @click="toggleMoreShow") さらに表示する
 </template>
@@ -24,6 +41,9 @@ export default {
   name: 'Sprint',
   data() {
     return {
+      periodStart: '',
+      periodEnd: '',
+      estimateCount: 0,
       data: [
         {
           periodStart: '2018/09/10',
@@ -54,7 +74,8 @@ export default {
           current: false
         }
       ],
-      moreShow: false
+      moreShow: false,
+      onEditIndex: -1
     }
   },
   computed: {
@@ -67,8 +88,10 @@ export default {
         }
       })().map(d => {
         return {
-          period: d.periodStart + ' ~ ' + d.periodEnd,
-          count: d.resultCount + ' / ' + d.estimateCount,
+          periodStart: d.periodStart,
+          periodEnd: d.periodEnd,
+          resultCount: d.resultCount,
+          estimateCount: d.estimateCount,
           achievementRate:
             Math.ceil((d.resultCount / d.estimateCount) * 1000) / 10,
           current: d.current
@@ -88,6 +111,52 @@ export default {
     },
     toggleMoreShow() {
       this.moreShow = !this.moreShow
+    },
+    startEdit(index) {
+      this.onEditIndex = index
+    },
+    endEdit() {
+      this.onEditIndex = -1
+    },
+    validateUpdate() {
+      if (!this.periodStart || !this.periodEnd) {
+        return false
+      }
+
+      if (this.$dayjs(this.periodStart) >= this.$dayjs(this.periodEnd)) {
+        return false
+      }
+
+      if (this.estimateCount <= 0) {
+        return false
+      }
+
+      return true
+    },
+    reset() {
+      this.periodStart = null
+      this.periodEnd = null
+      this.estimateCount = 0
+    },
+    update() {
+      if (!this.validateUpdate()) {
+        return
+      }
+
+      this.data = this.data.map((d, index) => {
+        if (index === this.onEditIndex) {
+          return {
+            periodStart: this.$dayjs(this.periodStart).format('YYYY/MM/DD'),
+            periodEnd: this.$dayjs(this.periodEnd).format('YYYY/MM/DD'),
+            resultCount: d.resultCount,
+            estimateCount: this.estimateCount,
+            current: d.current
+          }
+        }
+        return d
+      })
+      this.endEdit()
+      this.reset()
     }
   }
 }
@@ -102,7 +171,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 600px;
+  width: 780px;
   margin: 0 auto;
 
   .title {
@@ -125,10 +194,14 @@ export default {
   }
 
   .table-columns,
-  .table-data {
-    display: flex;
+  .show,
+  .edit {
+    display: grid;
+    grid-template-areas: 'p c ar';
+    grid-template-columns: 2fr 1fr 1fr;
     width: 100%;
     border: 0.5px solid $color-gray-lighter;
+    align-items: center;
 
     & > div {
       @include type-title;
@@ -137,20 +210,40 @@ export default {
     }
 
     & > .period {
-      flex-basis: 50%;
+      grid-area: p;
     }
 
     & > .count {
-      flex-basis: 25%;
+      grid-area: c;
+      height: 100%;
       border-right: 0.5px solid $color-gray-lighter;
       border-left: 0.5px solid $color-gray-lighter;
-
-      position: relative;
     }
 
     & > .achievementRate {
-      flex-basis: 25%;
+      grid-area: ar;
     }
+
+    & > .el-button.edit-button {
+      grid-area: ar;
+      width: 80%;
+      margin: 0 auto;
+      background-color: $color-sky;
+      color: $color-white;
+    }
+
+    & > div > .el-input {
+      width: 40%;
+      margin: auto;
+    }
+
+    & > .period > .el-input {
+      width: 40%;
+    }
+  }
+
+  .table-data:hover {
+    background-color: $color-gray-lighter;
   }
 
   .table-data.current {
