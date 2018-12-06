@@ -158,7 +158,8 @@ export default {
     &::before {
       content: '';
       background-image: url('~assets/images/flag.png');
-      background-size: cover;
+      background-size: 100%;
+      background-repeat: no-repeat;
       width: 1.5rem;
       position: absolute;
       top: 1rem;
