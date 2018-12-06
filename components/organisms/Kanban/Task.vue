@@ -28,7 +28,7 @@ export default {
 @import '~assets/styles/_type';
 
 .Task {
-  margin: 1rem 0;
+  margin-bottom: 1rem;
   width: 100%;
   background-color: $color-white;
   border-radius: 0.5rem;
