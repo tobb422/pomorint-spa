@@ -3,7 +3,7 @@
     .signin
       .title ログイン
       .email.label メールアドレス
-      el-input.email(placeholder="tobb422@gmail.com")
+      el-input.email(placeholder="✕✕✕✕@✕✕✕✕.com")
       .password.label パスワード
       el-input.password(placeholder="********")
       el-button(@click="click") ログイン

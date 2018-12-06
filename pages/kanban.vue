@@ -4,6 +4,7 @@
       .title 現在のスプリント
       .period 期間：2018/12/05 ~ 2018/12/11
       .count ポモ数：10 / 20
+      .achievementRate 達成率：50%
     .box-list
       TaskListBox.list(
         v-for="(l, index) in list"
@@ -59,7 +60,7 @@ export default {
 @import '~assets/styles/_type';
 
 .Kanban {
-  margin: 3rem 3rem 1.5rem;
+  margin: 2rem 3rem 1.5rem;
   overflow: hidden;
 
   .sprint {
