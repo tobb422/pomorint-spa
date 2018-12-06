@@ -6,6 +6,7 @@
   )
     .content(slot="main")
       .header
+        .title {{ title }}
         .cross
           .cancel(@click="hide")
       .main
@@ -44,7 +45,8 @@ export default {
       periodEnd: null,
       estimateCount: 0,
       resultCount: 0,
-      current: 0
+      current: 0,
+      title: ''
     }
   },
   computed: mapState({
@@ -58,6 +60,9 @@ export default {
       this.estimateCount = sprint.selected.estimateCount
       this.resultCount = sprint.selected.resultCount
       this.current = sprint.selected.current
+      this.title = 'スプリントの編集'
+    } else {
+      this.title = 'スプリントの新規作成'
     }
   },
   methods: {
@@ -114,16 +119,21 @@ export default {
   .content {
     display: grid;
     grid-template-areas: 'header' 'main';
-    grid-template-rows: 1rem 1fr;
+    grid-template-rows: 3rem 1fr;
     grid-row-gap: 1rem;
     height: 100%;
   }
 
   .header {
     display: flex;
-    align-items: end;
+
+    .title {
+      @include type-heading;
+      width: 100%;
+    }
 
     .cross {
+      align-self: end;
       cursor: pointer;
       display: flex;
       justify-content: flex-end;

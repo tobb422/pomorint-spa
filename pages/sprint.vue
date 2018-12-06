@@ -1,7 +1,8 @@
 <template lang="pug">
   section.Sprint
-    .title スプリント一覧
-    <!--img.edit(src="~/assets/images/setting.png" @click="startEdit")-->
+    .header
+      .title スプリント一覧
+      el-button(@click="startEdit(-1)") 新規作成
     .table-box
       .table-columns
         .period 期間
@@ -116,7 +117,14 @@ export default {
       this.moreShow = !this.moreShow
     },
     startEdit(index) {
-      this.$store.dispatch('sprint/selectSprint', this.data[index])
+      const sprint = (_ => {
+        if (index >= 0) {
+          return this.data[index]
+        } else {
+          return {}
+        }
+      })()
+      this.$store.dispatch('sprint/selectSprint', sprint)
       this.$store.dispatch('modal/showSprintModal')
     }
   }
@@ -135,15 +143,25 @@ export default {
   width: 780px;
   margin: 0 auto;
 
-  .title {
-    @include type-large;
-    font-weight: bold;
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
     margin: 3rem 0 1rem;
-  }
 
-  .edit {
-    align-self: flex-end;
-    width: 1rem;
+    .title {
+      @include type-large;
+      font-weight: bold;
+      margin-right: 1rem;
+    }
+
+    .el-button {
+      height: 50%;
+      width: 100px;
+      color: $color-white;
+      background-color: $color-sky;
+    }
   }
 
   .table-box {
