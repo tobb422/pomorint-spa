@@ -47,7 +47,19 @@
             )
               .popover-inner(style="margin: 0.5rem")
                 .title(style="margin-bottom: 0.5rem") 追加するラベルを選択
-                .tag-box(style="height: 200px; overflow-y: scroll")
+                .edit-tag(v-if="onEditLabel")
+                  el-form(ref="form" :model="selectLabel")
+                    el-input(v-model="selectLabel.name")
+                  .button-box(style="margin: 1rem 0; display: flex;")
+                    el-button(
+                      style="width: 100%; background-color: #F66322; color: #fff"
+                      @click="deleteSelectLabel"
+                    ) 削除
+                    el-button(
+                      style="width: 100%; background-color: #87CEFA; color: #fff"
+                      @click="saveSelectLabel"
+                    ) 保存
+                .tag-box(style="height: 200px; overflow-y: scroll" v-else)
                   .tag(
                     v-for="(label, index) in selectLabels"
                     :key="index"
@@ -57,7 +69,11 @@
                       style="margin: 1rem; flex-basis: 5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
                       v-on:click.native="addLabel(label)"
                     ) {{ label.name }}
-                    img(src="~/assets/images/setting.png" style="height: 1rem; flex-basis: 1rem; justify-self: end")
+                    img(
+                      src="~/assets/images/setting.png"
+                      style="height: 1rem; flex-basis: 1rem; justify-self: end"
+                      @click="editLabel(label)"
+                    )
               el-button.button-add-label(
                 size="small"
                 ref="addLabel"
@@ -100,7 +116,9 @@ export default {
         { name: 'ラベル2' },
         { name: 'ラベル3' },
         { name: 'ラベル4' }
-      ]
+      ],
+      selectLabel: { name: '' },
+      onEditLabel: false
     }
   },
   computed: mapState({
@@ -117,6 +135,16 @@ export default {
     }
   },
   methods: {
+    editLabel(label) {
+      this.selectLabel = label
+      this.onEditLabel = true
+    },
+    deleteSelectLabel() {
+      this.onEditLabel = false
+    },
+    saveSelectLabel() {
+      this.onEditLabel = false
+    },
     hide() {
       this.$store.dispatch('task/removeTask')
       this.$store.dispatch('modal/hideTaskModal')
