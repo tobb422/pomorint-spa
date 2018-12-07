@@ -15,7 +15,6 @@ export default {
 @import '~assets/styles/_type';
 
 .AddTask {
-  margin: 1rem 0;
   width: 100%;
   background-color: $color-white;
   opacity: 0.5;
