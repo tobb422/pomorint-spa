@@ -24,7 +24,7 @@
               width="300"
               trigger="click"
             )
-              ul.popover-inner(style="margin: 0.5rem")
+              .popover-inner(style="margin: 0.5rem")
                 .title 新しいラベルを作成
                 .wrap(style="display: flex; align-items: center")
                   el-input(v-model="newLabelName" placeholder="ラベル名")
@@ -42,22 +42,27 @@
             ) {{ label.name }}
             el-popover.popover(
               placement="bottom"
-              width="300"
+              width="200"
               trigger="click"
             )
-              ul.popover-inner(style="margin: 0.5rem")
-                .title 追加するラベルを選択
-                el-tag(
-                  v-for="(label, index) in selectLabels"
-                  :key="index"
-                  style="margin: 0.5rem"
-                  v-on:click.native="addLabel(label)"
-                ) {{ label.name }}
+              .popover-inner(style="margin: 0.5rem")
+                .title(style="margin-bottom: 0.5rem") 追加するラベルを選択
+                .tag-box(style="height: 200px; overflow-y: scroll")
+                  .tag(
+                    v-for="(label, index) in selectLabels"
+                    :key="index"
+                    style="display: flex; align-items: center; height: 3rem;"
+                  )
+                    el-tag(
+                      style="margin: 1rem; flex-basis: 5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+                      v-on:click.native="addLabel(label)"
+                    ) {{ label.name }}
+                    img(src="~/assets/images/setting.png" style="height: 1rem; flex-basis: 1rem; justify-self: end")
               el-button.button-add-label(
                 size="small"
                 ref="addLabel"
                 slot="reference"
-              ) + New Tag
+              ) + 追加
         .detail
           .key 詳細
           el-input.value(
