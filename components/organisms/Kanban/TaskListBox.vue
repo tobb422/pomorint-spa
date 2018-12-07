@@ -1,12 +1,8 @@
 <template lang="pug">
   section.TaskListBox
-    .header-addList(v-if="onEditList")
-      el-input(v-model="name")
-      el-button.cancel(@click="onEditList = false") キャンセル
-      el-button.save(@click="onEditList = false") 保存
-    .header(v-else)
-      .name( @click="onEditList = true") {{ name }}
-      .add( @click="openTaskModal") ＋
+    .header
+      .name(@click="openTaskListModal") {{ name }}
+      .add(@click="openTaskModal") ＋
       .count ポモ数：{{ totalResultCount }} / {{ totalEstimateCount }}
     .tasks
       draggable(
@@ -68,15 +64,16 @@ export default {
     }
   },
   methods: {
-    editCancel() {
-      console.log('test')
-    },
     totalCountFunc(ary) {
       if (ary.length > 0) {
         return ary.reduce((pre, current) => pre + current)
       } else {
         return 0
       }
+    },
+    openTaskListModal() {
+      this.$store.dispatch('taskList/selectTaskList', { title: this.name })
+      this.$store.dispatch('modal/showTaskListModal')
     },
     openTaskModal(task) {
       if (task !== {}) {

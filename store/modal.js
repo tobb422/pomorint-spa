@@ -2,6 +2,7 @@ import * as types from './mutation-types/modal'
 
 export const state = () => ({
   taskModal: false,
+  taskListModal: false,
   sprintModal: false
 })
 
@@ -11,6 +12,13 @@ export const actions = {
   },
   hideTaskModal({ commit }) {
     commit(types.HIDE_TASK_MODAL)
+  },
+
+  showTaskListModal({ commit }) {
+    commit(types.SHOW_TASK_LIST_MODAL)
+  },
+  hideTaskListModal({ commit }) {
+    commit(types.HIDE_TASK_LIST_MODAL)
   },
 
   showSprintModal({ commit }) {
@@ -28,6 +36,14 @@ export const mutations = {
   [types.HIDE_TASK_MODAL](state) {
     state.taskModal = false
   },
+
+  [types.SHOW_TASK_LIST_MODAL](state) {
+    state.taskListModal = true
+  },
+  [types.HIDE_TASK_LIST_MODAL](state) {
+    state.taskListModal = false
+  },
+
   [types.SHOW_SPRINT_MODAL](state) {
     state.sprintModal = true
   },

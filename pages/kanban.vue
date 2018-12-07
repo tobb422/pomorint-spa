@@ -20,6 +20,7 @@
 import TaskListBox from '~/components/organisms/Kanban/TaskListBox'
 import AddList from '~/components/organisms/Kanban/AddList'
 import TaskModal from '~/components/organisms/Kanban/TaskModal'
+import TaskListModal from '~/components/organisms/Kanban/TaskListModal'
 import { TaskList } from '~/plugins/tmp'
 
 export default {
@@ -27,28 +28,36 @@ export default {
   components: {
     TaskListBox,
     AddList,
-    TaskModal
+    TaskModal,
+    TaskListModal
   },
   data() {
     return {
       addList: false,
       list: TaskList,
-      createModal: false
-    }
-  },
-  computed: {
-    modalName() {
-      if (this.createModal) {
-        return 'TaskModal'
-      } else {
-        return ''
-      }
+      modalName: ''
     }
   },
   mounted() {
     this.$store.watch(
       _ => this.$store.state.modal.taskModal,
-      res => (this.createModal = res)
+      res => {
+        if (res) {
+          this.modalName = 'TaskModal'
+        } else {
+          this.modalName = ''
+        }
+      }
+    )
+    this.$store.watch(
+      _ => this.$store.state.modal.taskListModal,
+      res => {
+        if (res) {
+          this.modalName = 'TaskListModal'
+        } else {
+          this.modalName = ''
+        }
+      }
     )
   }
 }
