@@ -2,7 +2,10 @@
   section.TaskListBox
     .header
       .name(@click="openTaskListModal") {{ name }}
-      .add(@click="openTaskModal") ＋
+      el-tooltip(content="全てのカードをアーカイブする" placement="top")
+        img(src="~/assets/images/archive.png")
+      el-tooltip(content="新しいカードを追加する" placement="top")
+        .add(@click="openTaskModal") ＋
       .count ポモ数：{{ totalResultCount }} / {{ totalEstimateCount }}
     .tasks
       draggable(
@@ -103,36 +106,12 @@ export default {
   grid-template-areas: 'header' 'tasks';
   grid-template-rows: auto 1fr;
 
-  .header-addList {
-    margin: 1rem 1rem 0.5rem;
-    display: grid;
-    grid-template-areas: 'input input' 'cancel save';
-    grid-gap: 0.5rem;
-    grid-template-columns: 1fr 1fr;
-
-    .el-input {
-      grid-area: input;
-    }
-
-    .el-button {
-      color: $color-white;
-    }
-
-    .cancel {
-      grid-area: cancel;
-      background-color: $color-gray;
-    }
-
-    .save {
-      grid-area: save;
-      background-color: $color-sky;
-    }
-  }
-
   .header {
     display: grid;
-    grid-template-areas: 'name add' 'count .';
+    grid-template-areas: 'name archive add' 'count . .';
+    grid-template-columns: 5fr 1fr 1fr;
     grid-gap: 0.5rem;
+    align-items: center;
     margin: 1rem 1rem 0.5rem;
     line-height: 1.5;
 
@@ -159,6 +138,11 @@ export default {
       margin-right: 0.5rem;
       padding: 0.1rem;
       text-align: right;
+    }
+
+    img {
+      grid-area: archive;
+      height: 1rem;
     }
   }
 
