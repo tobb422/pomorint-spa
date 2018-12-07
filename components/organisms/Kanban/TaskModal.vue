@@ -69,6 +69,7 @@
           )
       .footer
         el-button.delete 削除
+        el-button.archive アーカイブ
         el-button.save(@click="save") 保存
 </template>
 
@@ -233,10 +234,9 @@ export default {
   }
 
   .footer {
-    margin: 0 1rem;
     grid-area: footer;
     display: grid;
-    grid-template-areas: 'delete save';
+    grid-template-areas: 'delete archive . save';
 
     & > button {
       width: 7rem;
@@ -245,10 +245,17 @@ export default {
     }
 
     & > button.delete {
+      grid-area: delete;
       background-color: $color-accent;
     }
 
+    & > button.archive {
+      grid-area: archive;
+      background-color: $color-gray;
+    }
+
     & > button.save {
+      grid-area: save;
       justify-self: end;
       background-color: $color-sky;
     }
