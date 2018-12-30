@@ -7,10 +7,10 @@
       .achievementRate 達成率：50%
     .box-list
       TaskListBox.list(
-        v-for="(l, index) in list"
+        v-for="(item, index) in list"
         :key="index"
-        :name="l.name"
-        :tasks="l.tasks"
+        :name="item.name"
+        :tasks="item.tasks"
       )
       AddList
       component(:is="modalName")
