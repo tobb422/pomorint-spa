@@ -68,11 +68,7 @@ export default {
   },
   methods: {
     totalCountFunc(ary) {
-      if (ary.length > 0) {
-        return ary.reduce((pre, current) => pre + current)
-      } else {
-        return 0
-      }
+      return ary.length > 0 ? ary.reduce((pre, current) => pre + current) : 0
     },
     openTaskListModal() {
       this.$store.dispatch('taskList/selectTaskList', { title: this.name })
@@ -85,10 +81,7 @@ export default {
       this.$store.dispatch('modal/showTaskModal')
     },
     checkMove(e) {
-      if (e.draggedContext.element) {
-        return true
-      }
-      return false
+      return !!e.draggedContext.element
     }
   }
 }

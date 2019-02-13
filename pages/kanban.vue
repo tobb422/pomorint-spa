@@ -41,23 +41,11 @@ export default {
   mounted() {
     this.$store.watch(
       _ => this.$store.state.modal.taskModal,
-      res => {
-        if (res) {
-          this.modalName = 'TaskModal'
-        } else {
-          this.modalName = ''
-        }
-      }
+      res => (this.modalName = res ? 'TaskModal' : '')
     )
     this.$store.watch(
       _ => this.$store.state.modal.taskListModal,
-      res => {
-        if (res) {
-          this.modalName = 'TaskListModal'
-        } else {
-          this.modalName = ''
-        }
-      }
+      res => (this.modalName = res ? 'TasListModal' : '')
     )
   }
 }

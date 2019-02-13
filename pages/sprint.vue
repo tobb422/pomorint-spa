@@ -117,13 +117,7 @@ export default {
       this.moreShow = !this.moreShow
     },
     startEdit(index) {
-      const sprint = (_ => {
-        if (index >= 0) {
-          return this.data[index]
-        } else {
-          return {}
-        }
-      })()
+      const sprint = index >= 0 ? this.data[index] : {}
       this.$store.dispatch('sprint/selectSprint', sprint)
       this.$store.dispatch('modal/showSprintModal')
     }
