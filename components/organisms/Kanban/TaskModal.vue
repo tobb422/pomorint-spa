@@ -113,12 +113,7 @@ export default {
       resultCount: null,
       description: '',
       newLabelName: '',
-      selectLabels: [
-        { name: 'ラベル1' },
-        { name: 'ラベル2' },
-        { name: 'ラベル3' },
-        { name: 'ラベル4' }
-      ],
+      selectLabels: [],
       selectLabel: { name: '' },
       onEditLabel: false
     }
@@ -126,7 +121,7 @@ export default {
   computed: mapState({
     isShown: state => state.modal.taskModal
   }),
-  mounted() {
+  async mounted() {
     const task = this.$store.state.task
     if (task.selected.title) {
       this.title = task.selected.title
@@ -135,6 +130,9 @@ export default {
       this.resultCount = task.selected.resultCount
       this.description = task.selected.description
     }
+
+    const res = await new LabelsApi().index()
+    this.selectLabels = labelSerializer(res)
   },
   methods: {
     editLabel(label) {
