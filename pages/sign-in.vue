@@ -2,22 +2,31 @@
 section.Signin
   .title ログイン
   .email.label メールアドレス
-  el-input.email(placeholder="✕✕✕✕@✕✕✕✕.com")
+  el-input.email(placeholder="✕✕✕✕@✕✕✕✕.com" v-model="email")
   .password.label パスワード
-  el-input.password(placeholder="********")
+  el-input.password(placeholder="********" v-model="password")
   el-button(@click="click") ログイン
   nuxt-link(to="/sign-up") 新規登録はこちら
 </template>
 
 <script>
-import Session from '~/plugins/session'
-
 export default {
   name: 'SignIn',
+  data() {
+    return {
+      email: null,
+      password: null
+    }
+  },
   methods: {
+    isInValidForm() {
+      return !this.email || !this.password
+    },
     click() {
-      const session = new Session()
-      session.set({ token: 'test' })
+      this.$store.dispatch('user/login', {
+        email: this.email,
+        password: this.password
+      })
     }
   }
 }
