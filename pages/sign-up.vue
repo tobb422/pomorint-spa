@@ -3,24 +3,39 @@
     .signup
       .title 新規登録
       .name.label ニックネーム
-      el-input.name(placeholder="tobb422")
+      el-input.name(placeholder="tobb422" v-model="name")
       .email.label メールアドレス
-      el-input.email(placeholder="✕✕✕✕@✕✕✕✕.com")
+      el-input.email(placeholder="✕✕✕✕@✕✕✕✕.com" v-model="email")
       .password.label パスワード
-      el-input.password(placeholder="********")
+      el-input.password(placeholder="********" v-model="password")
       el-button(@click="click") 登録
       nuxt-link(to="/sign-in") ログインはこちら
 </template>
 
 <script>
-import Session from '~/plugins/session'
-
 export default {
   name: 'SignUp',
+  data() {
+    return {
+      name: null,
+      email: null,
+      password: null
+    }
+  },
   methods: {
+    isInvalidForm() {
+      return !this.name || !this.email || !this.password
+    },
     click() {
-      const session = new Session()
-      session.set({ token: 'test' })
+      if (this.isInvalidForm()) {
+        return
+      }
+
+      this.$store.dispatch('user/signup', {
+        name: this.name,
+        email: this.email,
+        password: this.password
+      })
     }
   }
 }

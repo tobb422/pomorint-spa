@@ -13,9 +13,11 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "chart.js": "^2.7.3",
     "cross-env": "^5.2.0",
     "element-ui": "^2.4.6",
+    "humps": "^2.0.1",
     "normalize.css": "^8.0.1",
     "nuxt": "^2.0.0",
     "universal-cookie": "^3.0.7",

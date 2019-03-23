@@ -2,10 +2,6 @@ const pkg = require('./package')
 
 module.exports = {
   mode: 'spa',
-
-  /*
-  ** Headers of the page
-  */
   head: {
     title: pkg.name,
     meta: [
@@ -15,38 +11,14 @@ module.exports = {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
-
-  /*
-  ** Customize the progress-bar color
-  */
   loading: { color: '#fff' },
-
-  /*
-  ** Global CSS
-  */
   css: ['element-ui/lib/theme-chalk/index.css', '@/assets/styles/main.scss'],
-
-  /*
-  ** Plugins to load before mounting the App
-  */
   plugins: ['@/plugins/element-ui', '@/plugins/router', '@/plugins/component'],
-
-  /*
-  ** Nuxt.js modules
-  */
   modules: [],
-
   router: {
     middleware: 'routing'
   },
-
-  /*
-  ** Build configuration
-  */
   build: {
-    /*
-    ** You can extend webpack config here
-    */
     extend(config, ctx) {
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {

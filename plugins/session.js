@@ -7,10 +7,7 @@ export default class Session {
 
   get(key) {
     const session = this._cookies.get('pomorint-session')
-    if (session) {
-      return session[key]
-    }
-    return null
+    return session ? session[key] : null
   }
 
   set(params) {
