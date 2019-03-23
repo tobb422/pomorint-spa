@@ -7,7 +7,11 @@ const defaultState = {
   image: ''
 }
 
-export const state = () => defaultState
+export const state = () => ({
+  name: defaultState.name,
+  email: defaultState.email,
+  image: defaultState.image
+})
 
 export const actions = {
   async setUser({ commit }) {
