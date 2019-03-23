@@ -7,13 +7,16 @@ section.Signin
   el-input.password(placeholder="********" v-model="password")
   el-button(@click="click") ログイン
   nuxt-link(to="/sign-up") 新規登録はこちら
+  GoogleAuthButton.google
 </template>
 
 <script>
 import Session from '~/plugins/session'
+import GoogleAuthButton from '~/components/molecules/GoogleAuthButton'
 
 export default {
   name: 'SignIn',
+  components: { GoogleAuthButton },
   data() {
     return {
       email: null,
@@ -86,6 +89,11 @@ export default {
     margin: 2rem 0;
     text-align: center;
     text-decoration: underline;
+  }
+
+  & > .google {
+    align-self: center;
+    width: 100%;
   }
 }
 </style>
