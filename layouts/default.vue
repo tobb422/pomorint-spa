@@ -15,8 +15,9 @@
         ul.popover-inner(style="margin: 0.5rem 0.5rem 0")
           li(style="margin-bottom: 0.5rem") #[nuxt-link(to="/mypage") プロフィール]
           el-button(type="text" @click="signout") ログアウト
-        .account-wrap(slot="reference" v-if="accountImage") #[img.account(:src="accountImage")]
-        i.fas.fa-user-circle.no-account(slot="reference" v-else)
+        .account-wrap(slot="reference")
+          img.account(:src="accountImage" v-if="accountImage")
+          i.fas.fa-user-circle.no-account(v-else)
     nuxt
     Toast
 </template>
@@ -33,6 +34,9 @@ export default {
     accountImage: state => state.user.image
   }),
   methods: {
+    test() {
+      console.log('test')
+    },
     signout() {
       this.$store.dispatch('auth/logout').then(_ => {
         this.$router.push({ name: 'sign-in' })
@@ -95,10 +99,15 @@ export default {
     margin-right: 2rem;
   }
 
-  .account {
+  .account-wrap {
     height: 2.5rem;
     width: 2.5rem;
     border-radius: 50%;
+    & > img.account {
+      height: 2.5rem;
+      width: 2.5rem;
+      border-radius: 50%;
+    }
   }
   .no-account {
     font-size: 2.5rem;
