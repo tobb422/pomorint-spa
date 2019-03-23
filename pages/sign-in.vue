@@ -10,6 +10,8 @@ section.Signin
 </template>
 
 <script>
+import Session from '~/plugins/session'
+
 export default {
   name: 'SignIn',
   data() {
@@ -18,15 +20,31 @@ export default {
       password: null
     }
   },
+  mounted() {
+    const session = new Session()
+    if (session.get('token')) {
+      this.$router.push('/')
+      this.$store.dispatch('toast/error', {
+        message: 'ログイン中です'
+      })
+    }
+  },
   methods: {
     isInValidForm() {
       return !this.email || !this.password
     },
     click() {
-      this.$store.dispatch('user/login', {
-        email: this.email,
-        password: this.password
-      })
+      this.$store
+        .dispatch('auth/login', {
+          email: this.email,
+          password: this.password
+        })
+        .then(_ => {
+          this.$router.push('/')
+          this.$store.dispatch('toast/success', {
+            message: 'ログインしました'
+          })
+        })
     }
   }
 }

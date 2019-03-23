@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import Session from '~/plugins/session'
+
 export default {
   name: 'SignUp',
   data() {
@@ -20,6 +22,15 @@ export default {
       name: null,
       email: null,
       password: null
+    }
+  },
+  mounted() {
+    const session = new Session()
+    if (session.get('token')) {
+      this.$router.push('/')
+      this.$store.dispatch('toast/error', {
+        message: 'ログイン中です'
+      })
     }
   },
   methods: {
@@ -31,11 +42,18 @@ export default {
         return
       }
 
-      this.$store.dispatch('user/signup', {
-        name: this.name,
-        email: this.email,
-        password: this.password
-      })
+      this.$store
+        .dispatch('auth/signup', {
+          name: this.name,
+          email: this.email,
+          password: this.password
+        })
+        .then(_ => {
+          this.$router.push('/')
+          this.$store.dispatch('toast/success', {
+            message: '新規登録しました'
+          })
+        })
     }
   }
 }

@@ -1,6 +1,5 @@
 import * as types from './mutation-types/user'
-import { AuthApi, UsersApi } from '../api'
-import Session from '../plugins/session'
+import { UsersApi } from '../api'
 
 export const state = () => ({
   name: '',
@@ -9,20 +8,7 @@ export const state = () => ({
 })
 
 export const actions = {
-  async signup({ commit }, payload) {
-    const token = await new AuthApi().signup(payload)
-    const session = new Session()
-    session.set({ token: token })
-
-    const users = await new UsersApi().show().catch(e => e)
-    commit(types.SET_USER, users)
-  },
-
-  async login({ commit }, payload) {
-    const token = await new AuthApi().login(payload)
-    const session = new Session()
-    session.set({ token: token })
-
+  async setUser({ commit }) {
     const users = await new UsersApi().show().catch(e => e)
     commit(types.SET_USER, users)
   }
