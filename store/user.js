@@ -1,16 +1,22 @@
 import * as types from './mutation-types/user'
 import { UsersApi } from '../api'
 
-export const state = () => ({
+const defaultState = {
   name: '',
   email: '',
   image: ''
-})
+}
+
+export const state = () => defaultState
 
 export const actions = {
   async setUser({ commit }) {
     const users = await new UsersApi().show().catch(e => e)
     commit(types.SET_USER, users)
+  },
+
+  removeUser({ commit }) {
+    commit(types.REMOVE_USER)
   }
 }
 
@@ -19,5 +25,10 @@ export const mutations = {
     state.name = payload.name
     state.email = payload.email
     state.image = payload.image
+  },
+  [types.REMOVE_USER](state) {
+    state.name = defaultState.name
+    state.email = defaultState.email
+    state.image = defaultState.image
   }
 }

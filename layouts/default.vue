@@ -30,9 +30,12 @@ export default {
   },
   methods: {
     signout() {
-      const session = new Session()
-      session.remove()
-      this.$router.push({ name: 'sign-in' })
+      this.$store.dispatch('auth/logout').then(_ => {
+        this.$router.push({ name: 'sign-in' })
+        this.$store.dispatch('toast/success', {
+          message: 'ログアウトしました'
+        })
+      })
     }
   }
 }
