@@ -18,6 +18,13 @@ export const actions = {
     })
   },
 
+  async google({ commit }, payload) {
+    const token = await new AuthApi().google()
+    this.dispatch('auth/setToken', { token: token }).then(() => {
+      this.dispatch('user/setUser')
+    })
+  },
+
   logout({ commit }) {
     const session = new Session()
     session.remove()

@@ -12,7 +12,14 @@ module.exports = {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
   loading: { color: '#fff' },
-  css: ['element-ui/lib/theme-chalk/index.css', '@/assets/styles/main.scss'],
+  css: [
+    'element-ui/lib/theme-chalk/index.css',
+    '@fortawesome/fontawesome-free-webfonts',
+    '@fortawesome/fontawesome-free-webfonts/css/fa-brands.css',
+    '@fortawesome/fontawesome-free-webfonts/css/fa-regular.css',
+    '@fortawesome/fontawesome-free-webfonts/css/fa-solid.css',
+    '@/assets/styles/main.scss'
+  ],
   plugins: ['@/plugins/element-ui', '@/plugins/router', '@/plugins/component'],
   modules: [],
   router: {

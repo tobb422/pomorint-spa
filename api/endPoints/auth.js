@@ -12,4 +12,9 @@ export default class AuthApi extends BaseApi {
   login(params) {
     return super.post(`${endPoint}/login`, params)
   }
+
+  // Google ログイン
+  google() {
+    return super.get(`${endPoint}/google`)
+  }
 }

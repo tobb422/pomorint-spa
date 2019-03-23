@@ -3,7 +3,7 @@ import Session from '~/plugins/session'
 const session = new Session()
 
 export default ({ app }) => {
-  const Unauthorization = ['/sign-in', '/sign-up']
+  const Unauthorization = ['/sign-in', '/sign-up', '/auth/callback']
   const unauthorizationPath = to => Unauthorization.some(path => path === to)
   app.router.beforeEach((to, from, next) => {
     if (unauthorizationPath(to.path)) {
