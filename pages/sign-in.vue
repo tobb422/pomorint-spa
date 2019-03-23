@@ -32,10 +32,17 @@ export default {
     }
   },
   methods: {
-    isInValidForm() {
+    isInvalidForm() {
       return !this.email || !this.password
     },
     click() {
+      if (this.isInvalidForm()) {
+        this.$store.dispatch('toast/error', {
+          message: 'すべてのフォームに入力してください'
+        })
+        return
+      }
+
       this.$store
         .dispatch('auth/login', {
           email: this.email,
@@ -45,6 +52,11 @@ export default {
           this.$router.push('/')
           this.$store.dispatch('toast/success', {
             message: 'ログインしました'
+          })
+        })
+        .catch(_ => {
+          this.$store.dispatch('toast/error', {
+            message: 'ログインに失敗しました'
           })
         })
     }

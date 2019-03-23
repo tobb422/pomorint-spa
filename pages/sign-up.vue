@@ -40,6 +40,9 @@ export default {
     },
     click() {
       if (this.isInvalidForm()) {
+        this.$store.dispatch('toast/error', {
+          message: 'すべてのフォームに入力してください'
+        })
         return
       }
 
@@ -53,6 +56,11 @@ export default {
           this.$router.push('/')
           this.$store.dispatch('toast/success', {
             message: '新規登録しました'
+          })
+        })
+        .catch(_ => {
+          this.$store.dispatch('toast/error', {
+            message: '新規登録に失敗しました'
           })
         })
     }
