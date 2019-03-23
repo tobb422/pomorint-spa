@@ -3,17 +3,32 @@
     .profile
       .title プロフィール
       .name.label ニックネーム
-      el-input.name(placeholder="tobb422")
+      el-input.name(placeholder="tobb422" v-model="name")
       .email.label メールアドレス
-      el-input.email(placeholder="tobb422@gmail.com")
+      el-input.email(placeholder="tobb422@gmail.com" v-model="email")
       .password.label パスワード
-      el-input.password(placeholder="********")
+      el-input.password(placeholder="********" v-model="password" show-password)
       el-button 登録
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-  name: 'Mypage'
+  name: 'Mypage',
+  data() {
+    return {
+      name: '',
+      email: '',
+      password: ''
+    }
+  },
+  mounted() {
+    console.log(this.$store.state.user.name)
+    this.name = this.$store.state.user.name
+    this.email = this.$store.state.user.email
+    this.password = this.$store.state.user.password
+  }
 }
 </script>
 

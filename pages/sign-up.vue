@@ -6,7 +6,7 @@
     .email.label メールアドレス
     el-input.email(placeholder="✕✕✕✕@✕✕✕✕.com" v-model="email")
     .password.label パスワード
-    el-input.password(placeholder="********" v-model="password")
+    el-input.password(placeholder="********" v-model="password" show-password)
     el-button.signup(@click="click") 登録
     nuxt-link(to="/sign-in") ログインはこちら
     GoogleAuthButton.google

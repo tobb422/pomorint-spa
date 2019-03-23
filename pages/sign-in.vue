@@ -4,7 +4,7 @@ section.Signin
   .email.label メールアドレス
   el-input.email(placeholder="✕✕✕✕@✕✕✕✕.com" v-model="email")
   .password.label パスワード
-  el-input.password(placeholder="********" v-model="password")
+  el-input.password(placeholder="********" v-model="password" show-password)
   el-button(@click="click") ログイン
   nuxt-link(to="/sign-up") 新規登録はこちら
   GoogleAuthButton.google
