@@ -26,14 +26,12 @@ export const actions = {
   },
 
   logout({ commit }) {
-    const session = new Session()
-    session.remove()
+    Session.remove()
     this.dispatch('user/removeUser')
   },
 
   setToken({ commit }, payload) {
-    const session = new Session()
-    session.set({ token: payload.token })
+    Session.set({ token: payload.token })
   }
 }
 

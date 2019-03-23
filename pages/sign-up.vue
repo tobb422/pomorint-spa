@@ -27,8 +27,7 @@ export default {
     }
   },
   mounted() {
-    const session = new Session()
-    if (session.get('token')) {
+    if (Session.get('token')) {
       this.$router.push('/')
       this.$store.dispatch('toast/error', {
         message: 'ログイン中です'

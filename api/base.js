@@ -7,7 +7,7 @@ import Session from '~/plugins/session'
 export default class BaseApi {
   constructor() {
     this._axios = () => {
-      const token = new Session().get('token')
+      const token = Session.get('token')
       console.log(token)
       const headers = token ? { Authorization: `Bearer ${token}` } : {}
       return axios.create({
