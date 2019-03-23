@@ -97,6 +97,8 @@
 <script>
 import ModalWindow from '~/components/molecules/ModalWindow'
 import { mapState } from 'vuex'
+import { LabelsApi } from '~/api'
+import { labelSerializer } from '~/serializers'
 
 export default {
   name: 'TaskModal',
@@ -159,10 +161,11 @@ export default {
       this.$nextTick(_ => this.$refs.addLabel.$el.click())
       this.labels.push(label)
     },
-    createNewLabel() {
+    async createNewLabel() {
       if (this.newLabelName.length > 0) {
+        const res = await new LabelsApi().create({ name: this.newLabelName })
         this.$nextTick(_ => this.$refs.newLabel.click())
-        this.selectLabels.push({ name: this.newLabelName })
+        this.selectLabels.push(labelSerializer(res))
         this.newLabelName = ''
       }
     }

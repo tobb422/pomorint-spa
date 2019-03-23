@@ -8,6 +8,7 @@ export default class UsersApi extends BaseApi {
     return super.get(`${endPoint}/info`)
   }
 
+  // ユーザー情報更新
   update(params) {
     return super.put(`${endPoint}`, params)
   }
