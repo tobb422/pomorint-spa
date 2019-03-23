@@ -140,7 +140,12 @@ export default {
       this.onEditLabel = true
     },
     deleteSelectLabel() {
-      this.onEditLabel = false
+      new LabelsApi().delete(this.selectLabel.id).then(_ => {
+        this.onEditLabel = false
+        this.selectLabels = this.selectLabels.filter(
+          label => label.id !== this.selectLabel.id
+        )
+      })
     },
     saveSelectLabel() {
       new LabelsApi().update(this.selectLabel).then(_ => {

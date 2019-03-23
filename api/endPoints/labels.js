@@ -17,4 +17,9 @@ export default class LabelsApi extends BaseApi {
   update(params) {
     return super.put(`${endPoint}/${params.id}`, { name: params.name })
   }
+
+  // ラベルの削除
+  delete(id) {
+    return super.delete(`${endPoint}/${id}`)
+  }
 }
