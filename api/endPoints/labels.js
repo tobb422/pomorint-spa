@@ -12,4 +12,9 @@ export default class LabelsApi extends BaseApi {
   create(params) {
     return super.post(`${endPoint}`, params)
   }
+
+  // ラベルの編集
+  update(params) {
+    return super.put(`${endPoint}/${params.id}`, { name: params.name })
+  }
 }

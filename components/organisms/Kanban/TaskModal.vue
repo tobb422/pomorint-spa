@@ -114,7 +114,7 @@ export default {
       description: '',
       newLabelName: '',
       selectLabels: [],
-      selectLabel: { name: '' },
+      selectLabel: {},
       onEditLabel: false
     }
   },
@@ -143,7 +143,9 @@ export default {
       this.onEditLabel = false
     },
     saveSelectLabel() {
-      this.onEditLabel = false
+      new LabelsApi().update(this.selectLabel).then(_ => {
+        this.onEditLabel = false
+      })
     },
     hide() {
       this.$store.dispatch('task/removeTask')
