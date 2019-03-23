@@ -7,4 +7,8 @@ export default class UsersApi extends BaseApi {
   show() {
     return super.get(`${endPoint}/info`)
   }
+
+  update(params) {
+    return super.put(`${endPoint}`, params)
+  }
 }

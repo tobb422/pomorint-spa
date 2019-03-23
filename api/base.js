@@ -18,7 +18,7 @@ export default class BaseApi {
     }
   }
 
-  async get(endPoint, params = {}) {
+  get(endPoint, params = {}) {
     return new Promise((resolve, reject) => {
       return this._axios()
         .get(endPoint, { params: decamelizeKeys(params) })
@@ -31,6 +31,15 @@ export default class BaseApi {
     return new Promise((resolve, reject) => {
       return this._axios()
         .post(endPoint, decamelizeKeys(params))
+        .then(res => successHandler(camelizeKeys(res.data), resolve))
+        .catch(e => errorHandler(e, reject))
+    })
+  }
+
+  put(endPoint, params) {
+    return new Promise((resolve, reject) => {
+      return this._axios()
+        .put(endPoint, decamelizeKeys(params))
         .then(res => successHandler(camelizeKeys(res.data), resolve))
         .catch(e => errorHandler(e, reject))
     })

@@ -8,7 +8,7 @@
       el-input.email(placeholder="tobb422@gmail.com" v-model="email")
       .password.label パスワード
       el-input.password(placeholder="********" v-model="password" show-password)
-      el-button 登録
+      el-button(@click="click") 登録
 </template>
 
 <script>
@@ -24,10 +24,36 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$store.state.user.name)
     this.name = this.$store.state.user.name
     this.email = this.$store.state.user.email
     this.password = this.$store.state.user.password
+  },
+  methods: {
+    click() {
+      let params = {}
+      if (!!this.name) {
+        params['name'] = this.name
+      }
+      if (!!this.email) {
+        params['email'] = this.email
+      }
+      if (!!this.password) {
+        params['password'] = this.password
+      }
+
+      this.$store
+        .dispatch('user/update', params)
+        .then(_ => {
+          this.$store.dispatch('toast/success', {
+            message: 'プロフィールを更新しました'
+          })
+        })
+        .catch(_ => {
+          this.$store.dispatch('toast/error', {
+            message: 'プロフィール更新に失敗しました'
+          })
+        })
+    }
   }
 }
 </script>

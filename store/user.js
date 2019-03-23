@@ -21,6 +21,11 @@ export const actions = {
 
   removeUser({ commit }) {
     commit(types.REMOVE_USER)
+  },
+
+  async update({ commit }, payload) {
+    const users = await new UsersApi().update(payload)
+    commit(types.SET_USER, users)
   }
 }
 
