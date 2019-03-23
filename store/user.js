@@ -15,13 +15,21 @@ export const actions = {
     session.set({ token: token })
 
     const users = await new UsersApi().show().catch(e => e)
-    console.log(users)
-    commit(types.SIGNUP, users)
+    commit(types.SET_USER, users)
+  },
+
+  async login({ commit }, payload) {
+    const token = await new AuthApi().login(payload)
+    const session = new Session()
+    session.set({ token: token })
+
+    const users = await new UsersApi().show().catch(e => e)
+    commit(types.SET_USER, users)
   }
 }
 
 export const mutations = {
-  [types.SIGNUP](state, payload) {
+  [types.SET_USER](state, payload) {
     state.name = payload.name
     state.email = payload.email
     state.image = payload.image

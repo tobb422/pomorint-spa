@@ -7,4 +7,9 @@ export default class AuthApi extends BaseApi {
   signup(params) {
     return super.post(`${endPoint}/signup`, params)
   }
+
+  // ログイン
+  login(params) {
+    return super.post(`${endPoint}/login`, params)
+  }
 }
