@@ -15,19 +15,22 @@
         ul.popover-inner(style="margin: 0.5rem 0.5rem 0")
           li(style="margin-bottom: 0.5rem") #[nuxt-link(to="/mypage") プロフィール]
           el-button(type="text" @click="signout") ログアウト
-        el-button(slot="reference").account
+        img(slot="reference" :src="accountImage").account
     nuxt
     Toast
 </template>
 
 <script>
-import Session from '~/plugins/session'
 import Toast from '~/components/molecules/Toast'
+import { mapState } from 'vuex'
 
 export default {
   components: {
     Toast
   },
+  computed: mapState({
+    accountImage: state => state.user.image
+  }),
   methods: {
     signout() {
       this.$store.dispatch('auth/logout').then(_ => {
