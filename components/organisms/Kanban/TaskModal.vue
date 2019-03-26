@@ -97,7 +97,7 @@
 <script>
 import ModalWindow from '~/components/molecules/ModalWindow'
 import { mapState } from 'vuex'
-import { LabelsApi } from '~/api'
+import { LabelsApi, IssuesApi } from '~/api'
 import { labelSerializer } from '~/serializers'
 
 export default {
@@ -107,6 +107,7 @@ export default {
   },
   data() {
     return {
+      id: null,
       title: '',
       labels: [],
       estimateCount: null,
@@ -124,6 +125,7 @@ export default {
   async mounted() {
     const task = this.$store.state.task
     if (task.selected.title) {
+      this.id = task.selected.id
       this.title = task.selected.title
       this.labels = [].concat(task.selected.labels)
       this.estimateCount = task.selected.estimateCount
@@ -157,7 +159,12 @@ export default {
       this.$store.dispatch('modal/hideTaskModal')
     },
     save() {
-      console.log(this.task)
+      new IssuesApi().create({
+        title: this.title,
+        labels: this.labels,
+        description: this.description,
+        estimatePoint: this.estimateCount
+      })
     },
     removeLabel(label) {
       this.labels.splice(this.labels.indexOf(label), 1)

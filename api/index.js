@@ -1,5 +1,6 @@
 import AuthApi from './endPoints/auth'
 import UsersApi from './endPoints/users'
 import LabelsApi from './endPoints/labels'
+import IssuesApi from './endPoints/Issues'
 
-export { AuthApi, UsersApi, LabelsApi }
+export { AuthApi, UsersApi, LabelsApi, IssuesApi }

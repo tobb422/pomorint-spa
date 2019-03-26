@@ -2,6 +2,7 @@ import * as types from './mutation-types/task'
 
 export const state = () => ({
   selected: {
+    id: null,
     title: '',
     estimateCount: 0,
     resultCount: 0,
