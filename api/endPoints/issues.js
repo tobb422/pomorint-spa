@@ -19,7 +19,7 @@ export default class IssuesApi extends BaseApi {
   }
 
   // イシューのアーカイブ
-  archived(params) {
+  archive(params) {
     return super.put(`${endPoint}/${params.id}/archived`)
   }
 
