@@ -10,7 +10,6 @@
         v-for="(item, index) in list"
         :key="index"
         :name="item.name"
-        :tasks="item.tasks"
       )
       AddList
       component(:is="modalName")
