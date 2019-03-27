@@ -31,8 +31,7 @@ import Task from './Task'
 import AddTask from './AddTask'
 import AddList from './AddList'
 import draggable from 'vuedraggable'
-import { IssuesApi } from '~/api'
-import { issueSerializer } from '~/serializers'
+import { mapState } from 'vuex'
 
 export default {
   name: 'TaskListBox',
@@ -50,7 +49,6 @@ export default {
   },
   data() {
     return {
-      tasks: [],
       onEditList: false
     }
   },
@@ -63,11 +61,13 @@ export default {
     },
     totalEstimateCount() {
       return this.totalCountFunc(this.tasks.map(t => t.estimateCount))
-    }
+    },
+    ...mapState({
+      tasks: state => state.taskList.list.tasks
+    })
   },
-  async mounted() {
-    const result = await new IssuesApi().index()
-    this.tasks = issueSerializer(result)
+  mounted() {
+    this.$store.dispatch('taskList/fetchTasks')
   },
   methods: {
     totalCountFunc(ary) {

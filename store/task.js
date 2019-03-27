@@ -1,4 +1,6 @@
 import * as types from './mutation-types/task'
+import { IssuesApi } from '~/api'
+import { issueSerializer } from '~/serializers'
 
 export const state = () => ({
   selected: {
@@ -18,6 +20,24 @@ export const actions = {
 
   removeTask({ commit }) {
     commit(types.REMOVE_TASK)
+  },
+
+  async createTask({ commit }, payload) {
+    const result = await new IssuesApi().create(payload)
+    this.dispatch('taskList/setTasks', {
+      tasks: this.state.taskList.list.tasks
+        .filter(t => t.id !== result.id)
+        .concat([issueSerializer(result)])
+    })
+  },
+
+  async updateTask({ commit }, payload) {
+    const result = await new IssuesApi().update(payload)
+    this.dispatch('taskList/setTasks', {
+      tasks: this.state.taskList.list.tasks
+        .filter(t => t.id !== result.id)
+        .concat([issueSerializer(result)])
+    })
   }
 }
 

@@ -161,17 +161,19 @@ export default {
     archive() {
       new IssuesApi().archive({ id: this.id })
     },
-    save() {
+    async save() {
       const params = {
         title: this.title,
         labels: [].concat(this.labels),
         description: this.description,
-        estimatePoint: this.estimateCount
+        estimatePoint: parseInt(this.estimateCount)
       }
       if (this.id) {
-        new IssuesApi().update({ id: this.id, ...params })
+        this.$store
+          .dispatch('task/updateTask', { id: this.id, ...params })
+          .then(_ => this.hide())
       } else {
-        new IssuesApi().create(params)
+        this.$store.dispatch('task/createTask', params).then(_ => this.hide())
       }
     },
     removeLabel(label) {
