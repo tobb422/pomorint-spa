@@ -40,6 +40,14 @@ export const actions = {
     })
   },
 
+  archiveTask({ commit }, payload) {
+    new IssuesApi().archive(payload).then(_ => {
+      this.dispatch('taskList/setTasks', {
+        tasks: this.state.taskList.list.tasks.filter(t => t.id !== payload.id)
+      })
+    })
+  },
+
   deleteTask({ commit }, payload) {
     new IssuesApi().delete(payload.id).then(_ => {
       this.dispatch('taskList/setTasks', {

@@ -164,7 +164,9 @@ export default {
         .then(_ => this.hide())
     },
     archive() {
-      new IssuesApi().archive({ id: this.id })
+      this.$store
+        .dispatch('task/archiveTask', { id: this.id })
+        .then(_ => this.hide())
     },
     async save() {
       const params = {
