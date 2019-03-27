@@ -162,12 +162,17 @@ export default {
       new IssuesApi().archive({ id: this.id })
     },
     save() {
-      new IssuesApi().create({
+      const params = {
         title: this.title,
-        labels: this.labels,
+        labels: [].concat(this.labels),
         description: this.description,
         estimatePoint: this.estimateCount
-      })
+      }
+      if (this.id) {
+        new IssuesApi().update({ id: this.id, ...params })
+      } else {
+        new IssuesApi().create(params)
+      }
     },
     removeLabel(label) {
       this.labels.splice(this.labels.indexOf(label), 1)

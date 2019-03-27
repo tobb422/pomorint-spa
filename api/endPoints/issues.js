@@ -15,7 +15,7 @@ export default class IssuesApi extends BaseApi {
 
   // イシューの編集
   update(params) {
-    return super.put(`${endPoint}/${params.id}`, { name: params.name })
+    return super.put(`${endPoint}/${params.id}`, params)
   }
 
   // イシューのアーカイブ
