@@ -89,7 +89,7 @@
             resize="none"
           )
       .footer
-        el-button.delete 削除
+        el-button.delete(@click="deleteTask") 削除
         el-button.archive(@click="archive") アーカイブ
         el-button.save(@click="save") 保存
 </template>
@@ -157,6 +157,11 @@ export default {
     hide() {
       this.$store.dispatch('task/removeTask')
       this.$store.dispatch('modal/hideTaskModal')
+    },
+    deleteTask() {
+      this.$store
+        .dispatch('task/deleteTask', { id: this.id })
+        .then(_ => this.hide())
     },
     archive() {
       new IssuesApi().archive({ id: this.id })
