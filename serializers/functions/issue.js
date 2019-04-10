@@ -8,7 +8,7 @@ export default function issueSerializer(target) {
       title: resource.title,
       description: resource.description,
       estimateCount: resource.estimatePoint,
-      resultCount: resource.resultPoint,
+      resultCount: resource.resultPoint || 0,
       archived: resource.archived,
       labels: labelSerializer(resource.labels)
     }
