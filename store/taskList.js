@@ -1,13 +1,15 @@
 import * as types from './mutation-types/taskList'
-import { IssuesApi } from '~/api'
-import { issueSerializer } from '~/serializers'
+import { IssuesApi, IssueBoxesApi } from '~/api'
+import { issueSerializer, issueBoxSerializer } from '~/serializers'
 
 export const state = () => ({
   selected: {},
-  list: {
-    title: '',
-    tasks: []
-  }
+  lists: [
+    {
+      title: '',
+      tasks: []
+    }
+  ]
 })
 
 export const actions = {
@@ -19,7 +21,12 @@ export const actions = {
     commit(types.REMOVE_TASK_LIST)
   },
 
-  async fetchTasks({ commit }) {
+  async fetchTaskLists({ commit }) {
+    const result = await new IssueBoxesApi()
+    commit(types.SET_TASK_LISTS, { lists: issueBoxSerializer(result) })
+  },
+
+  async fetchTasks() {
     const result = await new IssuesApi().index()
     this.dispatch('taskList/setTasks', { tasks: issueSerializer(result) })
   },
@@ -36,6 +43,10 @@ export const mutations = {
 
   [types.REMOVE_TASK_LIST](state) {
     state.selected = {}
+  },
+
+  [types.SET_TASK_LISTS](state, payload) {
+    state.lists = payload.lists
   },
 
   [types.SET_TASKS](state, payload) {
