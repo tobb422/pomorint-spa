@@ -47,7 +47,7 @@ export default {
     )
     this.$store.watch(
       _ => this.$store.state.modal.taskListModal,
-      res => (this.modalName = res ? 'TasListModal' : '')
+      res => (this.modalName = res ? 'TaskListModal' : '')
     )
   }
 }

@@ -72,7 +72,7 @@ export default {
       return ary.length > 0 ? ary.reduce((pre, current) => pre + current) : 0
     },
     openTaskListModal() {
-      this.$store.dispatch('taskList/selectTaskList', { title: this.name })
+      this.$store.dispatch('taskList/selectTaskList', this.taskList)
       this.$store.dispatch('modal/showTaskListModal')
     },
     openTaskModal(task) {

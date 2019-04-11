@@ -1,6 +1,5 @@
 <template lang="pug">
-  ModalWindow(
-    class="TaskModal"
+  ModalWindow.TaskModal(
     :isShown="isShown"
     :hide="hide"
   )

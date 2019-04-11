@@ -1,6 +1,5 @@
 <template lang="pug">
-  ModalWindow(
-    class="TaskListModal"
+  ModalWindow.TaskListModal(
     :isShown="isShown"
     :hide="hide"
   )
@@ -22,7 +21,7 @@ import ModalWindow from '~/components/molecules/ModalWindow'
 import { mapState } from 'vuex'
 
 export default {
-  name: 'TaskModal',
+  name: 'TaskListModal',
   components: {
     ModalWindow
   },
@@ -35,18 +34,24 @@ export default {
     isShown: state => state.modal.taskListModal
   }),
   mounted() {
-    const taskList = this.$store.state.taskList
-    if (taskList.selected.title) {
-      this.title = taskList.selected.title
-    }
+    const list = this.$store.state.taskList.selected
+    this.title = list.title
   },
   methods: {
     hide() {
-      this.$store.dispatch('task-list/removeTaskList')
+      this.$store.dispatch('taskList/removeTaskList')
       this.$store.dispatch('modal/hideTaskListModal')
     },
     save() {
-      console.log(this.title)
+      if (this.title) {
+        const params = {
+          id: this.$store.state.taskList.selected.id,
+          name: this.title
+        }
+        this.$store
+          .dispatch('taskList/changeTaskList', params)
+          .then(_ => this.hide())
+      }
     }
   }
 }
