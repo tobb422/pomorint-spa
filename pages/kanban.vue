@@ -7,9 +7,9 @@
       .achievementRate 達成率：50%
     .box-list
       TaskListBox.list(
-        v-for="(item, index) in list"
+        v-for="(list, index) in lists"
         :key="index"
-        :name="item.name"
+        :taskList="list"
       )
       AddList
       component(:is="modalName")
@@ -20,7 +20,7 @@ import TaskListBox from '~/components/organisms/Kanban/TaskListBox'
 import AddList from '~/components/organisms/Kanban/AddList'
 import TaskModal from '~/components/organisms/Kanban/TaskModal'
 import TaskListModal from '~/components/organisms/Kanban/TaskListModal'
-import { TaskList } from '~/plugins/tmp'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Kanban',
@@ -33,11 +33,14 @@ export default {
   data() {
     return {
       addList: false,
-      list: TaskList,
       modalName: ''
     }
   },
+  computed: mapState({
+    lists: state => state.taskList.lists
+  }),
   mounted() {
+    this.$store.dispatch('taskList/fetchTaskLists')
     this.$store.watch(
       _ => this.$store.state.modal.taskModal,
       res => (this.modalName = res ? 'TaskModal' : '')

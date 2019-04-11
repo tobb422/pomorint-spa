@@ -6,6 +6,7 @@ export const state = () => ({
   selected: {},
   lists: [
     {
+      id: null,
       title: '',
       tasks: []
     }
@@ -22,7 +23,7 @@ export const actions = {
   },
 
   async fetchTaskLists({ commit }) {
-    const result = await new IssueBoxesApi()
+    const result = await new IssueBoxesApi().index()
     commit(types.SET_TASK_LISTS, { lists: issueBoxSerializer(result) })
   },
 

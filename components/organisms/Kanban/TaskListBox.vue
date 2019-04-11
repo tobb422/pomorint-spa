@@ -1,7 +1,7 @@
 <template lang="pug">
   section.TaskListBox
     .header
-      .name(@click="openTaskListModal") {{ name }}
+      .name(@click="openTaskListModal") {{ taskList.title }}
       el-tooltip(content="全てのカードをアーカイブする" placement="top")
         img(src="~/assets/images/archive.png")
       el-tooltip(content="新しいカードを追加する" placement="top")
@@ -9,7 +9,7 @@
       .count ポモ数：{{ totalResultCount }} / {{ totalEstimateCount }}
     .tasks
       draggable(
-        :list="tasks"
+        :list="taskList.tasks"
         :options="{ group:'alltasks' }"
         :move="checkMove"
         v-for="(task, index) in draggableTasks"
@@ -21,7 +21,7 @@
           v-on:click.native="openTaskModal(task)"
         )
         AddTask(
-          v-else-if="tasks.length === 0"
+          v-else-if="taskList.tasks.length === 0"
           v-on:click.native="openTaskModal"
         )
 </template>
@@ -42,8 +42,8 @@ export default {
     draggable
   },
   props: {
-    name: {
-      type: String,
+    taskList: {
+      type: Object,
       required: true
     }
   },
@@ -54,20 +54,17 @@ export default {
   },
   computed: {
     draggableTasks() {
-      return this.tasks.concat([''])
+      return this.taskList.tasks.concat([''])
     },
     totalResultCount() {
-      return this.totalCountFunc(this.tasks.map(t => t.resultCount))
+      return this.totalCountFunc(this.taskList.tasks.map(t => t.resultCount))
     },
     totalEstimateCount() {
-      return this.totalCountFunc(this.tasks.map(t => t.estimateCount))
-    },
-    ...mapState({
-      tasks: state => state.taskList.list.tasks
-    })
+      return this.totalCountFunc(this.taskList.tasks.map(t => t.estimateCount))
+    }
   },
   mounted() {
-    this.$store.dispatch('taskList/fetchTasks')
+    // this.$store.dispatch('taskList/fetchTasks')
   },
   methods: {
     totalCountFunc(ary) {

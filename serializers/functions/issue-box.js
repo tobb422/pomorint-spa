@@ -4,7 +4,8 @@ export default function issueBoxSerializer(target) {
   const serialize = resource => {
     return {
       id: resource.id,
-      name: resource.name
+      title: resource.name,
+      tasks: []
     }
   }
 
