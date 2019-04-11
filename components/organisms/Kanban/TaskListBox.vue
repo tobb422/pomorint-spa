@@ -31,7 +31,6 @@ import Task from './Task'
 import AddTask from './AddTask'
 import AddList from './AddList'
 import draggable from 'vuedraggable'
-import { mapState } from 'vuex'
 
 export default {
   name: 'TaskListBox',
@@ -57,10 +56,12 @@ export default {
       return this.taskList.tasks.concat([''])
     },
     totalResultCount() {
-      return this.totalCountFunc(this.taskList.tasks.map(t => t.resultCount))
+      return 0
+      // return this.totalCountFunc(this.taskList.tasks.map(t => t.resultCount))
     },
     totalEstimateCount() {
-      return this.totalCountFunc(this.taskList.tasks.map(t => t.estimateCount))
+      return 0
+      // return this.totalCountFunc(this.taskList.tasks.map(t => t.estimateCount))
     }
   },
   mounted() {

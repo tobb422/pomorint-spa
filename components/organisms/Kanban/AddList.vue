@@ -1,10 +1,10 @@
 <template lang="pug">
   section.AddList
     .on(v-if="addList")
-      el-input
-      el-button.cancel(size="mini" @click="addList = false") キャンセル
-      el-button.add(size="mini") 作成
-    .off(v-else @click="addList = true") ＋ 新しいリストを追加する
+      el-input(v-model="title")
+      el-button.cancel(size="mini" @click="toggleAddList") キャンセル
+      el-button.add(size="mini" @click="createList") 作成
+    .off(v-else @click="toggleAddList") ＋ 新しいリストを追加する
 </template>
 
 <script>
@@ -12,7 +12,19 @@ export default {
   name: 'AddList',
   data() {
     return {
-      addList: false
+      addList: false,
+      title: null
+    }
+  },
+  methods: {
+    toggleAddList() {
+      this.addList = !this.addList
+    },
+    createList() {
+      if (this.title) {
+        this.$store.dispatch('taskList/addTaskList', { name: this.title })
+      }
+      this.toggleAddList()
     }
   }
 }

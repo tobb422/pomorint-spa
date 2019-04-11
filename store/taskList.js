@@ -27,6 +27,11 @@ export const actions = {
     commit(types.SET_TASK_LISTS, { lists: issueBoxSerializer(result) })
   },
 
+  async addTaskList({ commit }, payload) {
+    const result = await new IssueBoxesApi().create(payload)
+    commit(types.ADD_TASK_LIST, { list: issueBoxSerializer(result) })
+  },
+
   async fetchTasks() {
     const result = await new IssuesApi().index()
     this.dispatch('taskList/setTasks', { tasks: issueSerializer(result) })
@@ -48,6 +53,11 @@ export const mutations = {
 
   [types.SET_TASK_LISTS](state, payload) {
     state.lists = payload.lists
+  },
+
+  [types.ADD_TASK_LIST](state, payload) {
+    const lists = state.lists
+    state.lists = lists.concat([payload])
   },
 
   [types.SET_TASKS](state, payload) {
