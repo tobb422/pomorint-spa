@@ -119,7 +119,8 @@ export default {
     }
   },
   computed: mapState({
-    isShown: state => state.modal.taskModal
+    isShown: state => state.modal.taskModal,
+    taskList: state => state.task.selectedTaskList
   }),
   async mounted() {
     const task = this.$store.state.task
@@ -170,6 +171,7 @@ export default {
     async save() {
       const params = {
         title: this.title,
+        issueBox: this.taskList,
         labels: [].concat(this.labels),
         description: this.description,
         estimatePoint: parseInt(this.estimateCount)

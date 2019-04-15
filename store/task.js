@@ -10,12 +10,16 @@ export const state = () => ({
     resultCount: 0,
     description: '',
     labels: []
-  }
+  },
+  selectedTaskList: {}
 })
 
 export const actions = {
   selectTask({ commit }, payload) {
-    commit(types.SELECT_TASK, payload)
+    if (payload.task !== {}) {
+      commit(types.SELECT_TASK, payload.task)
+    }
+    commit(types.SET_TASK_LIST, payload.list)
   },
 
   removeTask({ commit }) {
@@ -64,5 +68,9 @@ export const mutations = {
 
   [types.REMOVE_TASK](state) {
     state.selected = {}
+  },
+
+  [types.SET_TASK_LIST](state, payload) {
+    state.selectedTaskList = payload
   }
 }
