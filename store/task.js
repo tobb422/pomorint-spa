@@ -28,19 +28,29 @@ export const actions = {
 
   async createTask({ commit }, payload) {
     const result = await new IssuesApi().create(payload)
-    this.dispatch('taskList/setTasks', {
-      tasks: this.state.taskList.list.tasks
-        .filter(t => t.id !== result.id)
-        .concat([issueSerializer(result)])
+    this.dispatch('taskList/setLists', {
+      lists: this.state.taskList.lists.filter(list => {
+        if (this.state.task.selectedTaskList.id === list.id) {
+          return list.tasks
+            .filter(t => t.id !== result.id)
+            .concat([issueSerializer(result)])
+        }
+        return list
+      })
     })
   },
 
   async updateTask({ commit }, payload) {
     const result = await new IssuesApi().update(payload)
-    this.dispatch('taskList/setTasks', {
-      tasks: this.state.taskList.list.tasks
-        .filter(t => t.id !== result.id)
-        .concat([issueSerializer(result)])
+    this.dispatch('taskList/setLists', {
+      lists: this.state.taskList.lists.filter(list => {
+        if (this.state.task.selectedTaskList.id === list.id) {
+          return list.tasks
+            .filter(t => t.id !== result.id)
+            .concat([issueSerializer(result)])
+        }
+        return list
+      })
     })
   },
 

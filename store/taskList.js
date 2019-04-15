@@ -42,8 +42,8 @@ export const actions = {
     this.dispatch('taskList/setTasks', { tasks: issueSerializer(result) })
   },
 
-  setTasks({ commit }, payload) {
-    commit(types.SET_TASKS, { tasks: payload.tasks })
+  setLists({ commit }, payload) {
+    commit(types.SET_LISTS, { lists: payload.lists })
   }
 }
 
@@ -70,7 +70,7 @@ export const mutations = {
     })
   },
 
-  [types.SET_TASKS](state, payload) {
-    state.list.tasks = payload.tasks
+  [types.SET_LISTS](state, payload) {
+    state.lists = payload.lists
   }
 }
