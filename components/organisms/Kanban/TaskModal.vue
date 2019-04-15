@@ -18,20 +18,7 @@
         .label
           .key
             .title ラベル
-            el-popover.popover(
-              placement="bottom"
-              width="300"
-              trigger="click"
-            )
-              .popover-inner(style="margin: 0.5rem")
-                .title 新しいラベルを作成
-                .wrap(style="display: flex; align-items: center")
-                  el-input(v-model="newLabelName" placeholder="ラベル名")
-                  el-button(
-                    style="margin: 0.5rem; background-color: #87CEFA; color: #fff"
-                    v-on:click.native="createNewLabel"
-                  ) 作成
-              img.edit-label(src="~/assets/images/setting.png" slot="reference" ref="newLabel")
+            NewLabel(:callback="newLabelCallBack")
           .value
             el-tag(
               v-for="(label, index) in labels"
@@ -95,6 +82,7 @@
 
 <script>
 import ModalWindow from '~/components/molecules/ModalWindow'
+import NewLabel from '~/components/molecules/NewLabel'
 import { mapState } from 'vuex'
 import { LabelsApi, IssuesApi } from '~/api'
 import { labelSerializer } from '~/serializers'
@@ -102,7 +90,8 @@ import { labelSerializer } from '~/serializers'
 export default {
   name: 'TaskModal',
   components: {
-    ModalWindow
+    ModalWindow,
+    NewLabel
   },
   data() {
     return {
@@ -112,7 +101,6 @@ export default {
       estimateCount: null,
       resultCount: null,
       description: '',
-      newLabelName: '',
       selectLabels: [],
       selectLabel: {},
       onEditLabel: false
@@ -191,13 +179,8 @@ export default {
       this.$nextTick(_ => this.$refs.addLabel.$el.click())
       this.labels.push(label)
     },
-    async createNewLabel() {
-      if (this.newLabelName.length > 0) {
-        const res = await new LabelsApi().create({ name: this.newLabelName })
-        this.$nextTick(_ => this.$refs.newLabel.click())
-        this.selectLabels.push(labelSerializer(res))
-        this.newLabelName = ''
-      }
+    async newLabelCallBack(res) {
+      this.selectLabels.push(res)
     }
   }
 }
