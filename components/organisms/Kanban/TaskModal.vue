@@ -20,51 +20,13 @@
             .title ラベル
             NewLabel(:callback="newLabelCallBack")
           .value
-            el-tag(
-              v-for="(label, index) in labels"
-              :key="index"
-              closable
-              @close="removeLabel(label)"
-            ) {{ label.name }}
-            el-popover.popover(
-              placement="bottom"
-              width="200"
-              trigger="click"
+            CustomizeLabels(
+              :labels="labels",
+              :selectLabels="selectLabels",
+              :addCallback="customizeLabelsAddCallBack",
+              :removeCallback="customizeLabelsRemoveCallBack",
+              :deleteCallback="customizeLabelsDeleteCallback"
             )
-              .popover-inner(style="margin: 0.5rem")
-                .title(style="margin-bottom: 0.5rem") 追加するラベルを選択
-                .edit-tag(v-if="onEditLabel")
-                  el-form(ref="form" :model="selectLabel")
-                    el-input(v-model="selectLabel.name")
-                  .button-box(style="margin: 1rem 0; display: flex;")
-                    el-button(
-                      style="width: 100%; background-color: #F66322; color: #fff"
-                      @click="deleteSelectLabel"
-                    ) 削除
-                    el-button(
-                      style="width: 100%; background-color: #87CEFA; color: #fff"
-                      @click="saveSelectLabel"
-                    ) 保存
-                .tag-box(style="height: 200px; overflow-y: scroll" v-else)
-                  .tag(
-                    v-for="(label, index) in selectLabels"
-                    :key="index"
-                    style="display: flex; align-items: center; height: 3rem;"
-                  )
-                    el-tag(
-                      style="margin: 1rem; flex-basis: 5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
-                      v-on:click.native="addLabel(label)"
-                    ) {{ label.name }}
-                    img(
-                      src="~/assets/images/setting.png"
-                      style="height: 1rem; flex-basis: 1rem; justify-self: end"
-                      @click="editLabel(label)"
-                    )
-              el-button.button-add-label(
-                size="small"
-                ref="addLabel"
-                slot="reference"
-              ) + 追加
         .detail
           .key 詳細
           el-input.value(
@@ -83,6 +45,7 @@
 <script>
 import ModalWindow from '~/components/molecules/ModalWindow'
 import NewLabel from '~/components/molecules/NewLabel'
+import CustomizeLabels from '~/components/molecules/CustomizeLabels'
 import { mapState } from 'vuex'
 import { LabelsApi, IssuesApi } from '~/api'
 import { labelSerializer } from '~/serializers'
@@ -91,7 +54,8 @@ export default {
   name: 'TaskModal',
   components: {
     ModalWindow,
-    NewLabel
+    NewLabel,
+    CustomizeLabels
   },
   data() {
     return {
@@ -101,9 +65,7 @@ export default {
       estimateCount: null,
       resultCount: null,
       description: '',
-      selectLabels: [],
-      selectLabel: {},
-      onEditLabel: false
+      selectLabels: []
     }
   },
   computed: mapState({
@@ -125,23 +87,6 @@ export default {
     this.selectLabels = labelSerializer(res)
   },
   methods: {
-    editLabel(label) {
-      this.selectLabel = label
-      this.onEditLabel = true
-    },
-    deleteSelectLabel() {
-      new LabelsApi().delete(this.selectLabel.id).then(_ => {
-        this.onEditLabel = false
-        this.selectLabels = this.selectLabels.filter(
-          label => label.id !== this.selectLabel.id
-        )
-      })
-    },
-    saveSelectLabel() {
-      new LabelsApi().update(this.selectLabel).then(_ => {
-        this.onEditLabel = false
-      })
-    },
     hide() {
       this.$store.dispatch('task/removeTask')
       this.$store.dispatch('modal/hideTaskModal')
@@ -172,12 +117,14 @@ export default {
         this.$store.dispatch('task/createTask', params).then(_ => this.hide())
       }
     },
-    removeLabel(label) {
+    customizeLabelsAddCallBack(label) {
+      this.labels.push(label)
+    },
+    customizeLabelsRemoveCallback(label) {
       this.labels.splice(this.labels.indexOf(label), 1)
     },
-    addLabel(label) {
-      this.$nextTick(_ => this.$refs.addLabel.$el.click())
-      this.labels.push(label)
+    customizeLabelsDeleteCallback(label) {
+      this.selectLabels = this.selectLabels.filter(l => l.id !== label.id)
     },
     async newLabelCallBack(res) {
       this.selectLabels.push(res)
@@ -256,27 +203,6 @@ export default {
       grid-column-gap: 1rem;
       align-items: center;
     }
-
-    & > .label > .key {
-      display: flex;
-      align-items: center;
-      img.edit-label {
-        height: 1rem;
-        margin-left: 0.5rem;
-      }
-    }
-
-    & > .label > .value {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-  }
-
-  .el-tag,
-  .el-button.button-add-label {
-    margin: 0 0.5rem 0.5rem 0;
-  }
 
   .el-textarea {
     width: calc(100% - 2rem);
