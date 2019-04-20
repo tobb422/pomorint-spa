@@ -24,7 +24,7 @@
               :labels="labels",
               :selectLabels="selectLabels",
               :addCallback="customizeLabelsAddCallBack",
-              :removeCallback="customizeLabelsRemoveCallBack",
+              :removeCallback="customizeLabelsRemoveCallback",
               :deleteCallback="customizeLabelsDeleteCallback"
             )
         .detail
@@ -203,6 +203,11 @@ export default {
       grid-column-gap: 1rem;
       align-items: center;
     }
+
+    & > .label > .key {
+      display: flex;
+    }
+  }
 
   .el-textarea {
     width: calc(100% - 2rem);

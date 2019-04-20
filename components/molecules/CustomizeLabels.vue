@@ -83,7 +83,7 @@ export default {
   methods: {
     addLabel(label) {
       this.$nextTick(_ => this.$refs.addLabel.$el.click())
-      this.addCallBack(label)
+      this.addCallback(label)
     },
     removeLabel(label) {
       this.removeCallback(label)
