@@ -13,7 +13,7 @@
   )
     .popover-inner(style="margin: 0.5rem")
       .title(style="margin-bottom: 0.5rem") 追加するラベルを選択
-      .edit-tag(v-if="onEditLabel")
+      .edit-tag(v-if="Object.keys(selectLabel).length > 0")
         el-form(ref="form" :model="selectLabel")
           el-input(v-model="selectLabel.name")
         .button-box(style="margin: 1rem 0; display: flex;")
@@ -38,7 +38,7 @@
           img(
             src="~/assets/images/setting.png"
             style="height: 1rem; flex-basis: 1rem; justify-self: end"
-            @click="editLabel(label)"
+            @click="setSelectLabel(label)"
           )
     el-button.button-add-label(
       size="small"
@@ -76,8 +76,7 @@ export default {
   },
   data() {
     return {
-      selectLabel: {},
-      onEditLabel: false
+      selectLabel: {}
     }
   },
   methods: {
@@ -88,20 +87,20 @@ export default {
     removeLabel(label) {
       this.removeCallback(label)
     },
-    editLabel(label) {
+    setSelectLabel(label) {
       this.selectLabel = label
-      this.onEditLabel = true
+    },
+    resetSelectLabel() {
+      this.selectLabel = {}
     },
     deleteSelectLabel() {
       new LabelsApi().delete(this.selectLabel.id).then(_ => {
-        this.onEditLabel = false
         this.deleteCallback(this.selectLabel)
+        this.resetSelectLabel()
       })
     },
     saveSelectLabel() {
-      new LabelsApi().update(this.selectLabel).then(_ => {
-        this.onEditLabel = false
-      })
+      new LabelsApi().update(this.selectLabel).then(this.resetSelectLabel)
     }
   }
 }

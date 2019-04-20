@@ -61,10 +61,10 @@ export default {
     return {
       id: null,
       title: '',
-      labels: [],
       estimateCount: null,
       resultCount: null,
       description: '',
+      labels: [],
       selectLabels: []
     }
   },
