@@ -1,7 +1,7 @@
 <template lang="pug">
 .CustomizeLabels
   el-tag(
-    v-for="(label, index) in labels"
+    v-for="(label, index) in selectLabels"
     :key="index"
     closable
     @close="removeLabel(label)"
@@ -23,11 +23,11 @@
           ) 削除
           el-button(
             style="width: 100%; background-color: #87CEFA; color: #fff"
-            @click="saveSelectLabel"
+            @click="editSelectLabel"
           ) 保存
       .tag-box(style="height: 200px; overflow-y: scroll" v-else)
         .tag(
-          v-for="(label, index) in selectLabels"
+          v-for="(label, index) in labels"
           :key="index"
           style="display: flex; align-items: center; height: 3rem;"
         )
@@ -49,14 +49,11 @@
 
 <script>
 import { LabelsApi } from '~/api'
+import { mapState } from 'vuex'
 
 export default {
   name: 'CustomizeLables',
   props: {
-    labels: {
-      type: Array,
-      required: true
-    },
     selectLabels: {
       type: Array,
       required: true
@@ -68,16 +65,18 @@ export default {
     removeCallback: {
       type: Function,
       required: true
-    },
-    deleteCallback: {
-      type: Function,
-      required: true
     }
   },
   data() {
     return {
       selectLabel: {}
     }
+  },
+  computed: mapState({
+    labels: state => state.label.labels
+  }),
+  mounted() {
+    this.$store.dispatch('label/index')
   },
   methods: {
     addLabel(label) {
@@ -88,19 +87,20 @@ export default {
       this.removeCallback(label)
     },
     setSelectLabel(label) {
-      this.selectLabel = label
+      this.selectLabel = Object.assign({}, label)
     },
     resetSelectLabel() {
       this.selectLabel = {}
     },
     deleteSelectLabel() {
-      new LabelsApi().delete(this.selectLabel.id).then(_ => {
-        this.deleteCallback(this.selectLabel)
-        this.resetSelectLabel()
-      })
+      this.$store
+        .dispatch('label/delete', { label: this.selectLabel })
+        .then(this.resetSelectLabel)
     },
-    saveSelectLabel() {
-      new LabelsApi().update(this.selectLabel).then(this.resetSelectLabel)
+    editSelectLabel() {
+      this.$store
+        .dispatch('label/put', { label: this.selectLabel })
+        .then(this.resetSelectLabel)
     }
   }
 }

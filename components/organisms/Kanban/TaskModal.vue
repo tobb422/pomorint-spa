@@ -18,14 +18,12 @@
         .label
           .key
             .title ラベル
-            NewLabel(:callback="newLabelCallBack")
+            NewLabel
           .value
             CustomizeLabels(
-              :labels="labels",
               :selectLabels="selectLabels",
               :addCallback="customizeLabelsAddCallBack",
-              :removeCallback="customizeLabelsRemoveCallback",
-              :deleteCallback="customizeLabelsDeleteCallback"
+              :removeCallback="customizeLabelsRemoveCallback"
             )
         .detail
           .key 詳細
@@ -64,7 +62,6 @@ export default {
       estimateCount: null,
       resultCount: null,
       description: '',
-      labels: [],
       selectLabels: []
     }
   },
@@ -77,14 +74,11 @@ export default {
     if (task.selected.title) {
       this.id = task.selected.id
       this.title = task.selected.title
-      this.labels = [].concat(task.selected.labels)
+      this.selectLabels = [].concat(task.selected.labels)
       this.estimateCount = task.selected.estimateCount
       this.resultCount = task.selected.resultCount
       this.description = task.selected.description
     }
-
-    const res = await new LabelsApi().index()
-    this.selectLabels = labelSerializer(res)
   },
   methods: {
     hide() {
@@ -105,7 +99,7 @@ export default {
       const params = {
         title: this.title,
         issueBox: this.taskList,
-        labels: [].concat(this.labels),
+        labels: [].concat(this.selectLabels),
         description: this.description,
         estimatePoint: parseInt(this.estimateCount)
       }
@@ -118,16 +112,10 @@ export default {
       }
     },
     customizeLabelsAddCallBack(label) {
-      this.labels.push(label)
+      this.selectLabels.push(label)
     },
     customizeLabelsRemoveCallback(label) {
-      this.labels.splice(this.labels.indexOf(label), 1)
-    },
-    customizeLabelsDeleteCallback(label) {
-      this.selectLabels = this.selectLabels.filter(l => l.id !== label.id)
-    },
-    async newLabelCallBack(res) {
-      this.selectLabels.push(res)
+      this.selectLabels.splice(this.selectLabels.indexOf(label), 1)
     }
   }
 }

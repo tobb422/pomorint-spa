@@ -16,17 +16,8 @@ el-popover.popover.NewLabel(
 </template>
 
 <script>
-import { LabelsApi } from '~/api'
-import { labelSerializer } from '~/serializers'
-
 export default {
   name: 'NewLabel',
-  props: {
-    callback: {
-      type: Function,
-      required: true
-    }
-  },
   data() {
     return {
       newLabelName: ''
@@ -34,12 +25,14 @@ export default {
   },
   methods: {
     async createNewLabel() {
-      if (this.newLabelName.length > 0) {
-        const res = await new LabelsApi().create({ name: this.newLabelName })
-        this.newLabelName = ''
-        this.$nextTick(_ => this.$refs.newLabel.click())
-        this.callback(labelSerializer(res))
-      }
+      if (this.newLabelName.length <= 0) return
+
+      this.$store
+        .dispatch('label/post', { name: this.newLabelName })
+        .then(_ => {
+          this.newLabelName = ''
+          this.$nextTick(_ => this.$refs.newLabel.click())
+        })
     }
   }
 }
