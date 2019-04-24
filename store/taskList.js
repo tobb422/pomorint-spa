@@ -38,7 +38,7 @@ export const actions = {
   },
 
   setLists({ commit }, payload) {
-    commit(types.SET_LISTS, { lists: payload.lists })
+    commit(types.SET_LISTS, { lists: payload })
   }
 }
 

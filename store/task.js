@@ -26,8 +26,9 @@ export const actions = {
     const result = await new IssuesApi().create(payload)
     const issue = issueSerializer(result)
     const newListId = result.issueBox.id
-    this.dispatch('taskList/setLists', {
-      lists: this.state.taskList.lists.map(list => {
+    this.dispatch(
+      'taskList/setLists',
+      this.state.taskList.lists.map(list => {
         if (list.id === newListId) {
           const newList = Object.assign({}, list)
           newList.tasks = list.tasks.concat([issue])
@@ -35,15 +36,16 @@ export const actions = {
         }
         return list
       })
-    })
+    )
   },
 
   async updateTask({ commit }, payload) {
     const result = await new IssuesApi().update(payload)
     const issue = issueSerializer(result)
     const newListId = result.issueBox.id
-    this.dispatch('taskList/setLists', {
-      lists: this.state.taskList.lists.map(list => {
+    this.dispatch(
+      'taskList/setLists',
+      this.state.taskList.lists.map(list => {
         const task = list.tasks.find(task => task.id === issue.id)
         if (task) {
           const newList = Object.assign({}, list)
@@ -65,7 +67,7 @@ export const actions = {
 
         return list
       })
-    })
+    )
   },
 
   archiveTask({ commit }, payload) {

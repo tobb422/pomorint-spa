@@ -9,22 +9,21 @@
       .count ポモ数：{{ totalResultCount }} / {{ totalEstimateCount }}
     .tasks
       draggable(
+        :class="calcIdClass(taskList.id)"
         :list="[].concat(taskList.tasks)"
-        :options="{ group:'alltasks' }"
+        group="taskList"
         :move="checkMove"
         @end="movedTask"
-        v-for="(task, index) in draggableTasks"
-        :key="index"
-        :class="calcIdClass(taskList.id)"
       )
         Task(
-          v-if="task.title"
+          v-for="(task, index) in taskList.tasks"
+          :key="index"
           :class="calcIdClass(task.id)"
           :task="task"
           v-on:click.native="openTaskModal(task)"
         )
         AddTask(
-          v-else-if="taskList.tasks.length === 0"
+          slot="footer"
           v-on:click.native="openTaskModal"
         )
 </template>
@@ -56,9 +55,6 @@ export default {
     }
   },
   computed: {
-    draggableTasks() {
-      return this.taskList.tasks.concat([''])
-    },
     totalResultCount() {
       return this.totalCountFunc(this.taskList.tasks.map(t => t.resultCount))
     },
@@ -96,9 +92,9 @@ export default {
       const nextList = this.lists.find(list => list.id === nextListId)
       this.$store.dispatch('task/updateTask', {
         id: targetTaskId,
-        issueBox: nextList
+        issueBox: nextList,
+        boxIndex: e.newIndex
       })
-      // console.log(e.newIndex)
     }
   }
 }
