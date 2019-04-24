@@ -86,9 +86,8 @@ export default {
       return !!e.draggedContext.element
     },
     movedTask(e) {
-      const classNames = e.item.className
-      const targetTaskId = classNames[classNames.length - 1]
-      const nextListId = parseInt(e.to.className[0])
+      const targetTaskId = e.item.className.replace(/Task /g, '')
+      const nextListId = parseInt(e.to.className)
       const nextList = this.lists.find(list => list.id === nextListId)
       this.$store.dispatch('task/updateTask', {
         id: targetTaskId,
