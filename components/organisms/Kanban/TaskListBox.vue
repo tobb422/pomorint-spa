@@ -9,15 +9,17 @@
       .count ポモ数：{{ totalResultCount }} / {{ totalEstimateCount }}
     .tasks
       draggable(
-        :list="taskList.tasks"
+        :list="[].concat(taskList.tasks)"
         :options="{ group:'alltasks' }"
         :move="checkMove"
-        :onEnd="test"
+        @end="movedTask"
         v-for="(task, index) in draggableTasks"
         :key="index"
+        :class="calcIdClass(taskList.id)"
       )
         Task(
           v-if="task.title"
+          :class="calcIdClass(task.id)"
           :task="task"
           v-on:click.native="openTaskModal(task)"
         )
@@ -32,6 +34,7 @@ import Task from './Task'
 import AddTask from './AddTask'
 import AddList from './AddList'
 import draggable from 'vuedraggable'
+import { mapState } from 'vuex'
 
 export default {
   name: 'TaskListBox',
@@ -61,9 +64,17 @@ export default {
     },
     totalEstimateCount() {
       return this.totalCountFunc(this.taskList.tasks.map(t => t.estimateCount))
-    }
+    },
+    ...mapState({
+      lists: state => state.taskList.lists
+    })
   },
   methods: {
+    calcIdClass(id) {
+      const obj = {}
+      obj[id] = true
+      return obj
+    },
     totalCountFunc(ary) {
       return ary.length > 0 ? ary.reduce((pre, current) => pre + current) : 0
     },
@@ -81,8 +92,16 @@ export default {
     checkMove(e) {
       return !!e.draggedContext.element
     },
-    test(e) {
-      console.log(e)
+    movedTask(e) {
+      const classNames = e.item.className
+      const targetTaskId = classNames[classNames.length - 1]
+      const nextListId = parseInt(e.to.className[0])
+      const nextList = this.lists.find(list => list.id === nextListId)
+      this.$store.dispatch('task/updateTask', {
+        id: targetTaskId,
+        issueBox: nextList
+      })
+      console.log(e.newIndex)
     }
   }
 }

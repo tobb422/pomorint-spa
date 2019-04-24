@@ -42,13 +42,28 @@ export const actions = {
 
   async updateTask({ commit }, payload) {
     const result = await new IssuesApi().update(payload)
+    const newListId = result.issueBox.id
     this.dispatch('taskList/setLists', {
-      lists: this.state.taskList.lists.filter(list => {
-        if (this.state.task.selectedTaskList.id === list.id) {
-          return list.tasks
-            .filter(t => t.id !== result.id)
-            .concat([issueSerializer(result)])
+      lists: this.state.taskList.lists.map(list => {
+        const task = list.tasks.find(task => task.id === result.id)
+        if (task) {
+          const newList = Object.assign({}, list)
+          if (list.id === newListId) {
+            newList.tasks = list.tasks.map(task => {
+              return task.id === result.id ? result : task
+            })
+          } else {
+            newList.tasks = list.tasks.filter(task => task.id !== result.id)
+          }
+          return newList
         }
+
+        if (list.id === newListId) {
+          const newList = Object.assign({}, list)
+          newList.tasks = list.tasks.concat([result])
+          return newList
+        }
+
         return list
       })
     })
