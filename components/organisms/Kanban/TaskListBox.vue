@@ -101,7 +101,7 @@ export default {
         id: targetTaskId,
         issueBox: nextList
       })
-      console.log(e.newIndex)
+      // console.log(e.newIndex)
     }
   }
 }

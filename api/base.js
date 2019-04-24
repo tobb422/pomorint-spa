@@ -8,7 +8,6 @@ export default class BaseApi {
   constructor() {
     this._axios = () => {
       const token = Session.get('token')
-      console.log(token)
       const headers = token ? { Authorization: `Bearer ${token}` } : {}
       return axios.create({
         baseURL: 'http://localhost:3001/',
