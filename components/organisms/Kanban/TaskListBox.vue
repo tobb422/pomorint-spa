@@ -12,6 +12,7 @@
         :list="taskList.tasks"
         :options="{ group:'alltasks' }"
         :move="checkMove"
+        :onEnd="test"
         v-for="(task, index) in draggableTasks"
         :key="index"
       )
@@ -56,16 +57,11 @@ export default {
       return this.taskList.tasks.concat([''])
     },
     totalResultCount() {
-      return 0
-      // return this.totalCountFunc(this.taskList.tasks.map(t => t.resultCount))
+      return this.totalCountFunc(this.taskList.tasks.map(t => t.resultCount))
     },
     totalEstimateCount() {
-      return 0
-      // return this.totalCountFunc(this.taskList.tasks.map(t => t.estimateCount))
+      return this.totalCountFunc(this.taskList.tasks.map(t => t.estimateCount))
     }
-  },
-  mounted() {
-    // this.$store.dispatch('taskList/fetchTasks')
   },
   methods: {
     totalCountFunc(ary) {
@@ -84,6 +80,9 @@ export default {
     },
     checkMove(e) {
       return !!e.draggedContext.element
+    },
+    test(e) {
+      console.log(e)
     }
   }
 }

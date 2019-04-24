@@ -37,11 +37,6 @@ export const actions = {
     commit(types.CHANGE_TASK_LIST, { list: issueBoxSerializer(result) })
   },
 
-  async fetchTasks() {
-    const result = await new IssuesApi().index()
-    this.dispatch('taskList/setTasks', { tasks: issueSerializer(result) })
-  },
-
   setLists({ commit }, payload) {
     commit(types.SET_LISTS, { lists: payload.lists })
   }
