@@ -37,6 +37,12 @@ export const actions = {
     commit(types.CHANGE_TASK_LIST, { list: issueBoxSerializer(result) })
   },
 
+  deleteTaskList({ commit }, payload) {
+    new IssueBoxesApi().delete(payload.id).then(_ => {
+      commit(types.DELETE_TASK_LIST, payload)
+    })
+  },
+
   setLists({ commit }, payload) {
     commit(types.SET_LISTS, { lists: payload })
   }
@@ -63,6 +69,10 @@ export const mutations = {
     state.lists = state.lists.map(list => {
       return payload.list.id === list.id ? payload.list : list
     })
+  },
+
+  [types.DELETE_TASK_LIST](state, payload) {
+    state.lists = state.lists.filter(list => list.id !== payload.id)
   },
 
   [types.SET_LISTS](state, payload) {

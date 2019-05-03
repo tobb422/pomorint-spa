@@ -11,8 +11,8 @@
         .label リストタイトル
         el-input(size="large" v-model="title" placeholder="")
       .footer
-        el-button.delete 削除
-        el-button.save(@click="save") 保存
+        el-button.delete(@click="deleteList") 削除
+        el-button.save(@click="saveList") 保存
 </template>
 
 <script>
@@ -41,15 +41,22 @@ export default {
       this.$store.dispatch('taskList/removeTaskList')
       this.$store.dispatch('modal/hideTaskListModal')
     },
-    save() {
+    loanFunc(action, params) {
+      this.$store.dispatch(`taskList/${action}`, params).then(this.hide)
+    },
+    deleteList() {
+      const params = {
+        id: this.$store.state.taskList.selected.id
+      }
+      this.loanFunc('deleteTaskList', params)
+    },
+    saveList() {
       if (this.title) {
         const params = {
           id: this.$store.state.taskList.selected.id,
           name: this.title
         }
-        this.$store
-          .dispatch('taskList/changeTaskList', params)
-          .then(_ => this.hide())
+        this.loanFunc('changeTaskList', params)
       }
     }
   }
