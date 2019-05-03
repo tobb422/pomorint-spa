@@ -12,7 +12,6 @@
         el-input(size="large" v-model="title" placeholder="")
       .footer
         el-button.delete 削除
-        el-button.archive アーカイブ
         el-button.save(@click="save") 保存
 </template>
 
