@@ -9,6 +9,7 @@ export default function issueSerializer(target) {
       description: resource.description,
       estimateCount: resource.estimatePoint,
       resultCount: resource.resultPoint || 0,
+      boxIndex: resource.boxIndex,
       archived: resource.archived,
       labels: labelSerializer(resource.labels)
     }

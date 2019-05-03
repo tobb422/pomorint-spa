@@ -47,25 +47,19 @@ export const actions = {
       'taskList/setLists',
       this.state.taskList.lists.map(list => {
         const task = list.tasks.find(task => task.id === issue.id)
+        const newList = Object.assign({}, list)
+
         if (task) {
-          const newList = Object.assign({}, list)
-          if (list.id === newListId) {
-            newList.tasks = list.tasks.map(task => {
-              return task.id === issue.id ? issue : task
-            })
-          } else {
-            newList.tasks = list.tasks.filter(task => task.id !== issue.id)
-          }
-          return newList
+          newList.tasks = newList.tasks.filter(task => task.id !== issue.id)
         }
 
         if (list.id === newListId) {
-          const newList = Object.assign({}, list)
-          newList.tasks = list.tasks.concat([issue])
-          return newList
+          const tasks = [].concat(newList.tasks)
+          tasks.splice(issue.boxIndex, 0, issue)
+          newList.tasks = tasks
         }
 
-        return list
+        return newList
       })
     )
   },
