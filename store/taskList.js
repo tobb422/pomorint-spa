@@ -56,7 +56,7 @@ export const mutations = {
   },
 
   [types.ADD_TASK_LIST](state, payload) {
-    state.lists = state.lists.concat([payload])
+    state.lists = state.lists.concat([payload.list])
   },
 
   [types.CHANGE_TASK_LIST](state, payload) {
