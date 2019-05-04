@@ -18,6 +18,7 @@
     "axios": "^0.18.0",
     "chart.js": "^2.8.0",
     "cross-env": "^5.2.0",
+    "dayjs": "^1.8.13",
     "element-ui": "^2.8.2",
     "humps": "^2.0.1",
     "normalize.css": "^8.0.1",
