@@ -37,7 +37,7 @@
       .footer
         el-button.delete(@click="deleteTask" :disabled="isInit") 削除
         el-button.archive(@click="archive" :disabled="isInit") アーカイブ
-        el-button.save(@click="save") 保存
+        el-button.save(@click="save" :disabled="!availableSave") 保存
 </template>
 
 <script>
@@ -66,10 +66,15 @@ export default {
       isInit: false
     }
   },
-  computed: mapState({
-    isShown: state => state.modal.taskModal,
-    taskList: state => state.task.taskList
-  }),
+  computed: {
+    availableSave() {
+      return !!this.title && !!this.description && !!this.estimateCount
+    },
+    ...mapState({
+      isShown: state => state.modal.taskModal,
+      taskList: state => state.task.taskList
+    })
+  },
   async mounted() {
     const task = this.$store.state.task
     if (task.selected.title) {
@@ -99,6 +104,8 @@ export default {
         .then(_ => this.hide())
     },
     async save() {
+      if (!this.availableSave) return
+
       const params = {
         title: this.title,
         issueBox: this.taskList,
@@ -106,7 +113,7 @@ export default {
         description: this.description,
         estimatePoint: parseInt(this.estimateCount)
       }
-      console.log(this.taskList)
+
       if (this.id) {
         this.$store
           .dispatch('task/updateTask', { id: this.id, ...params })
