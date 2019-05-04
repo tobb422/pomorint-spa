@@ -67,7 +67,7 @@ export default {
   },
   computed: mapState({
     isShown: state => state.modal.taskModal,
-    taskList: state => state.task.selectedTaskList
+    taskList: state => state.task.taskList
   }),
   async mounted() {
     const task = this.$store.state.task
@@ -103,6 +103,7 @@ export default {
         description: this.description,
         estimatePoint: parseInt(this.estimateCount)
       }
+      console.log(this.taskList)
       if (this.id) {
         this.$store
           .dispatch('task/updateTask', { id: this.id, ...params })
