@@ -35,8 +35,8 @@
             resize="none"
           )
       .footer
-        el-button.delete(@click="deleteTask") 削除
-        el-button.archive(@click="archive") アーカイブ
+        el-button.delete(@click="deleteTask" :disabled="isInit") 削除
+        el-button.archive(@click="archive" :disabled="isInit") アーカイブ
         el-button.save(@click="save") 保存
 </template>
 
@@ -62,7 +62,8 @@ export default {
       estimateCount: null,
       resultCount: null,
       description: '',
-      selectLabels: []
+      selectLabels: [],
+      isInit: false
     }
   },
   computed: mapState({
@@ -78,6 +79,8 @@ export default {
       this.estimateCount = task.selected.estimateCount
       this.resultCount = task.selected.resultCount
       this.description = task.selected.description
+    } else {
+      this.isInit = true
     }
   },
   methods: {
@@ -211,6 +214,9 @@ export default {
       width: 7rem;
       height: 3rem;
       color: $color-white;
+      &:disabled {
+        opacity: 0.3;
+      }
     }
 
     & > button.delete {
