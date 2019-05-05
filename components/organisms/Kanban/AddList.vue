@@ -1,10 +1,10 @@
 <template lang="pug">
-  section.AddList
-    .on(v-if="addList")
-      el-input(v-model="title")
-      el-button.cancel(size="mini" @click="toggleAddList") キャンセル
-      el-button.add(size="mini" @click="createList") 作成
-    .off(v-else @click="toggleAddList") ＋ 新しいリストを追加する
+section.AddList
+  .on(v-if="addList")
+    el-input(v-model="title")
+    el-button.cancel(size="mini" @click="toggleAddList") キャンセル
+    el-button.add(size="mini" @click="createList") 作成
+  .off(v-else @click="toggleAddList") ＋ 新しいリストを追加する
 </template>
 
 <script>

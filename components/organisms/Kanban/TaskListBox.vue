@@ -9,23 +9,20 @@
       .count ポモ数：{{ totalResultCount }} / {{ totalEstimateCount }}
     .tasks
       draggable(
-        :class="calcIdClass(taskList.id)"
+        :class="markId(taskList.id)"
         :list="[].concat(taskList.tasks)"
         group="taskList"
         :move="checkMove"
         @end="movedTask"
       )
         Task(
-          v-for="(task, index) in taskList.tasks"
-          :key="index"
-          :class="calcIdClass(task.id)"
+          v-for="task in taskList.tasks"
+          :key="task.id"
+          :class="markId(task.id)"
           :task="task"
           v-on:click.native="openTaskModal(task)"
         )
-        AddTask(
-          slot="footer"
-          v-on:click.native="openTaskModal"
-        )
+        AddTask(slot="footer" v-on:click.native="openTaskModal")
 </template>
 
 <script>
@@ -49,29 +46,27 @@ export default {
       required: true
     }
   },
-  data() {
-    return {
-      onEditList: false
-    }
-  },
   computed: {
+    tasks() {
+      return this.taskList.tasks
+    },
     totalResultCount() {
-      return this.totalCountFunc(this.taskList.tasks.map(t => t.resultCount))
+      return this.totalCount(this.tasks.map(t => t.resultCount))
     },
     totalEstimateCount() {
-      return this.totalCountFunc(this.taskList.tasks.map(t => t.estimateCount))
+      return this.totalCount(this.tasks.map(t => t.estimateCount))
     },
     ...mapState({
       lists: state => state.taskList.lists
     })
   },
   methods: {
-    calcIdClass(id) {
+    markId(id) {
       const obj = {}
       obj[id] = true
       return obj
     },
-    totalCountFunc(ary) {
+    totalCount(ary) {
       return ary.length > 0 ? ary.reduce((pre, current) => pre + current) : 0
     },
     openTaskListModal() {
@@ -92,11 +87,13 @@ export default {
       const targetTaskId = e.item.className.replace(/Task /g, '')
       const nextListId = parseInt(e.to.className)
       const nextList = this.lists.find(list => list.id === nextListId)
-      this.$store.dispatch('task/updateTask', {
+      const params = {
         id: targetTaskId,
         issueBox: nextList,
         boxIndex: e.newIndex
-      })
+      }
+
+      this.$store.dispatch('task/updateTask', params)
     }
   }
 }

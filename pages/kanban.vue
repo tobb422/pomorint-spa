@@ -1,18 +1,9 @@
 <template lang="pug">
-  section.Kanban
-    <!--.sprint-->
-      <!--.title 現在のスプリント-->
-      <!--.period 期間：2018/12/05 ~ 2018/12/11-->
-      <!--.count ポモ数：10 / 20-->
-      <!--.achievementRate 達成率：50%-->
-    .box-list
-      TaskListBox.list(
-        v-for="(list, index) in lists"
-        :key="index"
-        :taskList="list"
-      )
-      AddList
-      component(:is="modalName")
+section.Kanban
+  .box-list
+    TaskListBox.list(v-for="list in lists" :key="list.id" :taskList="list")
+    AddList
+    component(:is="modalName")
 </template>
 
 <script>
@@ -32,7 +23,6 @@ export default {
   },
   data() {
     return {
-      addList: false,
       modalName: ''
     }
   },
@@ -54,32 +44,15 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '~assets/styles/_vars';
-@import '~assets/styles/_libs';
-@import '~assets/styles/_type';
-
 .Kanban {
   margin: 2rem 3rem 1.5rem;
   overflow: hidden;
-
-  .sprint {
-    margin-bottom: 0.5rem;
-    display: flex;
-
-    & > div {
-      margin: 0 0.5rem;
-    }
-  }
 
   .box-list {
     display: flex;
     height: 100%;
     width: 100%;
     overflow-x: scroll;
-    -ms-overflow-style: none;
-    &::-webkit-scrollbar {
-      display: none;
-    }
   }
 
   .list {
