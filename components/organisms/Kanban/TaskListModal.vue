@@ -1,8 +1,5 @@
 <template lang="pug">
-  ModalWindow.TaskListModal(
-    :isShown="isShown"
-    :hide="hide"
-  )
+  ModalWindow.TaskListModal(:hide="hide")
     .content(slot="main")
       .header
         .cross
@@ -29,17 +26,13 @@ export default {
       title: ''
     }
   },
-  computed: mapState({
-    isShown: state => state.modal.taskListModal
-  }),
   mounted() {
-    const list = this.$store.state.taskList.selected
+    const list = this.$store.state.modal.taskList
     this.title = list.title
   },
   methods: {
     hide() {
-      this.$store.dispatch('taskList/removeTaskList')
-      this.$store.dispatch('modal/hideTaskListModal')
+      this.$store.dispatch('modal/hideTaskList')
     },
     loanFunc(action, params) {
       this.$store.dispatch(`taskList/${action}`, params).then(this.hide)

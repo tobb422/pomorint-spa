@@ -1,37 +1,31 @@
 import * as types from './mutation-types/modal'
 
 export const state = () => ({
-  task: {
-    id: null,
-    title: '',
-    estimateCount: 0,
-    resultCount: 0,
-    description: '',
-    labels: [],
-    list: {}
-  },
-  taskListModal: false,
+  task: {},
+  taskList: {},
   sprintModal: false
 })
 
 export const actions = {
   showTask({ commit }, payload) {
-    if (payload.task !== {}) {
-      commit(types.SHOW_TASK, {
-        ...payload.task,
-        list: payload.list
-      })
-    }
+    commit(types.SHOW_TASK, {
+      ...payload.task,
+      isShow: true,
+      list: payload.list
+    })
   },
   hideTask({ commit }) {
     commit(types.HIDE_TASK)
   },
 
-  showTaskListModal({ commit }) {
-    commit(types.SHOW_TASK_LIST_MODAL)
+  showTaskList({ commit }, payload) {
+    commit(types.SHOW_TASK_LIST, {
+      ...payload.taskList,
+      isShow: true
+    })
   },
-  hideTaskListModal({ commit }) {
-    commit(types.HIDE_TASK_LIST_MODAL)
+  hideTaskList({ commit }) {
+    commit(types.HIDE_TASK_LIST)
   },
 
   showSprintModal({ commit }) {
@@ -50,11 +44,11 @@ export const mutations = {
     state.task = {}
   },
 
-  [types.SHOW_TASK_LIST_MODAL](state) {
-    state.taskListModal = true
+  [types.SHOW_TASK_LIST](state, payload) {
+    state.taskList = payload
   },
-  [types.HIDE_TASK_LIST_MODAL](state) {
-    state.taskListModal = false
+  [types.HIDE_TASK_LIST](state) {
+    state.taskList = {}
   },
 
   [types.SHOW_SPRINT_MODAL](state) {

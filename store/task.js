@@ -1,4 +1,3 @@
-import * as types from './mutation-types/task'
 import { IssuesApi } from '~/api'
 import { issueSerializer } from '~/serializers'
 

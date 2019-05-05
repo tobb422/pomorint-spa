@@ -33,11 +33,11 @@ export default {
     this.$store.dispatch('taskList/fetchTaskLists')
     this.$store.watch(
       _ => this.$store.state.modal.task,
-      res => (this.modalName = res.id ? 'TaskModal' : '')
+      res => (this.modalName = res.isShow ? 'TaskModal' : '')
     )
     this.$store.watch(
-      _ => this.$store.state.modal.taskListModal,
-      res => (this.modalName = res ? 'TaskListModal' : '')
+      _ => this.$store.state.modal.taskList,
+      res => (this.modalName = res.isShow ? 'TaskListModal' : '')
     )
   }
 }
