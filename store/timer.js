@@ -1,9 +1,12 @@
 import * as types from './mutation-types/timer'
 import { AudioPlay } from '~/plugins/audio'
 
+const DefaultMin = 0
+const DefaultSec = 3
+
 export const state = () => ({
-  min: 25,
-  sec: 0,
+  min: DefaultMin,
+  sec: DefaultSec,
   timerOn: false,
   timerObj: null
 })
@@ -12,15 +15,12 @@ export const getters = {
   timer: state => {
     const time2str = time => {
       const str = time.toString()
-      if (str.length < 2) {
-        return '0' + str
-      }
-      return str
+      return str.length < 2 ? '0' + str : str
     }
     return time2str(state.min) + ':' + time2str(state.sec)
   },
   timePer: state => {
-    const total = 25 * 60
+    const total = DefaultMin * 60 + DefaultSec
     const remain = total - (state.min * 60 + state.sec)
     return Math.floor((remain / total) * 100)
   }
@@ -38,6 +38,7 @@ export const actions = {
   },
   complete() {
     AudioPlay()
+    this.dispatch('pomodoro/completeTask')
     this.dispatch('timer/reset')
   }
 }
@@ -60,7 +61,7 @@ export const mutations = {
   [types.RESET](state) {
     clearInterval(state.timerObj)
     state.timerOn = false
-    state.min = 25
-    state.sec = 0
+    state.min = DefaultMin
+    state.sec = DefaultSec
   }
 }
