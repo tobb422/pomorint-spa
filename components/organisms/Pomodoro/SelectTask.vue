@@ -43,19 +43,19 @@ export default {
 .SelectTask {
   .header {
     @include type-heading;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
   }
 
   .box {
     border: 1px solid $color-sky;
     margin: 0 auto;
-    padding: 1rem;
+    padding: 2rem;
     width: 560px;
     text-align: left;
   }
 
   ul.tasks {
-    height: 150px;
+    height: 200px;
     overflow-y: scroll;
 
     & > li {

@@ -38,7 +38,7 @@ export default {
 
 .CurrentTask {
   .header {
-    margin: 0 auto 0.5rem;
+    margin: 0 auto 1rem;
     width: 560px;
     display: grid;
     grid-template-areas: 'header';
@@ -60,7 +60,7 @@ export default {
   .box {
     border: 1px solid $color-sky;
     margin: 0 auto;
-    padding: 1rem;
+    padding: 2rem;
     width: 560px;
     text-align: left;
   }

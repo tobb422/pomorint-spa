@@ -1,7 +1,7 @@
 <template lang="pug">
   section.Pomodoro
     .pomodoro-box
-      PomodoroHead
+      //PomodoroHead
       Timer
       CurrentTask(v-if="isSelectedTask")
       SelectTask(v-else)
@@ -36,11 +36,16 @@ export default {
 @import '~assets/styles/_type';
 
 .Pomodoro {
+  position: relative;
   .pomodoro-box {
-    height: 80%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    -webkit-transform: translateY(-50%) translateX(-50%);
     max-width: 700px;
-    margin: 2rem auto;
-    padding: 3rem 0;
+    margin: auto;
+    padding: 3rem 1.5rem;
     border: 1px solid $color-gray-light;
     text-align: center;
   }
