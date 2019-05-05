@@ -2,30 +2,34 @@
   section.SelectTask
     .header カードの選択
     .box
-      el-tabs(v-model="activeName")
-        el-tab-pane(label="IceBox" name="IceBox")
-        el-tab-pane(label="ToDo" name="ToDo")
-        el-tab-pane(label="InProgress" name="InProgress")
-        el-tab-pane(label="Done" name="Done")
-      ul.tasks
-        li(v-for="(task, index) in currentTask" :key="index" @click="select(task)") {{ task.title }}
+      el-tabs(v-model="activeListTitle")
+        el-tab-pane(v-for="list in lists" :label="list.title" :name="list.title" :key="list.id")
+      ul.tasks(v-if="currentList")
+        li(v-for="task in currentList.tasks" :key="task.id" @click="select(task)") {{ task.title }}
 </template>
 
 <script>
-import { TaskList } from '~/plugins/tmp'
+import { mapState } from 'vuex'
 
 export default {
   name: 'SelectTask',
   data() {
     return {
-      activeName: 'IceBox',
-      taskList: TaskList
+      activeListTitle: ''
     }
   },
   computed: {
-    currentTask() {
-      return this.taskList.find(tl => tl.name === this.activeName).tasks
+    ...mapState({
+      lists: state => state.taskList.lists
+    }),
+    currentList() {
+      return this.lists.find(list => list.title === this.activeListTitle)
     }
+  },
+  mounted() {
+    this.$store.dispatch('taskList/fetchTaskLists').then(_ => {
+      this.activeListTitle = this.lists[0].title
+    })
   },
   methods: {
     select(task) {
