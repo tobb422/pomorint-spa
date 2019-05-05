@@ -30,7 +30,7 @@ import Task from './Task'
 import AddTask from './AddTask'
 import AddList from './AddList'
 import draggable from 'vuedraggable'
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'TaskListBox',
@@ -56,8 +56,8 @@ export default {
     totalEstimateCount() {
       return this.totalCount(this.tasks.map(t => t.estimateCount))
     },
-    ...mapState({
-      lists: state => state.taskList.lists
+    ...mapGetters({
+      lists: 'taskList/lists'
     })
   },
   methods: {

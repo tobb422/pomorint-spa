@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'SelectTask',
@@ -19,8 +19,8 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      lists: state => state.taskList.lists
+    ...mapGetters({
+      lists: 'taskList/lists'
     }),
     currentList() {
       return this.lists.find(list => list.title === this.activeListTitle)

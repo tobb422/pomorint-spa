@@ -2,61 +2,40 @@ import { IssuesApi } from '~/api'
 import { issueSerializer } from '~/serializers'
 
 export const actions = {
-  async create({ commit }, payload) {
+  async create({}, payload) {
     const result = await new IssuesApi().create(payload)
-    const issue = issueSerializer(result)
-    const newListId = result.issueBox.id
+    const task = issueSerializer(result)
     this.dispatch(
       'taskList/setLists',
-      this.state.taskList.lists.map(list => {
-        if (list.id === newListId) {
-          const newList = Object.assign({}, list)
-          newList.tasks = list.tasks.concat([issue])
-          return newList
-        }
-        return list
-      })
+      this.state.taskList.manager.addTask(task, result.issueBox.id)
     )
   },
 
-  async update({ commit }, payload) {
+  async update({}, payload) {
     const result = await new IssuesApi().update(payload)
-    const issue = issueSerializer(result)
-    const newListId = result.issueBox.id
+    const task = issueSerializer(result)
     this.dispatch(
       'taskList/setLists',
-      this.state.taskList.lists.map(list => {
-        const task = list.tasks.find(task => task.id === issue.id)
-        const newList = Object.assign({}, list)
-
-        if (task) {
-          newList.tasks = newList.tasks.filter(task => task.id !== issue.id)
-        }
-
-        if (list.id === newListId) {
-          const tasks = [].concat(newList.tasks)
-          tasks.splice(issue.boxIndex, 0, issue)
-          newList.tasks = tasks
-        }
-
-        return newList
-      })
+      this.state.taskList.manager.updateTask(task, result.issueBox.id)
     )
   },
 
-  archive({ commit }, payload) {
+  archive({}, payload) {
     new IssuesApi().archive(payload).then(_ => {
-      this.dispatch('taskList/setTasks', {
-        tasks: this.state.taskList.list.tasks.filter(t => t.id !== payload.id)
-      })
+      this.dispatch('task/remove', payload)
     })
   },
 
-  delete({ commit }, payload) {
+  delete({}, payload) {
     new IssuesApi().delete(payload.id).then(_ => {
-      this.dispatch('taskList/setTasks', {
-        tasks: this.state.taskList.list.tasks.filter(t => t.id !== payload.id)
-      })
+      this.dispatch('task/remove', payload)
     })
+  },
+
+  remove({}, payload) {
+    this.dispatch(
+      'taskList/setLists',
+      this.state.taskList.manager.removeTask(payload)
+    )
   }
 }

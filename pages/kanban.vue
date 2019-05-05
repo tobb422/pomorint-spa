@@ -11,7 +11,7 @@ import TaskListBox from '~/components/organisms/Kanban/TaskListBox'
 import AddList from '~/components/organisms/Kanban/AddList'
 import TaskModal from '~/components/organisms/Kanban/TaskModal'
 import TaskListModal from '~/components/organisms/Kanban/TaskListModal'
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Kanban',
@@ -26,8 +26,8 @@ export default {
       modalName: ''
     }
   },
-  computed: mapState({
-    lists: state => state.taskList.lists
+  computed: mapGetters({
+    lists: 'taskList/lists'
   }),
   mounted() {
     this.$store.dispatch('taskList/fetchLists')

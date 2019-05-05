@@ -1,16 +1,15 @@
 import * as types from './mutation-types/taskList'
 import { IssueBoxesApi } from '~/api'
-import { issueBoxSerializer } from '~/serializers'
+import { issueBoxSerializer as serialize } from '~/serializers'
+import ListBoxManager from '~/services/list-box-manager'
 
 export const state = () => ({
-  lists: [
-    {
-      id: null,
-      title: '',
-      tasks: []
-    }
-  ]
+  manager: {}
 })
+
+export const getters = {
+  lists: state => state.manager.lists
+}
 
 export const actions = {
   setLists({ commit }, payload) {
@@ -19,38 +18,28 @@ export const actions = {
 
   async fetchLists({ commit }) {
     const result = await new IssueBoxesApi().index()
-    this.dispatch('taskList/setLists', issueBoxSerializer(result))
+    this.dispatch('taskList/setLists', serialize(result))
   },
 
   async add({ commit, state }, payload) {
     const result = await new IssueBoxesApi().create(payload)
-    this.dispatch(
-      'taskList/setLists',
-      state.lists.concat([issueBoxSerializer(result)])
-    )
+    this.dispatch('taskList/setLists', state.manager.add(serialize(result)))
   },
 
   async update({ commit, state }, payload) {
     const result = await new IssueBoxesApi().update(payload)
-    const newList = issueBoxSerializer(result)
-    this.dispatch(
-      'taskList/setLists',
-      state.lists.map(list => (list.id === newList.id ? newList : list))
-    )
+    this.dispatch('taskList/setLists', state.manager.update(serialize(result)))
   },
 
   delete({ commit, state }, payload) {
     new IssueBoxesApi().delete(payload.id).then(_ => {
-      this.dispatch(
-        'taskList/setLists',
-        state.lists.filter(list => list.id !== payload.id)
-      )
+      this.dispatch('taskList/setLists', state.manager.delete(payload))
     })
   }
 }
 
 export const mutations = {
   [types.SET_LISTS](state, payload) {
-    state.lists = payload.lists
+    state.manager = new ListBoxManager(payload.lists)
   }
 }
