@@ -18,16 +18,20 @@ export default {
   }),
   methods: {
     async signout() {
-      const logout = await this.$store.dispatch('auth/logout').catch(_ => null)
-      let msg = ''
+      const logout = await this.$store
+        .dispatch('auth/logout')
+        .then(_ => true)
+        .catch(_ => false)
       if (logout) {
         this.$router.push({ name: 'sign-in' })
-        msg = 'ログアウトしました'
+        this.$store.dispatch('toast/success', {
+          message: 'ログアウトしました'
+        })
       } else {
-        msg = 'ログアウトに失敗しました'
+        this.$store.dispatch('toast/error', {
+          message: 'ログアウトに失敗しました'
+        })
       }
-
-      this.$store.dispatch('toast/success', { message: msg })
     }
   }
 }

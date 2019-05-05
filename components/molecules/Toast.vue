@@ -1,39 +1,30 @@
 <template lang="pug">
-  transition(name="fade")
-    section(
-    :class="{ Toast: true, success: isSuccess, error: isError }"
+transition(name="fade")
+  .Toast(
+    :class="{ success: isSuccess, error: isError }"
     v-show="isShown"
-    ) {{ message }}
+  ) {{ message }}
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'Toast',
-  computed: mapState({
-    isShown: state => state.toast.isShown,
-    isSuccess: state => state.toast.isSuccess,
-    isError: state => state.toast.isError,
-    message: state => {
-      const message = state.toast.message
-      if (message === null) {
-        return
-      }
-      if (typeof message !== 'string') {
-        return '不明なエラーが発生しました'
-      }
-      return message
-    }
-  }),
+  computed: {
+    ...mapState({
+      isShown: state => state.toast.isShown,
+      isSuccess: state => state.toast.isSuccess,
+      isError: state => state.toast.isError
+    }),
+    ...mapGetters({
+      message: 'toast/showMessage'
+    })
+  },
   watch: {
     isShown(value) {
-      if (!value) {
-        return
-      }
-      setTimeout(() => {
-        this.hide()
-      }, 2000)
+      if (!value) return
+      setTimeout(this.hide, 2000)
     }
   },
   methods: {

@@ -7,12 +7,18 @@ export const state = () => ({
   message: ''
 })
 
+export const getters = {
+  showMessage: state => {
+    const msg = state.message
+    return typeof msg !== 'string' ? '不明なエラーが発生しました' : msg
+  }
+}
+
 export const actions = {
   success({ commit }, payload) {
     commit(types.SUCCESS, payload)
   },
   error({ commit }, payload) {
-    console.log(payload)
     commit(types.ERROR, payload)
   },
   hide({ commit }) {
