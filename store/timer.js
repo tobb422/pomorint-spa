@@ -1,8 +1,8 @@
 import * as types from './mutation-types/timer'
 import { AudioPlay } from '~/plugins/audio'
 
-const DefaultMin = 0
-const DefaultSec = 3
+const DefaultMin = 25
+const DefaultSec = 0
 
 export const state = () => ({
   min: DefaultMin,
