@@ -1,6 +1,6 @@
 import * as types from './mutation-types/taskList'
-import { IssuesApi, IssueBoxesApi } from '~/api'
-import { issueSerializer, issueBoxSerializer } from '~/serializers'
+import { IssueBoxesApi } from '~/api'
+import { issueBoxSerializer } from '~/serializers'
 
 export const state = () => ({
   lists: [
