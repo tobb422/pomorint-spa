@@ -1,17 +1,30 @@
 import * as types from './mutation-types/modal'
 
 export const state = () => ({
-  taskModal: false,
+  task: {
+    id: null,
+    title: '',
+    estimateCount: 0,
+    resultCount: 0,
+    description: '',
+    labels: [],
+    list: {}
+  },
   taskListModal: false,
   sprintModal: false
 })
 
 export const actions = {
-  showTaskModal({ commit }) {
-    commit(types.SHOW_TASK_MODAL)
+  showTask({ commit }, payload) {
+    if (payload.task !== {}) {
+      commit(types.SHOW_TASK, {
+        ...payload.task,
+        list: payload.list
+      })
+    }
   },
-  hideTaskModal({ commit }) {
-    commit(types.HIDE_TASK_MODAL)
+  hideTask({ commit }) {
+    commit(types.HIDE_TASK)
   },
 
   showTaskListModal({ commit }) {
@@ -30,11 +43,11 @@ export const actions = {
 }
 
 export const mutations = {
-  [types.SHOW_TASK_MODAL](state) {
-    state.taskModal = true
+  [types.SHOW_TASK](state, payload) {
+    state.task = payload
   },
-  [types.HIDE_TASK_MODAL](state) {
-    state.taskModal = false
+  [types.HIDE_TASK](state) {
+    state.task = {}
   },
 
   [types.SHOW_TASK_LIST_MODAL](state) {

@@ -74,11 +74,10 @@ export default {
       this.$store.dispatch('modal/showTaskListModal')
     },
     openTaskModal(task) {
-      this.$store.dispatch('task/selectTask', {
+      this.$store.dispatch('modal/showTask', {
         task: task,
-        taskList: this.taskList
+        list: this.taskList
       })
-      this.$store.dispatch('modal/showTaskModal')
     },
     checkMove(e) {
       return !!e.draggedContext.element

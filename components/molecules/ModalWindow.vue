@@ -1,6 +1,6 @@
 <template lang="pug">
   transition(name="fade")
-    .ModalWindow(v-show="isShown")
+    .ModalWindow
       .overlay(@click="hide")
       .modal-wrapper
         section.modal
@@ -12,10 +12,6 @@
 export default {
   name: 'ModalWindow',
   props: {
-    isShown: {
-      type: Boolean,
-      required: true
-    },
     hide: {
       type: Function,
       required: true

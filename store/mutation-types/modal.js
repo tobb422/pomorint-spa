@@ -1,5 +1,5 @@
-export const SHOW_TASK_MODAL = 'ShowTaskModal'
-export const HIDE_TASK_MODAL = 'HideTaskModal'
+export const SHOW_TASK = 'ShowTask'
+export const HIDE_TASK = 'HideTask'
 export const SHOW_TASK_LIST_MODAL = 'ShowTaskListModal'
 export const HIDE_TASK_LIST_MODAL = 'HideTaskListModal'
 export const SHOW_SPRINT_MODAL = 'ShowSprintModal'

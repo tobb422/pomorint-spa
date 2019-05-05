@@ -1,8 +1,5 @@
 <template lang="pug">
-  ModalWindow.TaskModal(
-    :isShown="isShown"
-    :hide="hide"
-  )
+  ModalWindow.TaskModal(:hide="hide")
     .content(slot="main")
       .header
         img(src="~/assets/images/task.png")
@@ -71,27 +68,26 @@ export default {
       return !!this.title && !!this.description && !!this.estimateCount
     },
     ...mapState({
-      isShown: state => state.modal.taskModal,
-      taskList: state => state.task.taskList
+      task: state => state.modal.task,
+      list: state => state.modal.task.list
     })
   },
   async mounted() {
-    const task = this.$store.state.task
-    if (task.selected.title) {
-      this.id = task.selected.id
-      this.title = task.selected.title
-      this.selectLabels = [].concat(task.selected.labels)
-      this.estimateCount = task.selected.estimateCount
-      this.resultCount = task.selected.resultCount
-      this.description = task.selected.description
+    const task = this.task
+    if (task.id) {
+      this.id = task.id
+      this.title = task.title
+      this.selectLabels = [].concat(task.labels)
+      this.estimateCount = task.estimateCount
+      this.resultCount = task.resultCount
+      this.description = task.description
     } else {
       this.isInit = true
     }
   },
   methods: {
     hide() {
-      this.$store.dispatch('task/removeTask')
-      this.$store.dispatch('modal/hideTaskModal')
+      this.$store.dispatch('modal/hideTask')
     },
     deleteTask() {
       this.$store
@@ -108,7 +104,7 @@ export default {
 
       const params = {
         title: this.title,
-        issueBox: this.taskList,
+        issueBox: this.list,
         labels: [].concat(this.selectLabels),
         description: this.description,
         estimatePoint: parseInt(this.estimateCount)
@@ -119,7 +115,7 @@ export default {
           .dispatch('task/updateTask', { id: this.id, ...params })
           .then(_ => this.hide())
       } else {
-        this.$store.dispatch('task/createTask', params).then(_ => this.hide())
+        this.$store.dispatch('task/create', params).then(_ => this.hide())
       }
     },
     customizeLabelsAddCallBack(label) {
