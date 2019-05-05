@@ -18,11 +18,6 @@ export default class IssuesApi extends BaseApi {
     return super.put(`${endPoint}/${params.id}`, params)
   }
 
-  // イシューのアーカイブ
-  archive(params) {
-    return super.put(`${endPoint}/${params.id}/archived`)
-  }
-
   // イシューの削除
   delete(id) {
     return super.delete(`${endPoint}/${id}`)

@@ -20,22 +20,12 @@ export const actions = {
     )
   },
 
-  archive({}, payload) {
-    new IssuesApi().archive(payload).then(_ => {
-      this.dispatch('task/remove', payload)
-    })
-  },
-
   delete({}, payload) {
     new IssuesApi().delete(payload.id).then(_ => {
-      this.dispatch('task/remove', payload)
+      this.dispatch(
+        'taskList/setLists',
+        this.state.taskList.manager.removeTask(payload)
+      )
     })
-  },
-
-  remove({}, payload) {
-    this.dispatch(
-      'taskList/setLists',
-      this.state.taskList.manager.removeTask(payload)
-    )
   }
 }

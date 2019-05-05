@@ -33,7 +33,6 @@
           )
       .footer
         el-button.delete(@click="deleteTask" :disabled="isInit") 削除
-        el-button.archive(@click="archive" :disabled="isInit") アーカイブ
         el-button.save(@click="save" :disabled="!availableSave") 保存
 </template>
 
@@ -92,11 +91,6 @@ export default {
     deleteTask() {
       this.$store
         .dispatch('task/delete', { id: this.id })
-        .then(_ => this.hide())
-    },
-    archive() {
-      this.$store
-        .dispatch('task/archive', { id: this.id })
         .then(_ => this.hide())
     },
     async save() {
