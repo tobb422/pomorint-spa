@@ -3,7 +3,6 @@ import { IssuesApi, IssueBoxesApi } from '~/api'
 import { issueSerializer, issueBoxSerializer } from '~/serializers'
 
 export const state = () => ({
-  selected: {},
   lists: [
     {
       id: null,
@@ -14,14 +13,6 @@ export const state = () => ({
 })
 
 export const actions = {
-  selectTaskList({ commit }, payload) {
-    commit(types.SELECT_TASK_LIST, payload)
-  },
-
-  removeTaskList({ commit }) {
-    commit(types.REMOVE_TASK_LIST)
-  },
-
   async fetchTaskLists({ commit }) {
     const result = await new IssueBoxesApi().index()
     commit(types.SET_TASK_LISTS, { lists: issueBoxSerializer(result) })
@@ -49,14 +40,6 @@ export const actions = {
 }
 
 export const mutations = {
-  [types.SELECT_TASK_LIST](state, payload) {
-    state.selected = payload
-  },
-
-  [types.REMOVE_TASK_LIST](state) {
-    state.selected = {}
-  },
-
   [types.SET_TASK_LISTS](state, payload) {
     state.lists = payload.lists
   },
