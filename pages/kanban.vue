@@ -2,7 +2,7 @@
 section.Kanban
   .box-list
     TaskListBox.list(v-for="list in lists" :key="list.id" :taskList="list")
-    AddList
+    AddList.add-list
     component(:is="modalName")
 </template>
 
@@ -57,6 +57,10 @@ export default {
 
   .list {
     margin-right: 2rem;
+  }
+
+  .add-list {
+    height: 3rem;
   }
 }
 </style>

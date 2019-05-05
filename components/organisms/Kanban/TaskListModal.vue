@@ -8,8 +8,8 @@
         .label リストタイトル
         el-input(size="large" v-model="title" placeholder="")
       .footer
-        el-button.delete(@click="deleteList") 削除
-        el-button.save(@click="saveList") 保存
+        el-button.delete(@click="deleteList" :disabled="isInit") 削除
+        el-button.save(@click="saveList" :disabled="!availableSave") 保存
 </template>
 
 <script>
@@ -23,12 +23,22 @@ export default {
   },
   data() {
     return {
-      title: ''
+      title: '',
+      isInit: false
+    }
+  },
+  computed: {
+    availableSave() {
+      return !!this.title
     }
   },
   mounted() {
     const list = this.$store.state.modal.taskList
-    this.title = list.title
+    if (list.id) {
+      this.title = list.title
+    } else {
+      this.isInit = true
+    }
   },
   methods: {
     hide() {
@@ -116,6 +126,9 @@ export default {
       width: 7rem;
       height: 3rem;
       color: $color-white;
+      &:disabled {
+        opacity: 0.3;
+      }
     }
 
     & > button.delete {
