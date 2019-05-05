@@ -1,37 +1,22 @@
 <template lang="pug">
   .Pomorint
     header.header
-      ul.menu
-        li #[nuxt-link(to="/") #[img.logo(src="~/assets/images/logo.png")]]
-        li #[nuxt-link(to="/pomodoro") ポモドーロ]
-        li #[nuxt-link(to="/kanban") カンバン]
+      HeaderMenu.menu
       ProfileIcon.popover
     nuxt
     Toast
 </template>
 
 <script>
-import ProfileIcon from '~/components/molecules/ProfileIcon'
+import HeaderMenu from '~/components/organisms/Default/HeaderMenu'
+import ProfileIcon from '~/components/organisms/Default/ProfileIcon'
 import Toast from '~/components/molecules/Toast'
-import { mapState } from 'vuex'
 
 export default {
   components: {
+    HeaderMenu,
     ProfileIcon,
     Toast
-  },
-  computed: mapState({
-    accountImage: state => state.user.image
-  }),
-  methods: {
-    signout() {
-      this.$store.dispatch('auth/logout').then(_ => {
-        this.$router.push({ name: 'sign-in' })
-        this.$store.dispatch('toast/success', {
-          message: 'ログアウトしました'
-        })
-      })
-    }
   }
 }
 </script>
@@ -62,23 +47,8 @@ export default {
     align-items: center;
   }
 
-  ul.menu {
-    display: flex;
-    align-items: center;
+  .menu {
     margin-left: 2rem;
-
-    & > li {
-      display: inline-block;
-      margin-right: 2rem;
-    }
-
-    & > li > a {
-      color: $color-white;
-    }
-  }
-
-  .logo {
-    height: 3rem;
   }
 
   .popover {
