@@ -30,10 +30,13 @@ export default {
   computed: {
     availableSave() {
       return !!this.title
-    }
+    },
+    ...mapState({
+      list: state => state.modal.taskList
+    })
   },
   mounted() {
-    const list = this.$store.state.modal.taskList
+    const list = Object.assign({}, this.list)
     if (list.id) {
       this.title = list.title
     } else {
@@ -48,18 +51,22 @@ export default {
       this.$store.dispatch(`taskList/${action}`, params).then(this.hide)
     },
     deleteList() {
-      const params = {
-        id: this.$store.state.taskList.selected.id
-      }
-      this.loanFunc('deleteTaskList', params)
+      this.loanFunc('delete', {
+        id: this.list.id
+      })
     },
     saveList() {
-      if (this.title) {
-        const params = {
-          id: this.$store.state.taskList.selected.id,
+      if (!this.availableSave) return
+
+      if (this.isInit) {
+        this.loanFunc('add', {
           name: this.title
-        }
-        this.loanFunc('changeTaskList', params)
+        })
+      } else {
+        this.loanFunc('update', {
+          id: this.list.id,
+          name: this.title
+        })
       }
     }
   }

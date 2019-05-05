@@ -27,7 +27,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch('taskList/fetchTaskLists').then(_ => {
+    this.$store.dispatch('taskList/fetchLists').then(_ => {
       this.activeListTitle = this.lists[0].title
     })
   },

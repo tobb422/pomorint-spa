@@ -1,5 +1,1 @@
-export const SET_TASK_LISTS = 'SetTaskLists'
-export const ADD_TASK_LIST = 'AddTaskList'
-export const CHANGE_TASK_LIST = 'ChangeTaskList'
-export const DELETE_TASK_LIST = 'DeleteTaskList'
 export const SET_LISTS = 'SetLists'

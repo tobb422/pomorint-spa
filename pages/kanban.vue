@@ -30,7 +30,7 @@ export default {
     lists: state => state.taskList.lists
   }),
   mounted() {
-    this.$store.dispatch('taskList/fetchTaskLists')
+    this.$store.dispatch('taskList/fetchLists')
     this.$store.watch(
       _ => this.$store.state.modal.task,
       res => (this.modalName = res.isShow ? 'TaskModal' : '')
