@@ -47,7 +47,7 @@ export default class ListBoxManager {
   static RemoveTaskInList(task, list) {
     const newList = Object.assign({}, list)
 
-    const target = e.tasks.find(t => t.id === task.id)
+    const target = newList.tasks.find(t => t.id === task.id)
     if (target) {
       newList.tasks = newList.tasks.filter(t => t.id !== task.id)
     }
