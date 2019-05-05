@@ -91,12 +91,12 @@ export default {
     },
     deleteTask() {
       this.$store
-        .dispatch('task/deleteTask', { id: this.id })
+        .dispatch('task/delete', { id: this.id })
         .then(_ => this.hide())
     },
     archive() {
       this.$store
-        .dispatch('task/archiveTask', { id: this.id })
+        .dispatch('task/archive', { id: this.id })
         .then(_ => this.hide())
     },
     async save() {
@@ -112,7 +112,7 @@ export default {
 
       if (this.id) {
         this.$store
-          .dispatch('task/updateTask', { id: this.id, ...params })
+          .dispatch('task/update', { id: this.id, ...params })
           .then(_ => this.hide())
       } else {
         this.$store.dispatch('task/create', params).then(_ => this.hide())

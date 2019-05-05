@@ -91,7 +91,7 @@ export default {
         boxIndex: e.newIndex
       }
 
-      this.$store.dispatch('task/updateTask', params)
+      this.$store.dispatch('task/update', params)
     }
   }
 }

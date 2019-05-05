@@ -19,7 +19,7 @@ export const actions = {
     )
   },
 
-  async updateTask({ commit }, payload) {
+  async update({ commit }, payload) {
     const result = await new IssuesApi().update(payload)
     const issue = issueSerializer(result)
     const newListId = result.issueBox.id
@@ -44,7 +44,7 @@ export const actions = {
     )
   },
 
-  archiveTask({ commit }, payload) {
+  archive({ commit }, payload) {
     new IssuesApi().archive(payload).then(_ => {
       this.dispatch('taskList/setTasks', {
         tasks: this.state.taskList.list.tasks.filter(t => t.id !== payload.id)
@@ -52,7 +52,7 @@ export const actions = {
     })
   },
 
-  deleteTask({ commit }, payload) {
+  delete({ commit }, payload) {
     new IssuesApi().delete(payload.id).then(_ => {
       this.dispatch('taskList/setTasks', {
         tasks: this.state.taskList.list.tasks.filter(t => t.id !== payload.id)
