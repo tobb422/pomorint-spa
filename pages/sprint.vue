@@ -1,25 +1,25 @@
 <template lang="pug">
-  section.Sprint
-    .header
-      .title スプリント一覧
-      el-button(@click="startEdit(-1)") 新規作成
-    .table-box
-      .table-columns
-        .period 期間
-        .count ポモ数
-        .achievementRate 達成率
-      .table-data(
-        v-for="(d, index) in tableData"
-        :key="index"
-        :class="{ current: d.current }"
-        @click="startEdit(index)"
-      )
-        .period {{ d.periodStart }} ~ {{ d.periodEnd }}
-        .count {{ d.resultCount }} / {{ d.estimateCount }}
-        .achievementRate(:class="achievementClass(d.achievementRate)") {{ d.achievementRate.toString() + ' %' }}
-    el-button(v-if="moreShow" @click="toggleMoreShow") 閉じる
-    el-button(v-else-if="data.length > 8" @click="toggleMoreShow") さらに表示する
-    component(:is="modalName")
+section.Sprint
+  .header
+    .title スプリント一覧
+    el-button(@click="startEdit(-1)") 新規作成
+  .table-box
+    .table-columns
+      .period 期間
+      .count ポモ数
+      .achievementRate 達成率
+    .table-data(
+      v-for="(d, index) in tableData"
+      :key="index"
+      :class="{ current: d.current }"
+      @click="startEdit(index)"
+    )
+      .period {{ d.periodStart }} ~ {{ d.periodEnd }}
+      .count {{ d.resultCount }} / {{ d.estimateCount }}
+      .achievementRate(:class="achievementClass(d.achievementRate)") {{ d.achievementRate.toString() + ' %' }}
+  el-button(v-if="moreShow" @click="toggleMoreShow") 閉じる
+  el-button(v-else-if="data.length > 8" @click="toggleMoreShow") さらに表示する
+  component(:is="modalName")
 </template>
 
 <script>
@@ -151,8 +151,7 @@ export default {
     }
 
     .el-button {
-      height: 50%;
-      width: 100px;
+      width: 150px;
       color: $color-white;
       background-color: $color-sky;
     }

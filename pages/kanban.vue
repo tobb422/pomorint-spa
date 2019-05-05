@@ -1,10 +1,10 @@
 <template lang="pug">
   section.Kanban
-    .sprint
-      .title 現在のスプリント
-      .period 期間：2018/12/05 ~ 2018/12/11
-      .count ポモ数：10 / 20
-      .achievementRate 達成率：50%
+    <!--.sprint-->
+      <!--.title 現在のスプリント-->
+      <!--.period 期間：2018/12/05 ~ 2018/12/11-->
+      <!--.count ポモ数：10 / 20-->
+      <!--.achievementRate 達成率：50%-->
     .box-list
       TaskListBox.list(
         v-for="(list, index) in lists"
