@@ -8,7 +8,7 @@ export const state = () => ({
 })
 
 export const getters = {
-  lists: state => state.manager.lists
+  lists: state => (state.manager.lists ? state.manager.lists : [])
 }
 
 export const actions = {
