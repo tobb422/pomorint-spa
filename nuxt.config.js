@@ -25,6 +25,9 @@ module.exports = {
   router: {
     middleware: 'routing'
   },
+  env: {
+    API_URL: process.env.API_URL || 'http://localhost:3001/'
+  },
   build: {
     extend(config, ctx) {
       if (ctx.isDev && ctx.isClient) {
