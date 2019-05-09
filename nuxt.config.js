@@ -26,7 +26,7 @@ module.exports = {
     middleware: 'routing'
   },
   env: {
-    API_URL: 'http://api.pomorint.com/' || 'http://localhost:3001/'
+    API_URL: process.env.API_URL || 'http://localhost:3001/'
   },
   build: {
     extend(config, ctx) {
