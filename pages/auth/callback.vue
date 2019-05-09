@@ -7,6 +7,8 @@ section.AuthCallback
 export default {
   name: 'AuthCallback',
   mounted() {
+    console.log('aaaa')
+    console.log(this.$route)
     this.$store
       .dispatch('auth/google', { token: this.$route.query.token })
       .then(_ => {
