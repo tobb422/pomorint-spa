@@ -12,10 +12,12 @@ export default class Session {
   }
 
   static set(params) {
-    this._cookies().set(this.SessionName, params, { path: '/' })
+    if (!this.get('token')) {
+      this._cookies().set(this.SessionName, params, { path: '/' })
+    }
   }
 
   static remove() {
-    this._cookies().remove(this.SessionName)
+    this._cookies().remove(this.SessionName, { path: '/' })
   }
 }
