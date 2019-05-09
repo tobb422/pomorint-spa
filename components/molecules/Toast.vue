@@ -42,26 +42,21 @@ export default {
 
 .Toast {
   @include type-title;
-  color: $color-white;
+  color: $color-black;
   z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   position: fixed;
-  top: 6rem;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: 2rem;
+  left: 2rem;
   padding: 1.5rem 2.5rem;
   min-height: 40px;
   width: 450px;
-  border-radius: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  box-shadow: 1px 0 1px 1px rgba(0, 0, 0, 0.2);
 
   &.success {
-    background-color: $color-alert-success;
+    border-left: 4px solid $color-alert-success;
   }
   &.error {
-    background-color: $color-alert-error;
+    border-left: 4px solid $color-alert-error;
   }
   .fade-enter-active,
   .fade-leave-active {
