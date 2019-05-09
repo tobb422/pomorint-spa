@@ -9,7 +9,8 @@ export default {
   name: 'GoogleAuthButton',
   methods: {
     click() {
-      window.location.replace('http://localhost:3001/auth/google')
+      const host = process.env.API_URL || 'http://localhost:3001/'
+      window.location.replace(`${host}auth/google`)
     }
   }
 }
