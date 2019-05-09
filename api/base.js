@@ -1,5 +1,5 @@
 import { successHandler, errorHandler } from '~/api/api-handler'
-import { camelizeKeys, decamelizeKeys } from 'humps'
+import { camelizeKeys } from 'humps'
 import axios from 'axios'
 import Session from '~/plugins/session'
 
