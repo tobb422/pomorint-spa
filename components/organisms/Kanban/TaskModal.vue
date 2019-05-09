@@ -89,9 +89,12 @@ export default {
       this.$store.dispatch('modal/hideTask')
     },
     deleteTask() {
-      this.$store
-        .dispatch('task/delete', { id: this.id })
-        .then(_ => this.hide())
+      this.$store.dispatch('task/delete', { id: this.id }).then(_ => {
+        this.$store.dispatch('toast/success', {
+          message: 'タスクを削除しました'
+        })
+        this.hide()
+      })
     },
     async save() {
       if (!this.availableSave) return
@@ -107,9 +110,19 @@ export default {
       if (this.id) {
         this.$store
           .dispatch('task/update', { id: this.id, ...params })
-          .then(_ => this.hide())
+          .then(_ => {
+            this.$store.dispatch('toast/success', {
+              message: 'タスクを更新しました'
+            })
+            this.hide()
+          })
       } else {
-        this.$store.dispatch('task/create', params).then(_ => this.hide())
+        this.$store.dispatch('task/create', params).then(_ => {
+          this.$store.dispatch('toast/success', {
+            message: 'タスクを作成しました'
+          })
+          this.hide()
+        })
       }
     },
     customizeLabelsAddCallBack(label) {

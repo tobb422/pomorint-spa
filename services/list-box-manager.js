@@ -59,7 +59,7 @@ export default class ListBoxManager {
     const newList = Object.assign({}, list)
 
     const tasks = [].concat(newList.tasks)
-    tasks.splice(task.boxIndex, 0, target)
+    tasks.splice(task.boxIndex, 0, task)
     newList.tasks = tasks
 
     return newList

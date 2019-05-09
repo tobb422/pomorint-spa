@@ -43,6 +43,7 @@ export default {
 .Toast {
   @include type-title;
   color: $color-black;
+  background-color: $color-white;
   z-index: 1000;
   position: fixed;
   bottom: 2rem;
