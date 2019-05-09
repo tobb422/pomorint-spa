@@ -10,7 +10,7 @@ export default class BaseApi {
       const token = Session.get('token')
       const headers = token ? { Authorization: `Bearer ${token}` } : {}
       return axios.create({
-        baseURL: process.env['API_URL'] || 'http://localhost:3001/',
+        baseURL: process.env.API_URL || 'http://localhost:3001/',
         withCredentials: false,
         headers: headers
       })
