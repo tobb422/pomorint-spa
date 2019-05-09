@@ -1,7 +1,7 @@
 {
   "name": "spa",
   "version": "1.0.0",
-  "description": "My posh Nuxt.js project",
+  "description": "pomorint",
   "author": "Toshiki Baba",
   "private": true,
   "scripts": {
