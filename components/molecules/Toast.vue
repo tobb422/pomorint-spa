@@ -22,8 +22,7 @@ export default {
     })
   },
   watch: {
-    isShown(value) {
-      if (!value) return
+    isShown() {
       setTimeout(this.hide, 2000)
     }
   },
