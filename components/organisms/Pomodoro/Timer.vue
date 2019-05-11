@@ -47,6 +47,10 @@ export default {
   .progress-bar {
     margin: 1rem auto 2rem;
     width: 400px;
+
+    @include forSP() {
+      width: 100%;
+    }
   }
 
   .buttons {

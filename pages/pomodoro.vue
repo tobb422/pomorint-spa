@@ -1,14 +1,13 @@
 <template lang="pug">
-  section.Pomodoro
-    .pomodoro-box
-      //PomodoroHead
-      Timer
-      CurrentTask(v-if="isSelectedTask")
-      SelectTask(v-else)
+section.Pomodoro
+  .pomodoro-box
+    //PomodoroHead
+    Timer
+    CurrentTask(v-if="isSelectedTask")
+    SelectTask(v-else)
 </template>
 
 <script>
-import PomodoroHead from '~/components/organisms/Pomodoro/PomodoroHead'
 import Timer from '~/components/organisms/Pomodoro/Timer'
 import CurrentTask from '~/components/organisms/Pomodoro/CurrentTask'
 import SelectTask from '~/components/organisms/Pomodoro/SelectTask'
@@ -17,7 +16,6 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'Pomodoro',
   components: {
-    PomodoroHead,
     Timer,
     CurrentTask,
     SelectTask
@@ -37,6 +35,8 @@ export default {
 
 .Pomodoro {
   position: relative;
+  overflow-y: auto;
+
   .pomodoro-box {
     position: absolute;
     top: 50%;
@@ -48,6 +48,11 @@ export default {
     padding: 3rem 1.5rem;
     border: 1px solid $color-gray-light;
     text-align: center;
+
+    @include forSP() {
+      max-width: 280px;
+      top: 60%;
+    }
   }
 }
 </style>

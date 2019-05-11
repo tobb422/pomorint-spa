@@ -56,6 +56,10 @@ export default {
     padding: 2rem;
     width: 560px;
     text-align: left;
+
+    @include forSP() {
+      width: 100%;
+    }
   }
 
   ul.tasks {

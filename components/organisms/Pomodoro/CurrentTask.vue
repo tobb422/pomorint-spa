@@ -44,6 +44,12 @@ export default {
     grid-template-areas: 'header';
     align-items: center;
 
+    @include forSP() {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+
     .title {
       grid-area: header;
       @include type-heading;
@@ -54,6 +60,10 @@ export default {
       justify-self: end;
       font-size: 0.25rem;
       width: 6.5rem;
+
+      @include forSP() {
+        margin: 1rem auto 0;
+      }
     }
   }
 
@@ -63,15 +73,34 @@ export default {
     padding: 2rem;
     width: 560px;
     text-align: left;
+
+    @include forSP() {
+      width: 100%;
+    }
   }
 
   .overview {
     display: flex;
     align-items: center;
 
+    @include forSP() {
+      flex-direction: column;
+    }
+
     .title {
       @include type-heading;
       margin-right: 1rem;
+      @include forSP() {
+        font-size: 20px;
+        margin-right: 0;
+      }
+    }
+
+    .count {
+      @include forSP() {
+        margin-top: 0.5rem;
+        font-size: 14px;
+      }
     }
   }
 
