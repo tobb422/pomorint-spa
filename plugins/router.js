@@ -18,7 +18,11 @@ export default ({ app }) => {
         next()
       } else {
         next('/sign-in')
-        app.store.dispatch('toast/error', { message: 'ログインしてください' })
+        app.store
+          .dispatch('toast/error', { message: 'ログインしてください' })
+          .then(_ => {
+            setTimeout(app.store.dispatch('toast/hide'), 2000)
+          })
       }
     }
   })

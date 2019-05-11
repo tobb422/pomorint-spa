@@ -15,8 +15,8 @@ export const state = () => ({
 
 export const actions = {
   async setUser({ commit }) {
-    const users = await new UsersApi().show()
-    commit(types.SET_USER, users)
+    const users = await new UsersApi().show().catch(_ => false)
+    if (users) commit(types.SET_USER, users)
   },
 
   removeUser({ commit }) {
