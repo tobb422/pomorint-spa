@@ -2,6 +2,12 @@
   @return $pxValue / $rem * 1rem;
 }
 
+@mixin forPC() {
+  @media (min-width: $boundary) {
+    @content;
+  }
+}
+
 @mixin forSP() {
   @media (max-width: $boundary - 1px) {
     @content;

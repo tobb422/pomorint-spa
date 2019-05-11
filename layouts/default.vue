@@ -45,15 +45,24 @@ export default {
     grid-template-areas: 'menu account';
     grid-template-columns: 1fr 2rem;
     align-items: center;
+    @include forSP() {
+      grid-template-columns: 1fr 1fr;
+    }
   }
 
   .menu {
     margin-left: 2rem;
+    @include forSP() {
+      margin-left: 1rem;
+    }
   }
 
   .popover {
     justify-self: end;
     margin-right: 2rem;
+    @include forSP() {
+      margin-right: 1rem;
+    }
   }
 }
 </style>

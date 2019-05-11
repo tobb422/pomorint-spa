@@ -76,17 +76,21 @@ export default {
 .Signup {
   width: 300px;
   margin: 5rem auto;
+  @include forSP() {
+    margin: 3rem auto;
+  }
 
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 
   & > .title {
     margin-bottom: 3rem;
     @include type-heading;
     align-self: center;
-  }
-
-  & > .label {
+    @include forSP() {
+      margin-bottom: 2rem;
+    }
   }
 
   & > .el-input {
@@ -112,6 +116,7 @@ export default {
   & > .google {
     align-self: center;
     width: 100%;
+    margin-bottom: 2rem;
   }
 }
 </style>
