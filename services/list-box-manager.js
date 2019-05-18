@@ -32,11 +32,9 @@ export default class ListBoxManager {
     return this.lists.map(l => {
       const list = ListBoxManager.RemoveTaskInList(task, l)
 
-      if (list.id === newListId) {
-        return ListBoxManager.InsertTaskInList(task, list)
-      }
-
-      return list
+      return list.id === newListId
+        ? ListBoxManager.InsertTaskInList(task, list)
+        : list
     })
   }
 
