@@ -18,13 +18,13 @@ export default class ListBoxManager {
   }
 
   addTask(task, listId) {
-    return this.lists.map(l => {
-      if (l.id === listId) {
-        const list = Object.assign({}, l)
-        list.tasks = list.tasks.concat([task])
+    return this.lists.map(list => {
+      if (list.id === listId) {
+        const newList = Object.assign({}, list)
+        newList.tasks = list.tasks.concat([task])
         return newList
       }
-      return e
+      return list
     })
   }
 
