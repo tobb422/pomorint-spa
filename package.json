@@ -1,7 +1,7 @@
 {
   "name": "pomorint",
   "version": "1.0.0",
-  "description": "pomorint は、ポモドーロとカンバンを合わせたタスク管理ツールです。",
+  "description": "pomorint は、ポモドーロとカンバンを合わせたタスク管理ツールです",
   "author": "Toshiki Baba",
   "private": true,
   "scripts": {
