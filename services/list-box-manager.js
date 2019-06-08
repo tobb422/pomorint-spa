@@ -10,7 +10,7 @@ export default class ListBoxManager {
   }
 
   update(list) {
-    return this.lists.map(l => (l.id === list.id ? list : e))
+    return this.lists.map(l => (l.id === list.id ? list : l))
   }
 
   delete(list) {
