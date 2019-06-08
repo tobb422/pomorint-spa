@@ -20,7 +20,7 @@ export const actions = {
     )
   },
 
-  async modeUpdate({}, payload) {
+  async moveUpdate({}, payload) {
     const setList = (task, boxId) => {
       this.dispatch(
         'taskList/setLists',
