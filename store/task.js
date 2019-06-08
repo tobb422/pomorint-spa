@@ -12,6 +12,15 @@ export const actions = {
   },
 
   async update({}, payload) {
+    const result = await new IssuesApi().update(payload)
+    const task = issueSerializer(result)
+    this.dispatch(
+      'taskList/setLists',
+      this.state.taskList.manager.updateTask(task, result.issueBox.id)
+    )
+  },
+
+  async modeUpdate({}, payload) {
     const setList = (task, boxId) => {
       this.dispatch(
         'taskList/setLists',
