@@ -4,7 +4,8 @@ import { issueBoxSerializer as serialize } from '~/serializers'
 import ListBoxManager from '~/services/list-box-manager'
 
 export const state = () => ({
-  manager: {}
+  manager: {},
+  selectLabel: null
 })
 
 export const getters = {
