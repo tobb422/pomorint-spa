@@ -88,6 +88,7 @@ export default {
       const nextList = this.lists.find(list => list.id === nextListId)
       const params = {
         id: targetTaskId,
+        task: this.taskList.tasks.find(t => t.id === parseInt(targetTaskId)),
         issueBox: nextList,
         boxIndex: e.newIndex
       }
