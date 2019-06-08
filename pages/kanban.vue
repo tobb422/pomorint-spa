@@ -1,6 +1,6 @@
 <template lang="pug">
 section.Kanban
-  el-dropdown(split-button type="primary" size="mini") 絞り込み
+  el-dropdown(split-button type="primary" size="mini") {{ filterName }}
     el-dropdown-menu(slot="dropdown")
       el-dropdown-item(v-on:click.native="removeFilter") 取り消す
       el-dropdown-item(v-for="label in labels" v-on:click.native="filter(label.id)") {{ label.name }}
@@ -44,13 +44,19 @@ export default {
       }
 
       return this.lists.map(list => {
-        const tasks = list.tasks.filter(task =>
-          task.labels.map(l => l.id).includes(this.filterLabelId)
+        const tasks = list.tasks.filter(t =>
+          t.labels.some(l => l.id === this.filterLabelId)
         )
         const filterList = Object.assign({}, list)
         filterList.tasks = tasks
         return filterList
       })
+    },
+    filterName() {
+      if (this.filterLabelId === null) {
+        return '絞り込み'
+      }
+      return this.labels.find(l => l.id === this.filterLabelId).name
     }
   },
   mounted() {

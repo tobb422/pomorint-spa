@@ -64,7 +64,7 @@ export default {
   },
   computed: {
     availableSave() {
-      return !!this.title && !!this.description && !!this.estimateCount
+      return !!this.title && !!this.estimateCount
     },
     ...mapState({
       task: state => state.modal.task,
@@ -126,6 +126,12 @@ export default {
       }
     },
     customizeLabelsAddCallBack(label) {
+      if (this.selectLabels.some(l => l.id === label.id)) {
+        this.$store.dispatch('toast/error', {
+          message: '既に選択済みのラベルです'
+        })
+        return
+      }
       this.selectLabels.push(label)
     },
     customizeLabelsRemoveCallback(label) {
