@@ -7,6 +7,7 @@
       el-tooltip(content="新しいカードを追加する" placement="top")
         .add(@click="openTaskModal") ＋
       .count ポモ数：{{ totalResultCount }} / {{ totalEstimateCount }}
+      .count-sub 結果 / 予算
     .tasks
       draggable(
         :class="markId(taskList.id)"
@@ -111,7 +112,7 @@ export default {
 
   .header {
     display: grid;
-    grid-template-areas: 'name archive add' 'count . .';
+    grid-template-areas: 'name archive add' 'count count-sub count-sub';
     grid-template-columns: 5fr 1fr 1fr;
     grid-gap: 0.5rem;
     align-items: center;
@@ -132,6 +133,13 @@ export default {
       grid-area: count;
       @include type-xsmall;
       padding: 0.1rem;
+    }
+
+    .count-sub {
+      grid-area: count-sub;
+      font-size: px2rem(8);
+      color: $color-gray;
+      opacity: 0.7;
     }
 
     .add {
