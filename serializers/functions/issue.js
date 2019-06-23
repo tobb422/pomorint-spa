@@ -2,7 +2,7 @@ import genericsSerialize from '../generics'
 import labelSerializer from './label'
 
 export default function issueSerializer(target) {
-  const serialize = resource => {
+  return genericsSerialize(target, resource => {
     return {
       id: resource.id,
       title: resource.title,
@@ -13,7 +13,5 @@ export default function issueSerializer(target) {
       archived: resource.archived,
       labels: labelSerializer(resource.labels)
     }
-  }
-
-  return genericsSerialize(target, serialize)
+  })
 }
