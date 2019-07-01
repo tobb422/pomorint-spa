@@ -9,6 +9,7 @@ export default ({ app }) => {
     '/auth/callback',
     '/auth/callback/'
   ]
+
   const unauthorizationPath = to => Unauthorization.some(path => path === to)
   app.router.beforeEach((to, from, next) => {
     if (unauthorizationPath(to.path)) {
