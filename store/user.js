@@ -17,10 +17,11 @@ export const state = () => ({
 export const actions = {
   async setUser({ commit }) {
     const users = await new UsersApi().show().catch(_ => false)
-    if (Session.get('token') && !users) {
-      this.dispatch('auth/logout')
+    if (users) {
+      commit(types.SET_USER, users)
+    } else {
+      if (Session.get('token')) this.dispatch('auth/logout')
     }
-    if (users) commit(types.SET_USER, users)
   },
 
   removeUser({ commit }) {
