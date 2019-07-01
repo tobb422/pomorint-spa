@@ -19,8 +19,6 @@ export const actions = {
     const users = await new UsersApi().show().catch(_ => false)
     if (users) {
       commit(types.SET_USER, users)
-    } else {
-      if (Session.get('token')) this.dispatch('auth/logout')
     }
   },
 
