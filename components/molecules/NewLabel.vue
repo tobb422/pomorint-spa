@@ -27,12 +27,14 @@ export default {
     async createNewLabel() {
       if (this.newLabelName.length <= 0) return
 
-      this.$store
+      const result = await this.$store
         .dispatch('label/post', { name: this.newLabelName })
-        .then(_ => {
-          this.newLabelName = ''
-          this.$nextTick(_ => this.$refs.newLabel.click())
-        })
+        .catch(_ => false)
+
+      if (!result) return
+
+      this.newLabelName = ''
+      this.$nextTick(_ => this.$refs.newLabel.click())
     }
   }
 }
