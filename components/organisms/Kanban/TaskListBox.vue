@@ -2,8 +2,6 @@
   section.TaskListBox
     .header
       .name(@click="openTaskListModal") {{ taskList.title }}
-      el-tooltip(content="全てのカードをアーカイブする" placement="top")
-        img(src="~/assets/images/archive.png" @click="archiveAllTasks")
       el-tooltip(content="新しいカードを追加する" placement="top")
         .add(@click="openTaskModal") ＋
       .count ポモ数：{{ totalResultCount }} / {{ totalEstimateCount }}
@@ -78,9 +76,6 @@ export default {
         task: task,
         list: this.taskList
       })
-    },
-    archiveAllTasks() {
-      console.log(this.taskList)
     },
     checkMove(e) {
       return !!e.draggedContext.element
