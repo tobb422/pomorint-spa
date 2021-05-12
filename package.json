@@ -16,7 +16,7 @@
     "@fortawesome/fontawesome-free-webfonts": "^1.0.9",
     "acorn": "^6.1.1",
     "axios": "^0.19.0",
-    "chart.js": "^2.8.0",
+    "chart.js": "^2.9.4",
     "cross-env": "^5.2.0",
     "dayjs": "^1.8.13",
     "element-ui": "^2.8.2",
